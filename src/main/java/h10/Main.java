@@ -1,15 +1,22 @@
 package h10;
 
-/**
- * Main entry point in executing the program.
- */
 public class Main {
-    /**
-     * Main entry point in executing the program.
-     *
-     * @param args program arguments, currently ignored
-     */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
+
+        list.add(5);
+        list.add(10);
+        list.add(20);
+        list.add(30, 1);
+
+        System.out.println(list);
+        // Iterator example
+        DoublyLinkedList<Integer>.DoublyLinkedListIterator forwardIter = list.iterator();
+        System.out.print("Forward iteration: ");
+        while (forwardIter.hasNext()) {
+            System.out.print(forwardIter.next() + " ");
+        }
+        System.out.println();
+
     }
 }
