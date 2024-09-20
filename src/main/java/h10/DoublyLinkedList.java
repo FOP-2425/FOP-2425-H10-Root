@@ -4,6 +4,7 @@ import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class DoublyLinkedList<T> {
 
@@ -27,26 +28,44 @@ public class DoublyLinkedList<T> {
     }
 
     @DoNotTouch
-    public T get(int index) {
-        return getNode(index).key;
+    public boolean contains(T key) {
+        // VAnforderung: Rekursiv lösen
+        return containsHelper(head, key);
     }
 
     /**
-     * Retrieves the node at the specified index in the doubly linked list.
+     * Helper method to check if the list contains the specified element recursively.
+     *
+     * @param p the current node
+     * @param key the element to be checked for presence in the list
+     * @return true if the element is present, false otherwise
+     */
+    @StudentImplementationRequired
+    private boolean containsHelper(ListItem<T> p, T key) {
+        if (p == null) return false;
+        if (Objects.equals(p.key, key)) return true;
+        return containsHelper(p.next, key);
+    }
+
+    @DoNotTouch
+    public T get(int index) {
+        return getListItem(index).key;
+    }
+
+    /**
+     * Retrieves the ListItem at the specified index in the doubly linked list.
      *
      * @param index the index of the node to retrieve
      * @return the node at the specified index
      * @throws IndexOutOfBoundsException if the index is out of bounds
      */
     @StudentImplementationRequired
-    private ListItem<T> getNode(int index) {
+    private ListItem<T> getListItem(int index) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index out of bounds");
-            // Exceptions Teil von H08, hier nochmal fordern! VAnforderung!
-            // Wird auch in VL07 gemacht!
         }
 
-        // abuse double linked structure!! VAnforderung
+        // Use double linked structure, iterate from the beginning or the end
         ListItem<T> p;
         if(index < (size / 2)) {
             p = head;
@@ -70,6 +89,10 @@ public class DoublyLinkedList<T> {
 
     @StudentImplementationRequired
     public void add(T key, int index) {
+        if(key == null) {
+            throw new IllegalArgumentException("Key must not be null");
+        }
+
         ListItem<T> tmp = new ListItem<T>();
         tmp.key = key;
 
@@ -83,7 +106,7 @@ public class DoublyLinkedList<T> {
                 tail = tmp;
             }
         } else {
-            ListItem<T> p = getNode(index);
+            ListItem<T> p = getListItem(index);
 
             if (p == head) { // Append new element at the beginning of the list
                 tmp.next = head;
@@ -121,7 +144,7 @@ public class DoublyLinkedList<T> {
     // Remove element by index
     @DoNotTouch
     public T remove(int index) {
-        ListItem<T> p = getNode(index);
+        ListItem<T> p = getListItem(index);
         return removeListItem(p);
     }
 
@@ -132,40 +155,18 @@ public class DoublyLinkedList<T> {
      */
     @StudentImplementationRequired
     public void removeAll(T key) {
-        // VAnforderung: Iterativ lösen
         for (ListItem<T> p = head; p != null; p = p.next) {
-            if (p.key.equals(key)) {
+            if (Objects.equals(p.key, key)) {
                 removeListItem(p);
             }
         }
     }
 
 
-    @DoNotTouch
-    public boolean contains(T key) {
-        // VAnforderung: Rekursiv lösen
-        return containsHelper(head, key);
-    }
 
-    /**
-     * Helper method to check if the list contains the specified element recursively.
-     *
-     * @param p the current node
-     * @param key the element to be checked for presence in the list
-     * @return true if the element is present, false otherwise
-     */
-    @StudentImplementationRequired
-    private boolean containsHelper(ListItem<T> p, T key) {
-        if (p == null) {
-            return false;
-        }
-        if (p.key.equals(key)) {
-            return true;
-        }
-        return containsHelper(p.next, key);
-    }
 
     // Hier Konzept von Garbage Collector aufgreifen??
+    @StudentImplementationRequired
     public void clear() {
         head = null;
         tail = null;
@@ -173,70 +174,19 @@ public class DoublyLinkedList<T> {
     }
 
     // evtl. rausnehmen
+    @StudentImplementationRequired
     public void makeDistinct() {
         ListItem<T> p = head;
         while (p != null) {
             ListItem<T> q = p.next;
             while (q != null) {
-                if (p.key.equals(q.key)) {
+                if (Objects.equals(p.key, q.key)) {
                     removeListItem(q);
                 }
                 q = q.next;
             }
             p = p.next;
         }
-    }
-
-
-    public class DoublyLinkedListIterator implements Iterator<T> {
-        @DoNotTouch
-        private ListItem<T> p;
-        @DoNotTouch
-        private int nextIndex = 0;
-
-        @DoNotTouch
-        public DoublyLinkedListIterator(ListItem<T> head) {
-            this.p = head;
-        }
-
-        @Override
-        @StudentImplementationRequired
-        public boolean hasNext() {
-            return nextIndex < size;
-        }
-
-        @Override
-        @StudentImplementationRequired
-        public T next() {
-            T key = p.key;
-            p = p.next;
-            nextIndex++;
-            return key;
-        }
-
-        public boolean hasPrevious() {
-            return nextIndex > 0;
-        }
-
-        public T previous() {
-            if (p == null) {
-                p = tail; // Jump back one ListItem
-            } else {
-                p = p.prev;
-            }
-            nextIndex--;
-            return p.key;
-        }
-
-        @Override
-        public void remove() {
-
-        }
-    }
-
-    @DoNotTouch
-    public DoublyLinkedListIterator iterator() {
-        return new DoublyLinkedListIterator(head);
     }
 
     /**
@@ -283,6 +233,10 @@ public class DoublyLinkedList<T> {
             }
             return p.key;
         }
+
+        public void remove() {
+            throw new UnsupportedOperationException("Remove operation is not supported");
+        }
     }
 
     // Get cyclic iterator
@@ -291,21 +245,26 @@ public class DoublyLinkedList<T> {
         return new CyclicDoublyLinkedListIterator(head);
     }
 
+    /**
+     * Returns a string representation of the doubly linked list.
+     * The string representation consists of a list of the elements in the order they are stored,
+     * enclosed in square brackets ("[]"). Adjacent elements are separated by the characters ", " (comma and space).
+     *
+     * @return a string representation of the list
+     */
     @Override
     @DoNotTouch
     public String toString() {
-        Iterator<T> it = iterator();
-        if (! it.hasNext())
-            return "[]";
-
         StringBuilder sb = new StringBuilder();
         sb.append('[');
-        for (;;) {
-            T e = it.next();
+        for (ListItem<T> p = head; p != null; p = p.next) {
+            T e = p.key;
             sb.append(e);
-            if (! it.hasNext())
-                return sb.append(']').toString();
+            if (p.next == null) {
+                break;
+            }
             sb.append(',').append(' ');
         }
+        return sb.append(']').toString();
     }
 }
