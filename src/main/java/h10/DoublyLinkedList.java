@@ -93,7 +93,7 @@ public class DoublyLinkedList<T> {
             throw new IllegalArgumentException("Key must not be null");
         }
 
-        ListItem<T> tmp = new ListItem<T>();
+        ListItem<T> tmp = new ListItem<>();
         tmp.key = key;
 
         if (index == size) {
