@@ -1,22 +1,28 @@
 package h10;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+
 public class Main {
     public static void main(String[] args) {
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
+        List<Integer> l1 = new LinkedList<>();
 
-        list.add(5);
-        list.add(10);
-        list.add(20);
-        list.add(30, 1);
+        l1.add(1);
+        l1.add(2);
+        l1.add(3);
 
-        System.out.println(list);
-        // Iterator example
-        DoublyLinkedList<Integer>.DoublyLinkedListIterator forwardIter = list.iterator();
-        System.out.print("Forward iteration: ");
-        while (forwardIter.hasNext()) {
-            System.out.print(forwardIter.next() + " ");
-        }
-        System.out.println();
+        ListIterator<Integer> it = l1.listIterator();
 
+        System.out.print(it.next() + " ");
+        System.out.print(it.next() + " ");
+        System.out.print(it.previous() + " ");
+        System.out.print(it.previous() + " ");
+        System.out.print(it.next() + " ");
+        System.out.print(it.next() + " ");
+        System.out.print(it.next() + " ");
+        System.out.print(it.previous() + " ");
+        System.out.print(it.previous() + " ");
+        System.out.print(it.previous() + " ");
     }
 }
