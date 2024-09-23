@@ -4,6 +4,7 @@ import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A doubly linked list implementation.
@@ -117,14 +118,14 @@ public class DoublyLinkedList<T> {
     }
 
     /**
-     * Adds a new element at the beginning of the doubly linked list.
+     * Adds a new element at the end of the doubly linked list.
      *
      * @param key the element to be added
      * @throws IllegalArgumentException if the key is null
      */
     @DoNotTouch
     public void add(T key) {
-        add(0, key);
+        add(size, key);
     }
 
     /**
@@ -251,24 +252,19 @@ public class DoublyLinkedList<T> {
     /**
      * An iterator for traversing a doubly linked list in a cyclic manner.
      */
-    public class CyclicDoublyLinkedListIterator implements Iterator<T> {
+    public class CyclicIterator implements Iterator<T> {
         /**
          * The current ListItem of the iterator in the doubly linked list.
          */
         @DoNotTouch
         private ListItem<T> p;
-
-        /**
-         * The ListItem that contains the last element returned by the iterator.
-         * This is used to support the remove operation.
-         */
         @DoNotTouch
-        private ListItem<T> lastReturned;
+        private boolean calledRemove;
 
         @DoNotTouch
-        public CyclicDoublyLinkedListIterator(ListItem<T> head) {
-            this.p = head;
-            lastReturned = null;
+        public CyclicIterator() {
+            this.p = null;
+            this.calledRemove = false;
         }
 
         /**
@@ -279,7 +275,7 @@ public class DoublyLinkedList<T> {
         @Override
         @StudentImplementationRequired
         public boolean hasNext() {
-            return p != null; // Always true for cyclic iteration except if list is empty
+            return size > 0; // Always true for cyclic iteration except if list is empty
         }
 
         /**
@@ -287,18 +283,22 @@ public class DoublyLinkedList<T> {
          * If the end of the list is reached, it wraps around to the head.
          *
          * @return the next element in the list
+         * @throws NoSuchElementException if there are no more elements to iterate over
          */
         @Override
         @StudentImplementationRequired
         public T next() {
-            lastReturned = p;
-            p = p.next;
+            if(!hasNext()) throw new NoSuchElementException("The list is empty");
 
-            if (p == null) {
-                p = head; // Wrap around to the head
+            if (p == null || p.next == null) {
+                p = head;
+            } else {
+                p = p.next;
             }
 
-            return lastReturned.key;
+            calledRemove = false;
+
+            return p.key;
         }
 
         /**
@@ -308,7 +308,7 @@ public class DoublyLinkedList<T> {
          */
         @StudentImplementationRequired
         public boolean hasPrevious() {
-            return p != null; // Always true for cyclic iteration except if list is empty
+            return size > 0; // Always true for cyclic iteration except if list is empty
         }
 
         /**
@@ -316,43 +316,39 @@ public class DoublyLinkedList<T> {
          * If the beginning of the list is reached, it wraps around to the tail.
          *
          * @return the previous element in the list
+         * @throws NoSuchElementException if there are no more elements to iterate over
          */
         @StudentImplementationRequired
         public T previous() {
-            if(p == head) {
-                p = tail; // Wrap around to the tail
+            if(!hasPrevious()) throw new NoSuchElementException("The list is empty");
+
+            if (p == null || p.prev == null) {
+                p = tail;
             } else {
                 p = p.prev;
             }
-            lastReturned = p;
 
-            return lastReturned.key;
+            calledRemove = false;
+
+            return p.key;
         }
 
         /**
          * Removes the last element that was returned.
          *
-         * @throws IllegalStateException if the `next` or `previous` method has not been called,
-         *                               or the `remove` method has already been called after the last call to `next` or `previous`
+         * @throws IllegalStateException if the `next` or `previous` method has not been called yet or the element has already been removed
          */
-        @DoNotTouch
+        @Override
+        @StudentImplementationRequired
         public void remove() {
-            if (lastReturned == null) {
-                throw new IllegalStateException();
+            if (p == null)  {
+                throw new IllegalStateException("next or previous method has not been called yet");
+            } else if (calledRemove) {
+                throw new IllegalStateException("Element has already been removed");
             }
 
-            ListItem<T> nextOfLastReturned = lastReturned.next;
-            removeListItem(lastReturned);
-
-            if(p == lastReturned) { // This can happen for example after a call to `previous`
-                if (lastReturned == tail) { // Last element of list was already returned, wrap around to head
-                    p = head;
-                } else {
-                    p = nextOfLastReturned;
-                }
-            }
-
-            lastReturned = null;
+            removeListItem(p);
+            calledRemove = true;
         }
     }
 
@@ -360,8 +356,8 @@ public class DoublyLinkedList<T> {
      * Retrieve an iterator for traversing this doubly linked list in a cyclic manner.
      */
     @DoNotTouch
-    public CyclicDoublyLinkedListIterator cyclicIterator() {
-        return new CyclicDoublyLinkedListIterator(head);
+    public CyclicIterator cyclicIterator() {
+        return new CyclicIterator();
     }
 
     /**
