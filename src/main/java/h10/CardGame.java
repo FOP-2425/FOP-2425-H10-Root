@@ -22,18 +22,11 @@ public class CardGame {
     public static CardGame generateRandomGame() {
         CardGame game = new CardGame();
 
-        // Create card deck
-        List<PlayingCard> cards = new LinkedList<>();
-//        for (PlayingCard.Suit suit : PlayingCard.Suit.values()) {
-//            for (PlayingCard.Rank rank : PlayingCard.Rank.values()) {
-//                cards.add(new PlayingCard(suit, rank));
-//            }
-//        }
-        Collections.addAll(cards, PlayingCard.values());
-        Collections.shuffle(cards);
+        // Create card deck with 100 random cards
+        PlayingCard[] cards = PlayingCard.values();
         game.cardDeck = new DoublyLinkedList<>();
-        for (PlayingCard card : cards) {
-            game.cardDeck.add(card);
+        for (int i = 0; i < 100; i++) {
+            game.cardDeck.add(cards[(int)(Math.random() * 4)]);
         }
 
         // 4 players with 5 cards each
@@ -68,8 +61,8 @@ public class CardGame {
                 skipNextPlayer = false;
                 continue;
             }
+
             // the players are dumb and just play the next card in their hand
-            // TODO: make it that all cards can be played...
             PlayingCard currentCard = currentPlayer.playNextCard();
 
             if(PlayingCard.DRAW_TWO.equals(currentCard)) {
