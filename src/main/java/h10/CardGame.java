@@ -2,43 +2,35 @@ package h10;
 
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
+/**
+ * Represents a simple card game with 4 players and a deck of cards
+ */
 public class CardGame {
-    private DoublyLinkedList<CardGamePlayer> players;
-    private DoublyLinkedList<PlayingCard> cardDeck;
+    private final DoublyLinkedList<CardGamePlayer> players;
+    private final DoublyLinkedList<PlayingCard> cardDeck;
 
+    /**
+     * Creates a new card game with 4 players and a deck of 100 cards
+     * The deck is shuffled and each player gets 5 random cards
+     */
     public CardGame() {
         players = new DoublyLinkedList<>();
         cardDeck = new DoublyLinkedList<>();
-    }
-
-    public void addPlayer(CardGamePlayer player) {
-        players.add(player);
-    }
-
-    public static CardGame generateRandomGame() {
-        CardGame game = new CardGame();
 
         // Create card deck with 100 random cards
         PlayingCard[] cards = PlayingCard.values();
-        game.cardDeck = new DoublyLinkedList<>();
         for (int i = 0; i < 100; i++) {
-            game.cardDeck.add(cards[(int)(Math.random() * 4)]);
+            cardDeck.add(cards[(int)(Math.random() * 4)]);
         }
 
         // 4 players with 5 cards each
         for ( int i = 1; i < 5; i++) {
             CardGamePlayer player = new CardGamePlayer("Player " + i);
-            game.addPlayer(player);
+            players.add(player);
             for (int j = 0; j < 5; j++) {
-                player.takeCard(game.cardDeck.removeAtIndex(0));
+                player.takeCard(cardDeck.removeAtIndex(0));
             }
         }
-
-        return game;
     }
 
     /**
@@ -62,24 +54,23 @@ public class CardGame {
                 continue;
             }
 
-            // the players are dumb and just play the next card in their hand
+            // the players just play the next card in their hand
             PlayingCard currentCard = currentPlayer.playNextCard();
 
             if(PlayingCard.DRAW_TWO.equals(currentCard)) {
                 takeCards += 2;
+            } else if(takeCards > 0) {
+                for (int i = 0; i < takeCards; i++) {
+                    currentPlayer.takeCard(cardDeck.removeAtIndex(0));
+                }
+                takeCards = 0;
             }
+
             if (PlayingCard.SKIP.equals(currentCard)) { // Skip next player
                 skipNextPlayer = true;
             }
             if (PlayingCard.REVERSE.equals(currentCard)) { // Change of direction
                 reverseDirection = !reverseDirection;
-            }
-
-            if(takeCards > 0) {
-                for (int i = 0; i < takeCards; i++) {
-                    currentPlayer.takeCard(cardDeck.removeAtIndex(0));
-                }
-                takeCards = 0;
             }
 
             if (currentPlayer.getHandSize() == 0) { // This player won and is out of the game
@@ -88,5 +79,15 @@ public class CardGame {
         }
 
         return players.get(0);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < players.size(); i++) {
+            sb.append(players.get(i).toString());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

@@ -233,22 +233,6 @@ public class DoublyLinkedList<T> {
         size = 0;
     }
 
-    // evtl. rausnehmen
-    @StudentImplementationRequired
-    public void makeDistinct() {
-        ListItem<T> p = head;
-        while (p != null) {
-            ListItem<T> q = p.next;
-            while (q != null) {
-                if (p.key.equals(q.key)) {
-                    removeListItem(q);
-                }
-                q = q.next;
-            }
-            p = p.next;
-        }
-    }
-
     /**
      * An iterator for traversing a doubly linked list in a cyclic manner.
      */
