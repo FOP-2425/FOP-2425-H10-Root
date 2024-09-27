@@ -323,7 +323,7 @@ public class DoublyLinkedList<T> {
          * @throws IllegalStateException if the `next` or `previous` method has not been called yet or the element has already been removed
          */
         @Override
-        @StudentImplementationRequired
+        @DoNotTouch
         public void remove() {
             if (p == null)  {
                 throw new IllegalStateException("next or previous method has not been called yet");

@@ -1,5 +1,6 @@
 package h10;
 
+import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 /**
@@ -82,6 +83,7 @@ public class CardGame {
     }
 
     @Override
+    @DoNotTouch
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < players.size(); i++) {
