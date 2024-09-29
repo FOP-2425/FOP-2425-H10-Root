@@ -2,6 +2,9 @@ package h10;
 
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
+/**
+ * Represents a single item in a doubly linked list
+ */
 @DoNotTouch
 public class ListItem<T> {
     public T key;

@@ -7,13 +7,16 @@ import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
  * Represents a simple card game with 4 players and a deck of cards
  */
 public class CardGame {
+    @DoNotTouch
     private final DoublyLinkedList<CardGamePlayer> players;
+    @DoNotTouch
     private final DoublyLinkedList<PlayingCard> cardDeck;
 
     /**
      * Creates a new card game with 4 players and a deck of 100 cards
      * The deck is shuffled and each player gets 5 random cards
      */
+    @DoNotTouch
     public CardGame() {
         players = new DoublyLinkedList<>();
         cardDeck = new DoublyLinkedList<>();

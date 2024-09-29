@@ -136,7 +136,7 @@ public class DoublyLinkedList<T> {
      * @throws IllegalArgumentException if the key is null
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    @StudentImplementationRequired
+    @DoNotTouch
     public void add(int index, T key) {
         if(key == null) {
             throw new IllegalArgumentException("Key must not be null");
