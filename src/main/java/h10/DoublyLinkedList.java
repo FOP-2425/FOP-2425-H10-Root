@@ -136,7 +136,7 @@ public class DoublyLinkedList<T> {
      * @throws IllegalArgumentException if the key is null
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    @DoNotTouch
+    @StudentImplementationRequired
     public void add(int index, T key) {
         if(key == null) {
             throw new IllegalArgumentException("Key must not be null");
@@ -207,20 +207,6 @@ public class DoublyLinkedList<T> {
     public T removeAtIndex(int index) {
         ListItem<T> p = getListItem(index);
         return removeListItem(p);
-    }
-
-    /**
-     * Removes all occurrences of the specified element from the list, if present.
-     *
-     * @param key the element to be completely removed from the list
-     */
-    @StudentImplementationRequired
-    public void removeAll(T key) {
-        for (ListItem<T> p = head; p != null; p = p.next) {
-            if (p.key.equals(key)) {
-                removeListItem(p);
-            }
-        }
     }
 
     /**

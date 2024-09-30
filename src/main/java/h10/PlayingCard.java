@@ -8,7 +8,7 @@ import org.tudalgo.algoutils.student.annotation.DoNotTouch;
  * - PASS: no special action
  * - SKIP: the next player is skipped
  * - REVERSE: the direction of play is reversed
- * - DRAW_TWO: the next player draws two cards, unless they have a DRAW_TWO card themselves
+ * - DRAW_TWO: the next player draws two cards, unless they play a DRAW_TWO card themselves
  */
 @DoNotTouch
 public enum PlayingCard {

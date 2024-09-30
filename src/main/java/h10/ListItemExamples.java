@@ -39,13 +39,11 @@ public class ListItemExamples {
     @StudentImplementationRequired
     public static int countSkipCardsIterative(ListItem<PlayingCard> cardDeck) {
         int count = 0;
-        ListItem<PlayingCard> current = cardDeck;
 
-        while (current != null) {
-            if (PlayingCard.SKIP.equals(current.key)) {
+        for (ListItem<PlayingCard> p = cardDeck; p != null; p = p.next) {
+            if (PlayingCard.SKIP.equals(p.key)) {
                 count++;
             }
-            current = current.next;
         }
 
         return count;
