@@ -180,17 +180,10 @@ public class DoublyLinkedList<T> {
      */
     @StudentImplementationRequired
     private T removeListItem(ListItem<T> p) {
-        if (p == head) {
-            head = p.next;
-        } else {
-            p.prev.next = p.next;
-        }
-
-        if (p == tail) {
-            tail = p.prev;
-        } else {
-            p.next.prev = p.prev;
-        }
+        if (p == head) head = p.next;
+        if (p == tail) tail = p.prev;
+        if (p.prev != null) p.prev.next = p.next;
+        if (p.next != null) p.next.prev = p.prev;
 
         size--;
         return p.key;
@@ -222,7 +215,7 @@ public class DoublyLinkedList<T> {
     /**
      * An iterator for traversing a doubly linked list in a cyclic manner.
      */
-    public class CyclicIterator implements Iterator<T> {
+    class CyclicIterator implements Iterator<T> {
         /**
          * The current ListItem of the iterator in the doubly linked list.
          */

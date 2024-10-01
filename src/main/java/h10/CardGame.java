@@ -8,33 +8,40 @@ import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
  */
 public class CardGame {
     @DoNotTouch
-    private final DoublyLinkedList<CardGamePlayer> players;
+    private DoublyLinkedList<CardGamePlayer> players;
     @DoNotTouch
-    private final DoublyLinkedList<PlayingCard> cardDeck;
+    private DoublyLinkedList<PlayingCard> cardDeck;
+
+    @DoNotTouch
+    private CardGame() {}
 
     /**
      * Creates a new card game with 4 players and a deck of 100 cards
      * The deck is shuffled and each player gets 5 random cards
      */
     @DoNotTouch
-    public CardGame() {
-        players = new DoublyLinkedList<>();
-        cardDeck = new DoublyLinkedList<>();
+    public static CardGame generateRandomCardGame() {
+        CardGame cardGame = new CardGame();
+
+        cardGame.players = new DoublyLinkedList<>();
+        cardGame.cardDeck = new DoublyLinkedList<>();
 
         // Create card deck with 100 random cards
         PlayingCard[] cards = PlayingCard.values();
         for (int i = 0; i < 100; i++) {
-            cardDeck.add(cards[(int)(Math.random() * 4)]);
+            cardGame.cardDeck.add(cards[(int)(Math.random() * 4)]);
         }
 
         // 4 players with 5 cards each
         for ( int i = 1; i < 5; i++) {
             CardGamePlayer player = new CardGamePlayer("Player " + i);
-            players.add(player);
+            cardGame.players.add(player);
             for (int j = 0; j < 5; j++) {
-                player.takeCard(cardDeck.removeAtIndex(0));
+                player.takeCard(cardGame.cardDeck.removeAtIndex(0));
             }
         }
+
+        return cardGame;
     }
 
     /**

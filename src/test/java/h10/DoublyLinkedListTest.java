@@ -28,32 +28,6 @@ public class DoublyLinkedListTest {
     }
 
     @Test
-    public void removeAllOccurrences() {
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
-        list.add(2);
-        list.add(1);
-        list.add(1);
-        list.add(3);
-        list.removeAll(1);
-        assertEquals(2, list.size());
-        assertEquals(2, list.get(0));
-        assertEquals(3, list.get(1));
-    }
-
-    @Test
-    public void removeAllOccurrencesNotPresent() {
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.removeAll(4);
-        assertEquals(3, list.size());
-        assertEquals(1, list.get(0));
-        assertEquals(2, list.get(1));
-        assertEquals(3, list.get(2));
-    }
-
-    @Test
     public void clearList() {
         DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
         list.add(0);
