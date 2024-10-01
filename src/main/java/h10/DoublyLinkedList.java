@@ -57,12 +57,12 @@ public class DoublyLinkedList<T> {
      * @return the index of the element if the element is present, -1 otherwise
      */
     @DoNotTouch
-    public int find(T key) {
-        return findHelper(head, key, 0);
+    public int findFirst(T key) {
+        return findFirstHelper(head, key, 0);
     }
 
     /**
-     * Helper method to check if the list contains the specified element recursively.
+     * Helper method to find the first occurrence of an element in the list recursively.
      *
      * @param p the current ListItem
      * @param key the element to be checked for presence in the list
@@ -70,10 +70,10 @@ public class DoublyLinkedList<T> {
      * @return the index of the element if the element is present, -1 otherwise
      */
     @StudentImplementationRequired
-    private int findHelper(ListItem<T> p, T key, int index) {
+    private int findFirstHelper(ListItem<T> p, T key, int index) {
         if (p == null) return -1;
         if (p.key.equals(key)) return index;
-        return findHelper(p.next, key, index+1);
+        return findFirstHelper(p.next, key, index+1);
     }
 
     /**

@@ -31,7 +31,7 @@ public class CardGamePlayer {
     @DoNotTouch
     public PlayingCard playNextCard(boolean prioritizeDrawTwo) {
         if(prioritizeDrawTwo) {
-            int index = hand.find(PlayingCard.DRAW_TWO);
+            int index = hand.findFirst(PlayingCard.DRAW_TWO);
 
             if(index != -1) { // Player has a DRAW_TWO card on his hand, prioritize this card
                 return hand.removeAtIndex(index);
