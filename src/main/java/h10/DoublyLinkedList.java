@@ -51,14 +51,14 @@ public class DoublyLinkedList<T> {
     }
 
     /**
-     * Checks if the list contains the specified element.
+     * Checks if the list contains the specified element and returns the index of the first occurrence.
      *
      * @param key the element to be checked for presence in the list
-     * @return true if the element is present, false otherwise
+     * @return the index of the element if the element is present, -1 otherwise
      */
     @DoNotTouch
-    public boolean contains(T key) {
-        return containsHelper(head, key);
+    public int find(T key) {
+        return findHelper(head, key, 0);
     }
 
     /**
@@ -66,13 +66,14 @@ public class DoublyLinkedList<T> {
      *
      * @param p the current ListItem
      * @param key the element to be checked for presence in the list
-     * @return true if the element is present, false otherwise
+     * @param index the index of the current ListItem
+     * @return the index of the element if the element is present, -1 otherwise
      */
     @StudentImplementationRequired
-    private boolean containsHelper(ListItem<T> p, T key) {
-        if (p == null) return false;
-        if (p.key.equals(key)) return true;
-        return containsHelper(p.next, key);
+    private int findHelper(ListItem<T> p, T key, int index) {
+        if (p == null) return -1;
+        if (p.key.equals(key)) return index;
+        return findHelper(p.next, key, index+1);
     }
 
     /**

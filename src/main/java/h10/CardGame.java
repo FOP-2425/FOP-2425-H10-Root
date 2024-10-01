@@ -55,7 +55,8 @@ public class CardGame {
         boolean reverseDirection = false;
         boolean skipNextPlayer = false;
         int takeCards = 0;
-        CardGamePlayer currentPlayer;
+        CardGamePlayer currentPlayer = null;
+        PlayingCard currentCard = null;
 
         while(players.size() > 1) {
             currentPlayer = reverseDirection ? iter.previous() : iter.next();
@@ -66,7 +67,8 @@ public class CardGame {
             }
 
             // the players just play the next card in their hand
-            PlayingCard currentCard = currentPlayer.playNextCard();
+            boolean prioritizeDrawTwo = PlayingCard.DRAW_TWO.equals(currentCard);
+            currentCard = currentPlayer.playNextCard(prioritizeDrawTwo);
 
             if(PlayingCard.DRAW_TWO.equals(currentCard)) {
                 takeCards += 2;
