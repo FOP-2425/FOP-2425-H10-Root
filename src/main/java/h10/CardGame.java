@@ -66,7 +66,7 @@ public class CardGame {
                 continue;
             }
 
-            // the players just play the next card in their hand
+            // the player plays the next card in their hand
             boolean prioritizeDrawTwo = PlayingCard.DRAW_TWO.equals(currentCard);
             currentCard = currentPlayer.playNextCard(prioritizeDrawTwo);
 
@@ -86,7 +86,7 @@ public class CardGame {
                 reverseDirection = !reverseDirection;
             }
 
-            if (currentPlayer.getHandSize() == 0) { // This player won and is out of the game
+            if (currentPlayer.getHandSize() == 0) { // This player is out of the game (is not the loser)
                 iter.remove();
             }
         }
