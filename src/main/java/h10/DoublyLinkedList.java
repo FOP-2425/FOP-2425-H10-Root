@@ -181,10 +181,19 @@ public class DoublyLinkedList<T> {
      */
     @StudentImplementationRequired
     private T removeListItem(ListItem<T> p) {
-        if (p == head) head = p.next;
-        if (p == tail) tail = p.prev;
-        if (p.prev != null) p.prev.next = p.next;
-        if (p.next != null) p.next.prev = p.prev;
+        if(size == 1) { // Case 1: Only one element in the list
+            head = null;
+            tail = null;
+        } else if (p == head) { // Case 2: Remove head
+            head = head.next;
+            head.prev = null;
+        } else if (p == tail) { // Case 3: Remove tail
+            tail = tail.prev;
+            tail.next = null;
+        } else { // Case 4: Remove element in the middle
+            p.prev.next = p.next;
+            p.next.prev = p.prev;
+        }
 
         size--;
         return p.key;

@@ -10,10 +10,34 @@ public class CardGame {
     @DoNotTouch
     private DoublyLinkedList<CardGamePlayer> players;
     @DoNotTouch
+    private DoublyLinkedList<CardGamePlayer>.CyclicIterator iter;
+    @DoNotTouch
     private DoublyLinkedList<PlayingCard> cardDeck;
+
+    // Game state variables
+    @DoNotTouch
+    private boolean reverseDirection = false; // If true, the direction of play is reversed in the next turn
+    @DoNotTouch
+    private boolean skipNextPlayer = false; // If true, the next player is skipped
+    @DoNotTouch
+    private int takeCards = 0; // Number of cards the next player has to draw
+    @DoNotTouch
+    private CardGamePlayer currentPlayer = null; // The player whose turn it is
+    @DoNotTouch
+    private PlayingCard currentCard = null; // The card that is played in the current turn
 
     @DoNotTouch
     private CardGame() {}
+
+    /**
+     * Creates a new card game with the given players and card deck
+     */
+    @DoNotTouch
+    public CardGame(DoublyLinkedList<CardGamePlayer> players, DoublyLinkedList<PlayingCard> cardDeck) {
+        this.players = players;
+        this.cardDeck = cardDeck;
+        this.iter = this.players.cyclicIterator();
+    }
 
     /**
      * Creates a new card game with 4 players and a deck of 100 cards
@@ -41,6 +65,8 @@ public class CardGame {
             }
         }
 
+        cardGame.iter = cardGame.players.cyclicIterator();
+
         return cardGame;
     }
 
@@ -48,50 +74,50 @@ public class CardGame {
      * Determines the loser of the game
      * @return the last player who still has cards in their hand
      */
-    @StudentImplementationRequired
+    @DoNotTouch
     public CardGamePlayer determineLoser() {
-        DoublyLinkedList<CardGamePlayer>.CyclicIterator iter = players.cyclicIterator();
-
-        boolean reverseDirection = false;
-        boolean skipNextPlayer = false;
-        int takeCards = 0;
-        CardGamePlayer currentPlayer = null;
-        PlayingCard currentCard = null;
-
         while(players.size() > 1) {
-            currentPlayer = reverseDirection ? iter.previous() : iter.next();
-
-            if(skipNextPlayer) {
-                skipNextPlayer = false;
-                continue;
-            }
-
-            // the player plays the next card in their hand
-            boolean prioritizeDrawTwo = PlayingCard.DRAW_TWO.equals(currentCard);
-            currentCard = currentPlayer.playNextCard(prioritizeDrawTwo);
-
-            if(PlayingCard.DRAW_TWO.equals(currentCard)) {
-                takeCards += 2;
-            } else if(takeCards > 0) {
-                for (int i = 0; i < takeCards; i++) {
-                    currentPlayer.takeCard(cardDeck.removeAtIndex(0));
-                }
-                takeCards = 0;
-            }
-
-            if (PlayingCard.SKIP.equals(currentCard)) { // Skip next player
-                skipNextPlayer = true;
-            }
-            if (PlayingCard.REVERSE.equals(currentCard)) { // Change of direction
-                reverseDirection = !reverseDirection;
-            }
-
-            if (currentPlayer.getHandSize() == 0) { // This player is out of the game (is not the loser)
-                iter.remove();
-            }
+            doTurn();
         }
 
         return players.get(0);
+    }
+
+    /**
+     * Executes a turn in the game.
+     */
+    @StudentImplementationRequired
+    private void doTurn() {
+        currentPlayer = reverseDirection ? iter.previous() : iter.next();
+
+        if(skipNextPlayer) {
+            skipNextPlayer = false;
+            return;
+        }
+
+        // the player plays the next card in their hand
+        boolean prioritizeDrawTwo = PlayingCard.DRAW_TWO.equals(currentCard);
+        currentCard = currentPlayer.playNextCard(prioritizeDrawTwo);
+
+        if(PlayingCard.DRAW_TWO.equals(currentCard)) {
+            takeCards += 2;
+        } else if(takeCards > 0) {
+            for (int i = 0; i < takeCards; i++) {
+                currentPlayer.takeCard(cardDeck.removeAtIndex(0));
+            }
+            takeCards = 0;
+        }
+
+        if (PlayingCard.SKIP.equals(currentCard)) { // Skip next player
+            skipNextPlayer = true;
+        }
+        if (PlayingCard.REVERSE.equals(currentCard)) { // Change of direction
+            reverseDirection = !reverseDirection;
+        }
+
+        if (currentPlayer.getHandSize() == 0) { // This player is out of the game (is not the loser)
+            iter.remove();
+        }
     }
 
     @Override
