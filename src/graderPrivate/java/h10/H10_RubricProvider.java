@@ -12,7 +12,7 @@ public class H10_RubricProvider implements RubricProvider {
             .minPoints(0)
             .maxPoints(1)
             .addChildCriteria(
-                    criterion(
+                    criterion( // TODO: PUBLIC TEST
                         "Die Liste wird korrekt erstellt und zurückgegeben. Jedes Listenelement verweist korrekt auf den vorherigen und nächsten Spieler, sofern dieser existiert."
                     )
             )
@@ -53,9 +53,9 @@ public class H10_RubricProvider implements RubricProvider {
             .minPoints(0)
             .maxPoints(1)
             .addChildCriteria(
-                    criterion(
+                    criterion( // TODO: PUBLIC TEST
                             "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben."
-                    ),
+                    ) ,
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
                             -1
@@ -79,7 +79,7 @@ public class H10_RubricProvider implements RubricProvider {
             .minPoints(0)
             .maxPoints(1)
             .addChildCriteria(
-                    criterion(
+                    criterion( // TODO: PUBLIC TEST
                             "Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben."
                     ),
                     criterion(
@@ -94,7 +94,7 @@ public class H10_RubricProvider implements RubricProvider {
             .minPoints(0)
             .maxPoints(3)
             .addChildCriteria(
-                    criterion("Die Methode gibt das Element an der angegebenen Position zurück."),
+                    criterion("Die Methode gibt das Element an der angegebenen Position zurück."), // TODO: PUBLIC TEST
                     criterion("Die Suche wird in der Liste von vorne oder hinten gestartet, je nachdem, welcher Weg kürzer ist."),
                     criterion("Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen."),
                     criterion(
@@ -109,12 +109,12 @@ public class H10_RubricProvider implements RubricProvider {
             .minPoints(0)
             .maxPoints(7)
             .addChildCriteria(
-                    criterion("Fall 1: Die Liste ist leer wurde korrekt implementiert."),
+                    criterion("Fall 1: Die Liste ist leer wurde korrekt implementiert."), // TODO: PUBLIC TEST
                     criterion("Fall 2: Neues Element an das Ende der Liste wurde korrekt implementiert."),
-                    criterion("Fall 3: Neues Element an den Anfang der Liste wurde korrekt implementiert."),
+                    criterion("Fall 3: Neues Element an den Anfang der Liste wurde korrekt implementiert."), // TODO: PUBLIC TEST
                     criterion("Fall 4: Neues Element in der Mitte der Liste wurde korrekt implementiert."),
                     criterion("Die Größe der Liste wird um 1 erhöht."),
-                    criterion("Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen."),
+                    criterion("Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen."), // TODO: PUBLIC TEST
                     criterion("Falls der übergebene key null ist, wird eine IllegalArgumentException geworfen.")
             )
             .build();
@@ -124,10 +124,10 @@ public class H10_RubricProvider implements RubricProvider {
             .minPoints(0)
             .maxPoints(4)
             .addChildCriteria(
-                    criterion("Die Fälle 1 und 4 wurden korrekt implementiert."),
+                    criterion("Die Fälle 1 und 4 wurden korrekt implementiert."), // TODO: PUBLIC TEST
                     criterion("Die Fälle 2 und 3 wurden korrekt implementiert."),
                     criterion("Die Größe der Liste wird um 1 verringert."),
-                    criterion("Das entfernte Element verweist immernoch auf seine Nachbarn.")
+                    criterion("Das entfernte Element verweist immernoch auf seine Nachbarn.") // TODO: PUBLIC TEST
             )
             .build();
 
@@ -136,7 +136,7 @@ public class H10_RubricProvider implements RubricProvider {
             .minPoints(0)
             .maxPoints(1)
             .addChildCriteria(
-                    criterion("Nach einem Aufruf von clear() ist die Liste leer. Insbesondere sind head und tail auf null gesetzt, und die Größe der Liste ist 0.")
+                    criterion("Nach einem Aufruf von clear() ist die Liste leer. Insbesondere sind head und tail auf null gesetzt, und die Größe der Liste ist 0.") // TODO: PUBLIC TEST
             )
             .build();
 
@@ -156,9 +156,9 @@ public class H10_RubricProvider implements RubricProvider {
         .minPoints(0)
         .maxPoints(3)
         .addChildCriteria(
-                criterion("Die Methode hasNext() gibt korrekt an, ob es ein nächstes Element gibt."),
-                criterion("Die Methode next() gibt das nächste Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement."),
-                criterion("Die Methode next() setzt das Attribut calledRemove auf false.")
+                criterion("Die Methode hasNext() gibt korrekt an, ob es ein nächstes Element gibt."), // TODO: PUBLIC TEST
+                criterion("Die Methode next() gibt das nächste Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement."), // TODO: PUBLIC TEST
+                criterion("Die Methode next() setzt das Attribut calledRemove auf false.") // TODO: PUBLIC TEST
         )
         .build();
 
@@ -178,9 +178,9 @@ public class H10_RubricProvider implements RubricProvider {
         .minPoints(0)
         .maxPoints(6)
         .addChildCriteria(
-                criterion("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben."),
-                criterion("Bei einem SKIP wird der nächste Spieler übersprungen."),
-                criterion("Bei einer REVERSE-Karte wird die Richtung des Iterators umgekehrt."),
+                criterion("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben."), // TODO: PUBLIC TEST
+                criterion("Bei einem SKIP wird der nächste Spieler übersprungen."), // TODO: PUBLIC TEST
+                criterion("Bei einer REVERSE-Karte wird die Richtung des Iterators umgekehrt."), // TODO: PUBLIC TEST
                 criterion("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt."),
                 criterion("Wurden in den vorherigen Zügen mehrere DRAW_TWO-Karten gespielt, so erhöht sich die Anzahl der zu ziehenden Karten entsprechend."),
                 criterion("Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.")
