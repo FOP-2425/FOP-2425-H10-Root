@@ -131,8 +131,47 @@ public class H10_RubricProvider implements RubricProvider {
                             "h10.H10_2_2_TestsPrivate",
                             "testRequirements"
                     )
-            )
-            .build();
+            ).build();
+
+    private static final Criterion H10_2_3 = Criterion.builder()
+            .shortDescription("H10.2.3 | Ein Element hinzufügen")
+            .addChildCriteria(
+                    criterion(
+                            "Fall 1: Die Liste ist leer wurde korrekt implementiert.",
+                            "h10.H10_2_3_TestsPublic",
+                            "testEmptyList"
+                    ),
+                    criterion(
+                            "Fall 2: Neues Element an das Ende der Liste wurde korrekt implementiert.",
+                            "h10.H10_2_3_TestsPrivate",
+                            "testEnd", JsonParameterSet.class
+                    ),
+                    criterion(
+                            "Fall 3: Neues Element an den Anfang der Liste wurde korrekt implementiert.",
+                            "h10.H10_2_3_TestsPublic",
+                            "testStart", JsonParameterSet.class
+                    ),
+                    criterion(
+                            "Fall 4: Neues Element in der Mitte der Liste wurde korrekt implementiert.",
+                            "h10.H10_2_3_TestsPrivate",
+                            "testMiddle", JsonParameterSet.class
+                    ),
+                    criterion(
+                            "Die Größe der Liste wird um 1 erhöht.",
+                            "h10.H10_2_3_TestsPrivate",
+                            "testSize", JsonParameterSet.class
+                    ),
+                    criterion(
+                            "Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.",
+                            "h10.H10_2_3_TestsPublic",
+                            "testException", JsonParameterSet.class
+                    ),
+                    criterion(
+                            "Falls der übergebene key null ist, wird eine IllegalArgumentException geworfen.",
+                            "h10.H10_2_3_TestsPrivate",
+                            "testNull", JsonParameterSet.class
+                    )
+            ).build();
 
     private static final Criterion H10_2 = Criterion.builder()
             .shortDescription("H10.2 | DoublyLinkedList<T>")
@@ -143,23 +182,6 @@ public class H10_RubricProvider implements RubricProvider {
 
     /*
 
-
-
-
-    private static final Criterion H10_2_3 = Criterion.builder()
-            .shortDescription("H10.2.3 | Ein Element hinzufügen")
-            .minPoints(0)
-            .maxPoints(7)
-            .addChildCriteria(
-                    criterion("Fall 1: Die Liste ist leer wurde korrekt implementiert."), // TODO: PUBLIC TEST
-                    criterion("Fall 2: Neues Element an das Ende der Liste wurde korrekt implementiert."),
-                    criterion("Fall 3: Neues Element an den Anfang der Liste wurde korrekt implementiert."), // TODO: PUBLIC TEST
-                    criterion("Fall 4: Neues Element in der Mitte der Liste wurde korrekt implementiert."),
-                    criterion("Die Größe der Liste wird um 1 erhöht."),
-                    criterion("Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen."), // TODO: PUBLIC TEST
-                    criterion("Falls der übergebene key null ist, wird eine IllegalArgumentException geworfen.")
-            )
-            .build();
 
     private static final Criterion H10_2_4 = Criterion.builder()
             .shortDescription("H10.2.4 | Ein Element entfernen")
