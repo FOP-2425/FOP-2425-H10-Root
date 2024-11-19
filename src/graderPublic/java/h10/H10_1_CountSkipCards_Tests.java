@@ -16,7 +16,7 @@ public abstract class H10_1_CountSkipCards_Tests extends H10_Test {
         return ListItemExamples.class;
     }
 
-    public void testResult(JsonParameterSet parameters) throws Throwable {
+    void testResult(JsonParameterSet parameters) throws Throwable {
         Object deck = parameters.get("deck");
         int expectedSkips = parameters.get("count");
         Context context = contextBuilder()
@@ -30,5 +30,5 @@ public abstract class H10_1_CountSkipCards_Tests extends H10_Test {
         Assertions2.assertEquals(expectedSkips, actualSkips, context, result -> "Number of skips is incorrect");
     }
 
-    public abstract void testRequirements();
+    abstract void testRequirements();
 }

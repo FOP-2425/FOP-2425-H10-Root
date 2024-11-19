@@ -1,17 +1,16 @@
 package h10.util;
 
-import org.junit.jupiter.api.Test;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions3;
 import org.tudalgo.algoutils.tutor.general.match.BasicStringMatchers;
 import org.tudalgo.algoutils.tutor.general.match.Matcher;
 import org.tudalgo.algoutils.tutor.general.match.MatcherFactories;
 import org.tudalgo.algoutils.tutor.general.reflections.BasicPackageLink;
+import org.tudalgo.algoutils.tutor.general.reflections.FieldLink;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 import org.tudalgo.algoutils.tutor.general.reflections.PackageLink;
 import org.tudalgo.algoutils.tutor.general.reflections.TypeLink;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Utility class for links to classes and methods.
@@ -35,6 +34,35 @@ public final class Links {
      */
     private Links() {
 
+    }
+
+    /**
+     * Returns the field link for the given class and field name.
+     *
+     * @param clazz     the class to get the field from
+     * @param fieldName the name of the field
+     * @param matchers  the matchers for additional checks to retrieve the field
+     * @return the field link for the given class and field name
+     */
+    @SafeVarargs
+    public static FieldLink getField(Class<?> clazz, String fieldName, Matcher<FieldLink>... matchers) {
+        return getField(getType(clazz), fieldName, matchers);
+    }
+
+    /**
+     * Returns the field link for the given type and field name.
+     *
+     * @param type       the type to get the field from
+     * @param methodName the name of the field
+     * @param matchers   the matchers for additional checks to retrieve the field
+     * @return the field link for the given type and field name
+     */
+    @SafeVarargs
+    public static FieldLink getField(TypeLink type, String methodName, Matcher<FieldLink>... matchers) {
+        return Assertions3.assertFieldExists(
+            type,
+            Arrays.stream(matchers).reduce(STRING_MATCHER_FACTORY.matcher(methodName), Matcher::and)
+        );
     }
 
     /**

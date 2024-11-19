@@ -92,88 +92,33 @@ public class H10_RubricProvider implements RubricProvider {
                     H10_1_4
             ).build();
 
-    /*
-        private static final Criterion H10_1_1 = Criterion.builder()
-            .shortDescription("H10.1.1 | Liste von Spielern erstellen")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion( // TODO: PUBLIC TEST
-                        "Die Liste wird korrekt erstellt und zurückgegeben. Jedes Listenelement verweist korrekt auf den vorherigen und nächsten Spieler, sofern dieser existiert."
-                    )
-            )
-            .build();
-
-    private static final Criterion H10_1_2 = Criterion.builder()
-            .shortDescription("H10.1.2 | Vorkommen der Karte SKIP zählen - iterativ")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion(
-                            "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben."
-                    ),
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -1
-                    ) // Punktabzug wenn nicht erfüllt
-            )
-            .build();
-
-    private static final Criterion H10_1_3 = Criterion.builder()
-            .shortDescription("H10.1.3 | Vorkommen der Karte SKIP zählen - rekursiv")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion(
-                            "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben."
-                    ),
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -1
-                    ) // Punktabzug wenn nicht erfüllt
-            )
-            .build();
-
-    private static final Criterion H10_1_4 = Criterion.builder()
-            .shortDescription("H10.1.4 | Vorkommen der Karte SKIP zählen - mit Iterator")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion( // TODO: PUBLIC TEST
-                            "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben."
-                    ) ,
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -1
-                    ) // Punktabzug wenn nicht erfüllt
-            )
-            .build();
-
-    private static final Criterion H10_1 = Criterion.builder()
-            .shortDescription("H10.1 | Beispiele mit Klasse ListItem<T>")
-            .addChildCriteria(
-                    H10_1_1,
-                    H10_1_2,
-                    H10_1_3,
-                    H10_1_4
-            )
-            .build();
-
-
     private static final Criterion H10_2_1 = Criterion.builder()
             .shortDescription("H10.2.1 | Ist dieses Element bereits in der Liste?")
             .minPoints(0)
             .maxPoints(1)
             .addChildCriteria(
-                    criterion( // TODO: PUBLIC TEST
-                            "Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben."
+                    criterion(
+                            "Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben.",
+                            "h10.H10_2_1_Tests",
+                            "testResult",
+                            JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
-                            -1
-                    ) // Punktabzug wenn nicht erfüllt
-            )
-            .build();
+                            -1,
+                            "h10.H10_2_1_Tests",
+                            "testRequirements"
+                    )
+            ).build();
+
+    private static final Criterion H10_2 = Criterion.builder()
+            .shortDescription("H10.2 | DoublyLinkedList<T>")
+            .addChildCriteria(
+                    H10_2_1
+            ).build();
+
+    /*
+
 
     private static final Criterion H10_2_2 = Criterion.builder()
             .shortDescription("H10.2.2 | Auf ein Element in der Liste zugreifen")
@@ -226,16 +171,6 @@ public class H10_RubricProvider implements RubricProvider {
             )
             .build();
 
-    private static final Criterion H10_2 = Criterion.builder()
-            .shortDescription("H10.2 | DoublyLinkedList<T>")
-            .addChildCriteria(
-                    H10_2_1,
-                    H10_2_2,
-                    H10_2_3,
-                    H10_2_4,
-                    H10_2_5
-            )
-            .build();
 
     private static final Criterion H10_3_1 = Criterion.builder()
         .shortDescription("H10.3.1 | Das nächste Element zurückgeben")
@@ -302,7 +237,7 @@ public class H10_RubricProvider implements RubricProvider {
     public Rubric getRubric() {
         return Rubric.builder()
                 .title("H10 | Doppelt verkette Listen - %s Tests".formatted(privateTests ? "Private" : "Public"))
-                .addChildCriteria(H10_1)
+                .addChildCriteria(H10_1, H10_2)
                 .build();
     }
 }

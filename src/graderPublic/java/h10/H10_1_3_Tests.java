@@ -41,14 +41,14 @@ public class H10_1_3_Tests extends H10_1_CountSkipCards_Tests {
     @Override
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_1_3.json", customConverters = CUSTOM_CONVERTERS)
-    public void testResult(JsonParameterSet parameters) throws Throwable {
+    void testResult(JsonParameterSet parameters) throws Throwable {
         super.testResult(parameters);
     }
 
 
     @Override
     @Test
-    public void testRequirements() {
+    void testRequirements() {
         TutorAssertions.assertRecursive(getMethod(), getMethodName(), contextBuilder());
     }
 }
