@@ -18,15 +18,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Tests for H10.1.1.
+ *
+ * @author Nhan Huynh
+ */
 @TestForSubmission
 @DisplayName("H10.1.1 | Liste von Spielern erstellen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_1_1_Tests extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
-        Map.of(
-            "data", node -> JsonConverters.toList(node, JsonNode::asText)
-        )
+            Map.of(
+                    "data", node -> JsonConverters.toList(node, JsonNode::asText)
+            )
     );
 
     @Override
@@ -49,8 +54,8 @@ public class H10_1_1_Tests extends H10_Test {
     void testResult(JsonParameterSet parameters) {
         List<String> expected = parameters.get("data");
         Context context = contextBuilder()
-            .add("names", expected)
-            .build();
+                .add("names", expected)
+                .build();
         ListItem<CardGamePlayer> actual = ListItemExamples.createPlayerListFromNames(expected.toArray(String[]::new));
 
         Iterator<String> expectedIterator = expected.iterator();

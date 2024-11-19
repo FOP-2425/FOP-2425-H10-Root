@@ -1,4 +1,4 @@
-package h10;
+package h10.util;
 
 import org.sourcegrade.jagr.api.rubric.Criterion;
 import org.sourcegrade.jagr.api.rubric.Grader;
@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
 public final class Rubrics {
 
     private Rubrics() {
-        throw new IllegalStateException("Utility class");
     }
 
     public static Criterion.Builder criterionBuilder(String description, Grader grader) {
