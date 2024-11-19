@@ -6,8 +6,6 @@ import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
-import java.util.List;
-
 /**
  * Tests the method {@code countSkipCardsXYZ} in the class {@code ListItemExamples}.
  */
@@ -22,9 +20,9 @@ public abstract class H10_1_CountSkipCards_Tests extends H10_Test {
         Object deck = parameters.get("deck");
         int expectedSkips = parameters.get("count");
         Context context = contextBuilder()
-            .add("Deck", deck instanceof ListItem<?> items ? ListItems.stream(items).toList() : deck)
-            .add("Number of skips", expectedSkips)
-            .build();
+                .add("Deck", deck instanceof ListItem<?> items ? ListItems.stream(items).toList() : deck)
+                .add("Number of skips", expectedSkips)
+                .build();
 
         MethodLink method = getMethod();
         int actualSkips = method.invokeStatic(deck);

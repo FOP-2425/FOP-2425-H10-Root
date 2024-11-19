@@ -75,6 +75,16 @@ public final class TutorAssertions {
     /**
      * Returns the method calls in the given method.
      *
+     * @param method the method to get the method calls for
+     * @return the method calls in the given method
+     */
+    public static Set<MethodLink> getMethodCalls(MethodLink method) {
+        return getMethodCalls(method, new HashSet<>(), Matcher.never());
+    }
+
+    /**
+     * Returns the method calls in the given method.
+     *
      * @param method  the method to get the method calls for
      * @param visited the visited methods so far (to prevent infinite recursion)
      * @param skips   defines the methods to skip

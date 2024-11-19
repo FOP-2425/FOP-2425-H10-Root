@@ -3,6 +3,7 @@ package h10;
 import org.sourcegrade.jagr.api.rubric.Criterion;
 import org.sourcegrade.jagr.api.rubric.Rubric;
 import org.sourcegrade.jagr.api.rubric.RubricProvider;
+import org.tudalgo.algoutils.tutor.general.jagr.RubricUtils;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 
 import static h10.util.Rubrics.criterion;
@@ -63,12 +64,32 @@ public class H10_RubricProvider implements RubricProvider {
                     )
             ).build();
 
+    private static final Criterion H10_1_4 = Criterion.builder()
+            .shortDescription("H10.1.4 | Vorkommen der Karte SKIP zählen - mit Iterator")
+            .minPoints(0)
+            .maxPoints(1)
+            .addChildCriteria(
+                    criterion(
+                            "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
+                            "h10.H10_1_3_Tests",
+                            "testResult",
+                            JsonParameterSet.class
+                    ),
+                    criterion(
+                            "Verbindliche Anforderung nicht erfüllt",
+                            -1,
+                            "h10.H10_1_3_Tests",
+                            "testRequirements"
+                    )
+            ).build();
+
     private static final Criterion H10_1 = Criterion.builder()
             .shortDescription("H10.1 | Beispiele mit Klasse ListItem<T>")
             .addChildCriteria(
                     H10_1_1,
                     H10_1_2,
-                    H10_1_3
+                    H10_1_3,
+                    H10_1_4
             ).build();
 
 
