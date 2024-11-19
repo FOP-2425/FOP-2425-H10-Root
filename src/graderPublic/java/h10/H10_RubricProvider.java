@@ -112,23 +112,23 @@ public class H10_RubricProvider implements RubricProvider {
             .addChildCriteria(
                     criterion(
                             "Die Methode gibt das Element an der angegebenen Position zurück.",
-                            "h10.H10_2_2_Tests",
+                            "h10.H10_2_2_TestsPublic",
                             "testPositions", JsonParameterSet.class
                     ),
                     criterion(
                             "Die Suche wird in der Liste von vorne oder hinten gestartet, je nachdem, welcher Weg kürzer ist.",
-                            "h10.H10_2_2_Tests",
-                            "testPath"
+                            "h10.H10_2_2_TestsPrivate",
+                            "testPath", JsonParameterSet.class
                     ),
                     criterion(
                             "Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.",
-                            "h10.H10_2_2_Tests",
-                            "testException"
+                            "h10.H10_2_2_TestsPrivate",
+                            "testException", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
                             -3,
-                            "h10.H10_2_2_Tests",
+                            "h10.H10_2_2_TestsPrivate",
                             "testRequirements"
                     )
             )
