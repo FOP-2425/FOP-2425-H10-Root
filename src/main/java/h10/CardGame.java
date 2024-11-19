@@ -10,7 +10,7 @@ public class CardGame {
     @DoNotTouch
     private DoublyLinkedList<CardGamePlayer> players;
     @DoNotTouch
-    private DoublyLinkedList<CardGamePlayer>.CyclicIterator iter;
+    private BidirectionalIterator<CardGamePlayer> iter;
     @DoNotTouch
     private DoublyLinkedList<PlayingCard> cardDeck;
 

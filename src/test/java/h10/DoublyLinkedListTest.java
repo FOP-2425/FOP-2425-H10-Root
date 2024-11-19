@@ -2,8 +2,6 @@ package h10;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DoublyLinkedListTest {
@@ -45,7 +43,7 @@ public class DoublyLinkedListTest {
         list.add(1);
         list.add(2);
         list.add(3);
-        DoublyLinkedList<Integer>.CyclicIterator it = list.cyclicIterator();
+        BidirectionalIterator<Integer> it = list.cyclicIterator();
         assertEquals(0, it.next());
         assertEquals(1, it.next());
         assertEquals(2, it.next());
@@ -64,7 +62,7 @@ public class DoublyLinkedListTest {
     @Test
     public void cyclicIteratorEmptyList() {
         DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
-        Iterator<Integer> it = list.cyclicIterator();
+        BidirectionalIterator<Integer> it = list.cyclicIterator();
         assertFalse(it.hasNext());
     }
 
@@ -72,7 +70,7 @@ public class DoublyLinkedListTest {
     public void cyclicIteratorSingleElement() {
         DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
         list.add(1);
-        Iterator<Integer> it = list.cyclicIterator();
+        BidirectionalIterator<Integer> it = list.cyclicIterator();
         assertEquals(1, it.next());
         assertEquals(1, it.next()); // Wrap around to the head
     }
@@ -83,7 +81,7 @@ public class DoublyLinkedListTest {
         list.add(1);
         list.add(2);
         list.add(3);
-        Iterator<Integer> it = list.cyclicIterator();
+        BidirectionalIterator<Integer> it = list.cyclicIterator();
         assertEquals(1, it.next());
         it.remove();
         assertEquals(2, it.next());
