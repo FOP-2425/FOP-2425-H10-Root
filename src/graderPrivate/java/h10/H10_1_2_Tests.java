@@ -50,7 +50,6 @@ public class H10_1_2_Tests extends H10_1_CountSkipCards_Tests {
         super.testResult(parameters);
     }
 
-
     @Override
     @Test
     public void testRequirements() {

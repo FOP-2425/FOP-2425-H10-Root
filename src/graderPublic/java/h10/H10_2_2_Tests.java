@@ -19,20 +19,20 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Tests for H10.2.1.
+ * Tests for H10.2.2
  *
- * @author Nhan Huynh
+ * @author Nhan Huynh.
  */
 @TestForSubmission
-@DisplayName("H10.2.1 | Ist dieses Element bereits in der Liste?")
+@DisplayName("H10.2.2 | Auf ein Element in der Liste zugreifen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_2_1_Tests extends H10_Test {
+public class H10_2_2_Tests extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
         Map.of(
             "list", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
-            "key", JsonNode::asInt,
-            "index", JsonNode::asInt
+            "index", JsonNode::asInt,
+            "element", JsonNode::asInt
         )
     );
 
@@ -43,31 +43,26 @@ public class H10_2_1_Tests extends H10_Test {
 
     @Override
     public String getMethodName() {
-        return "findFirstHelper";
+        return "getListItem";
     }
 
     @Override
     public List<Class<?>> getMethodParameters() {
-        return List.of(ListItem.class, Object.class, int.class);
+        return List.of(int.class);
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest(value = "H10_2_1.json", customConverters = CUSTOM_CONVERTERS)
-    void testResult(JsonParameterSet parameters) {
+    @JsonParameterSetTest(value = "H10_2_2_Position.json", customConverters = CUSTOM_CONVERTERS)
+    void testPositions(JsonParameterSet parameters) {
         MockDoubleLinkedList<Integer> list = parameters.get("list");
-        int key = parameters.get("key");
         int index = parameters.get("index");
+        int element = parameters.get("element");
         Context context = contextBuilder()
             .add("List", list)
-            .add("Key", key)
             .add("Index", index)
+            .add("Element", element)
             .build();
-        int actual = list.findFirst(key);
-        Assertions2.assertEquals(index, actual, context, result -> "Index of first occurrence mismatch");
-    }
-
-    @Test
-    void testRequirements() {
-        TutorAssertions.assertRecursive(getMethod(), getMethodName(), contextBuilder());
+        int actual = list.get(index);
+        Assertions2.assertEquals(element, actual, context, result -> "Element at the index %s mismatch".formatted(index));
     }
 }

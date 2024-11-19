@@ -22,6 +22,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Tests for H10.1.4.
+ *
+ * @author Nhan Huynh
+ */
 @TestForSubmission
 @DisplayName("H10.1.4 | Vorkommen der Karte SKIP zählen - mit Iterator")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)

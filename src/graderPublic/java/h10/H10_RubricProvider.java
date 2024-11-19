@@ -3,7 +3,6 @@ package h10;
 import org.sourcegrade.jagr.api.rubric.Criterion;
 import org.sourcegrade.jagr.api.rubric.Rubric;
 import org.sourcegrade.jagr.api.rubric.RubricProvider;
-import org.tudalgo.algoutils.tutor.general.jagr.RubricUtils;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 
 import static h10.util.Rubrics.criterion;
@@ -21,8 +20,7 @@ public class H10_RubricProvider implements RubricProvider {
                     criterion(
                             "Die Liste wird korrekt erstellt und zurückgegeben. Jedes Listenelement verweist korrekt auf den vorherigen und nächsten Spieler, sofern dieser existiert.",
                             "h10.H10_1_1_Tests",
-                            "testResult",
-                            JsonParameterSet.class
+                            "testResult", JsonParameterSet.class
                     )
             ).build();
 
@@ -34,8 +32,7 @@ public class H10_RubricProvider implements RubricProvider {
                     criterion(
                             "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
                             "h10.H10_1_2_Tests",
-                            "testResult",
-                            JsonParameterSet.class
+                            "testResult", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
@@ -53,8 +50,7 @@ public class H10_RubricProvider implements RubricProvider {
                     criterion(
                             "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
                             "h10.H10_1_3_Tests",
-                            "testResult",
-                            JsonParameterSet.class
+                            "testResult", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
@@ -72,8 +68,7 @@ public class H10_RubricProvider implements RubricProvider {
                     criterion(
                             "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
                             "h10.H10_1_3_Tests",
-                            "testResult",
-                            JsonParameterSet.class
+                            "testResult", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
@@ -100,8 +95,7 @@ public class H10_RubricProvider implements RubricProvider {
                     criterion(
                             "Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben.",
                             "h10.H10_2_1_Tests",
-                            "testResult",
-                            JsonParameterSet.class
+                            "testResult", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
@@ -111,29 +105,46 @@ public class H10_RubricProvider implements RubricProvider {
                     )
             ).build();
 
-    private static final Criterion H10_2 = Criterion.builder()
-            .shortDescription("H10.2 | DoublyLinkedList<T>")
-            .addChildCriteria(
-                    H10_2_1
-            ).build();
-
-    /*
-
-
     private static final Criterion H10_2_2 = Criterion.builder()
             .shortDescription("H10.2.2 | Auf ein Element in der Liste zugreifen")
             .minPoints(0)
             .maxPoints(3)
             .addChildCriteria(
-                    criterion("Die Methode gibt das Element an der angegebenen Position zurück."), // TODO: PUBLIC TEST
-                    criterion("Die Suche wird in der Liste von vorne oder hinten gestartet, je nachdem, welcher Weg kürzer ist."),
-                    criterion("Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen."),
+                    criterion(
+                            "Die Methode gibt das Element an der angegebenen Position zurück.",
+                            "h10.H10_2_2_Tests",
+                            "testPositions", JsonParameterSet.class
+                    ),
+                    criterion(
+                            "Die Suche wird in der Liste von vorne oder hinten gestartet, je nachdem, welcher Weg kürzer ist.",
+                            "h10.H10_2_2_Tests",
+                            "testPath"
+                    ),
+                    criterion(
+                            "Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.",
+                            "h10.H10_2_2_Tests",
+                            "testException"
+                    ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
-                            -3
-                    ) // Punktabzug wenn nicht erfüllt
+                            -3,
+                            "h10.H10_2_2_Tests",
+                            "testRequirements"
+                    )
             )
             .build();
+
+    private static final Criterion H10_2 = Criterion.builder()
+            .shortDescription("H10.2 | DoublyLinkedList<T>")
+            .addChildCriteria(
+                    H10_2_1,
+                    H10_2_2
+            ).build();
+
+    /*
+
+
+
 
     private static final Criterion H10_2_3 = Criterion.builder()
             .shortDescription("H10.2.3 | Ein Element hinzufügen")
