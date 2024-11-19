@@ -92,18 +92,18 @@ public class H10_RubricProvider implements RubricProvider {
                     H10_1_4
             ).build();
 
+    private final boolean privateTests;
 
-    public static final Rubric RUBRIC = Rubric.builder()
-            .title("H10 | Doppelt verkette Listen - Public Tests")
-            .addChildCriteria(
-                    H10_1
-                    // H10_2,
-                    // H10_3
-            )
-            .build();
+
+    public H10_RubricProvider(boolean privateTests) {
+        this.privateTests = privateTests;
+    }
 
     @Override
     public Rubric getRubric() {
-        return RUBRIC;
+        return Rubric.builder()
+                .title("H10 | Doppelt verkette Listen - %s Tests".formatted(privateTests ? "Private" : "Public"))
+                .addChildCriteria(H10_1)
+                .build();
     }
 }

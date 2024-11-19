@@ -27,11 +27,13 @@ submission {
 
 jagr {
     graders {
-        val graderPublic by getting
+        val graderPublic by getting {
+            rubricProviderName.set("h10.H10_RubricProviderPublic")
+        }
         val graderPrivate by creating {
             parent(graderPublic)
             graderName.set("FOP-2425-H10-Private")
-            rubricProviderName.set("h10.H10_RubricProvider")
+            rubricProviderName.set("h10.H10_RubricProviderPrivate")
         }
     }
 }
