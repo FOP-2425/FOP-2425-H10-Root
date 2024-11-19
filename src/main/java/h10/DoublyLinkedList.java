@@ -3,7 +3,6 @@ package h10;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -225,7 +224,7 @@ public class DoublyLinkedList<T> {
     /**
      * An iterator for traversing a doubly linked list in a cyclic manner.
      */
-    class CyclicIterator implements Iterator<T> {
+    private class CyclicIterator implements BidirectionalIterator<T> {
         /**
          * The current ListItem of the iterator in the doubly linked list.
          */
@@ -241,9 +240,11 @@ public class DoublyLinkedList<T> {
         }
 
         /**
-         * Checks if there are more elements to iterate over in the list.
+         * Returns {@code true} if this iterator has more elements when
+         * traversing the list in the forward direction.
          *
-         * @return true if there are more elements, false otherwise
+         * @return {@code true} if the list iterator has more elements when
+         *         traversing the list in the forward direction
          */
         @Override
         @StudentImplementationRequired
@@ -252,16 +253,17 @@ public class DoublyLinkedList<T> {
         }
 
         /**
-         * Returns the next element in the list and advances the iterator.
-         * If the end of the list is reached, it wraps around to the head.
+         * Returns the next element in the iteration and advances the cursor position.
+         * This method may be called repeatedly to iterate through the list,
+         * or intermixed with calls to {@link #previous} to go back and forth.
          *
-         * @return the next element in the list
+         * @return the next element in the iteration
          * @throws NoSuchElementException if there are no more elements to iterate over
          */
         @Override
         @StudentImplementationRequired
         public T next() {
-            if(!hasNext()) throw new NoSuchElementException("The list is empty");
+            if (!hasNext()) throw new NoSuchElementException("The list is empty");
 
             if (p == null || p.next == null) {
                 p = head;
@@ -275,9 +277,10 @@ public class DoublyLinkedList<T> {
         }
 
         /**
-         * Checks if there are previous elements to iterate over in the list.
+         * Returns {@code true} if this iterator has more elements when
+         * traversing the list in the reverse direction.
          *
-         * @return true if there are previous elements, false otherwise
+         * @return {@code true} if the iteration has more elements in the reverse direction
          */
         @StudentImplementationRequired
         public boolean hasPrevious() {
@@ -285,15 +288,16 @@ public class DoublyLinkedList<T> {
         }
 
         /**
-         * Returns the previous element in the list and moves the iterator backwards.
-         * If the beginning of the list is reached, it wraps around to the tail.
+         * Returns the previous element in the iteration and moves the cursor position backwards.
+         * This method may be called repeatedly to iterate through the list,
+         * or intermixed with calls to {@link #next} to go back and forth.
          *
-         * @return the previous element in the list
+         * @return the previous element in the iteration
          * @throws NoSuchElementException if there are no more elements to iterate over
          */
         @StudentImplementationRequired
         public T previous() {
-            if(!hasPrevious()) throw new NoSuchElementException("The list is empty");
+            if (!hasPrevious()) throw new NoSuchElementException("The list is empty");
 
             if (p == null || p.prev == null) {
                 p = tail;
@@ -329,7 +333,7 @@ public class DoublyLinkedList<T> {
      * Retrieve an iterator for traversing this doubly linked list in a cyclic manner.
      */
     @DoNotTouch
-    public CyclicIterator cyclicIterator() {
+    public BidirectionalIterator<T> cyclicIterator() {
         return new CyclicIterator();
     }
 
