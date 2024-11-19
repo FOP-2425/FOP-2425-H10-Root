@@ -36,8 +36,4 @@ public class MockDoubleLinkedList<T> extends DoublyLinkedList<T> {
     public ListItem<T> getTail() {
         return tail.get(this);
     }
-
-    public int getSize() {
-        return size.get(this);
-    }
 }

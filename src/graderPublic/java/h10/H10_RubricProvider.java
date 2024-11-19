@@ -177,7 +177,8 @@ public class H10_RubricProvider implements RubricProvider {
             .shortDescription("H10.2 | DoublyLinkedList<T>")
             .addChildCriteria(
                     H10_2_1,
-                    H10_2_2
+                    H10_2_2,
+                    H10_2_3
             ).build();
 
     /*
