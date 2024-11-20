@@ -9,6 +9,7 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLoop;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.reference.CtExecutableReference;
+import spoon.support.SpoonClassNotFoundException;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -109,8 +110,22 @@ public final class TutorAssertionsPrivate {
             .stream()
             .filter(element -> element instanceof CtInvocation<?> invocation)
             .map(element -> (CtInvocation<?>) element)
-            .map(CtInvocation::getExecutable)
-            .map(CtExecutableReference::getActualMethod)
+            .map(element -> {
+                try {
+                    return element.getExecutable();
+                } catch (SpoonClassNotFoundException e) {
+                    return null;
+                }
+            })
+            .filter(Objects::nonNull)
+            .map(reference -> {
+                try {
+                    // Jagr issue cannot resolve enums or wildcards
+                    return reference.getActualMethod();
+                } catch (SpoonClassNotFoundException e) {
+                    return null;
+                }
+            })
             .filter(Objects::nonNull)
             .map(BasicMethodLink::of)
             .filter(methodLink -> !visited.contains(methodLink))
