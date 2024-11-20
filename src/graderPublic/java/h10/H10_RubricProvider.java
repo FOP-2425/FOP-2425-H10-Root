@@ -5,6 +5,9 @@ import org.sourcegrade.jagr.api.rubric.Rubric;
 import org.sourcegrade.jagr.api.rubric.RubricProvider;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 
+import java.util.List;
+import java.util.Map;
+
 import static h10.util.Rubrics.criterion;
 
 /**
@@ -181,12 +184,18 @@ public class H10_RubricProvider implements RubricProvider {
             criterion(
                 "Die Fälle 1 und 4 wurden korrekt implementiert.",
                 "h10.H10_2_4_TestsPublic",
-                "testCase1And4", JsonParameterSet.class
+                Map.of(
+                    "testCase1", List.of(),
+                    "testCase4", List.of(JsonParameterSet.class)
+                )
             ),
             criterion(
                 "Die Fälle 2 und 3 wurden korrekt implementiert.",
                 "h10.H10_2_4_TestsPrivate",
-                "testCase2And3", JsonParameterSet.class
+                Map.of(
+                    "testCase2", List.of(JsonParameterSet.class),
+                    "testCase3", List.of(JsonParameterSet.class)
+                )
             ),
             criterion(
                 "Die Größe der Liste wird um 1 verringert.",

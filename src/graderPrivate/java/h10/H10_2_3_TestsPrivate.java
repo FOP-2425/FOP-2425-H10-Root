@@ -38,6 +38,7 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
             .add("List", list)
             .add("Index", index)
             .add("Element to add", element)
+            .add("List after adding", expected)
             .build();
 
         list.add(index, element);
@@ -64,6 +65,7 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
             .add("List", list)
             .add("Index", index)
             .add("Element to add", element)
+            .add("List after adding", expected)
             .build();
 
         list.add(index, element);
@@ -96,6 +98,7 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
             .add("List", list)
             .add("Element to add", element)
             .add("Index", index)
+            .add("Size after adding", size)
             .build();
 
         list.add(index, element);

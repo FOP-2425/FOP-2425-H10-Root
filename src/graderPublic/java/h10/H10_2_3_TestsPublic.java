@@ -74,6 +74,7 @@ public class H10_2_3_TestsPublic extends H10_Test {
             .subject(methodLink)
             .add("List", list)
             .add("Element", element)
+            .add("List after adding", List.of(element))
             .build();
         list.add(element);
 
@@ -96,6 +97,7 @@ public class H10_2_3_TestsPublic extends H10_Test {
             .add("List", list)
             .add("Index", 0)
             .add("Element", element)
+            .add("List after adding", expected)
             .build();
 
         list.add(0, element);
