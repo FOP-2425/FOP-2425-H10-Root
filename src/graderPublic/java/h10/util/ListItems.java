@@ -2,6 +2,7 @@ package h10.util;
 
 import h10.ListItem;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -76,7 +77,10 @@ public final class ListItems {
      * @param <T>      the type of the elements
      * @return the head of the list
      */
-    public static <T> ListItem<T> toItems(List<T> elements) {
+    public static <T> @Nullable ListItem<T> toItems(List<T> elements) {
+        if (elements.isEmpty()) {
+            return null;
+        }
         List<ListItem<T>> items = elements.stream().map(ListItem::new).toList();
         items.stream().reduce((tail, item) -> {
             tail.next = item;

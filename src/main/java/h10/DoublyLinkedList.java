@@ -63,8 +63,8 @@ public class DoublyLinkedList<T> {
     /**
      * Helper method to find the first occurrence of an element in the list recursively.
      *
-     * @param p the current ListItem
-     * @param key the element to be checked for presence in the list
+     * @param p     the current ListItem
+     * @param key   the element to be checked for presence in the list
      * @param index the index of the current ListItem
      * @return the index of the element if the element is present, -1 otherwise
      */
@@ -72,7 +72,7 @@ public class DoublyLinkedList<T> {
     private int findFirstHelper(ListItem<T> p, T key, int index) {
         if (p == null) return -1;
         if (p.key.equals(key)) return index;
-        return findFirstHelper(p.next, key, index+1);
+        return findFirstHelper(p.next, key, index + 1);
     }
 
     /**
@@ -102,7 +102,7 @@ public class DoublyLinkedList<T> {
 
         // Use double linked structure, iterate from the beginning or the end
         ListItem<T> p;
-        if(index < (size / 2)) {
+        if (index < (size / 2)) {
             p = head;
             for (int i = 0; i < index; i++) {
                 p = p.next;
@@ -132,13 +132,13 @@ public class DoublyLinkedList<T> {
      * Adds a new element at the specified index in the doubly linked list.
      *
      * @param index the position at which the element is to be added
-     * @param key the element to be added
-     * @throws IllegalArgumentException if the key is null
+     * @param key   the element to be added
+     * @throws IllegalArgumentException  if the key is null
      * @throws IndexOutOfBoundsException if the index is invalid
      */
     @StudentImplementationRequired
     public void add(int index, T key) {
-        if(key == null) {
+        if (key == null) {
             throw new IllegalArgumentException("Key must not be null");
         }
 
@@ -146,7 +146,7 @@ public class DoublyLinkedList<T> {
         tmp.key = key;
 
         if (index == size) {
-            if(head == null) { // List is empty
+            if (head == null) { // List is empty
                 head = tmp;
                 tail = head;
             } else { // Append new element at the end of the list
@@ -180,7 +180,7 @@ public class DoublyLinkedList<T> {
      */
     @StudentImplementationRequired
     private T removeListItem(ListItem<T> p) {
-        if(size == 1) { // Case 1: Only one element in the list
+        if (size == 1) { // Case 1: Only one element in the list
             head = null;
             tail = null;
         } else if (p == head) { // Case 2: Remove head
@@ -224,14 +224,15 @@ public class DoublyLinkedList<T> {
     /**
      * An iterator for traversing a doubly linked list in a cyclic manner.
      */
-    private class CyclicIterator implements BidirectionalIterator<T> {
+    class CyclicIterator implements BidirectionalIterator<T> {
         /**
          * The current ListItem of the iterator in the doubly linked list.
          */
         @DoNotTouch
-        private ListItem<T> p;
+        ListItem<T> p;
+
         @DoNotTouch
-        private boolean calledRemove;
+        boolean calledRemove;
 
         @DoNotTouch
         public CyclicIterator() {
@@ -244,7 +245,7 @@ public class DoublyLinkedList<T> {
          * traversing the list in the forward direction.
          *
          * @return {@code true} if the list iterator has more elements when
-         *         traversing the list in the forward direction
+         * traversing the list in the forward direction
          */
         @Override
         @StudentImplementationRequired
@@ -318,7 +319,7 @@ public class DoublyLinkedList<T> {
         @Override
         @DoNotTouch
         public void remove() {
-            if (p == null)  {
+            if (p == null) {
                 throw new IllegalStateException("next or previous method has not been called yet");
             } else if (calledRemove) {
                 throw new IllegalStateException("Element has already been removed");

@@ -228,6 +228,36 @@ public class H10_RubricProvider implements RubricProvider {
             H10_2_5
         ).build();
 
+    private static final Criterion H10_3_1 = Criterion.builder()
+        .shortDescription("H10.3.1 | Das nächste Element zurückgeben")
+        .addChildCriteria(
+            criterion(
+                "Die Methode hasNext() gibt korrekt an, ob es ein nächstes Element gibt.",
+                "h10.H10_3_1_Tests",
+                "testHasNext"
+            ),
+            criterion(
+                "Die Methode next() gibt das nächste Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.",
+                "h10.H10_3_1_Tests",
+                Map.of(
+                    "testNextEmpty", List.of(),
+                    "testNextEnd", List.of(),
+                    "testNextMiddle", List.of()
+                )
+            ),
+            criterion(
+                "Die Methode next() setzt das Attribut calledRemove auf false.",
+                "h10.H10_3_1_Tests",
+                "testCalledRemove"
+            )
+        ).build();
+
+    private static final Criterion H10_3 = Criterion.builder()
+        .shortDescription("H10.3 | Zyklischer Iterator über die DoublyLinkedList")
+        .addChildCriteria(
+            H10_3_1
+        ).build();
+
     /*
 
     private static final Criterion H10_3_1 = Criterion.builder()
@@ -266,14 +296,7 @@ public class H10_RubricProvider implements RubricProvider {
         )
         .build();
 
-    private static final Criterion H10_3 = Criterion.builder()
-        .shortDescription("H10.3 | Zyklischer Iterator über die DoublyLinkedList")
-        .addChildCriteria(
-            H10_3_1,
-            H10_3_2,
-            H10_3_3
-        )
-        .build();
+
 
     public static final Rubric RUBRIC = Rubric.builder()
         .title("H10 | Doppelt verkette Listen")
@@ -295,7 +318,7 @@ public class H10_RubricProvider implements RubricProvider {
     public Rubric getRubric() {
         return Rubric.builder()
             .title("H10 | Doppelt verkette Listen - %s Tests".formatted(privateTests ? "Private" : "Public"))
-            .addChildCriteria(H10_1, H10_2)
+            .addChildCriteria(H10_1, H10_2, H10_3)
             .build();
     }
 }
