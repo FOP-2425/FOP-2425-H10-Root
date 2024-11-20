@@ -3,6 +3,7 @@ package h10;
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
 import h10.util.ListItems;
+import h10.util.TutorAssertionsPublic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -26,32 +27,7 @@ import java.util.function.Function;
 @TestForSubmission
 @DisplayName("H10.2.3 | Ein Element hinzufügen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_2_3_TestsPrivate extends H10_Test {
-
-    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
-        Map.of(
-            "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
-            "index", JsonNode::asInt,
-            "key", JsonNode::asInt,
-            "expected", node -> JsonConverters.toList(node, JsonNode::asInt),
-            "size", JsonNode::asInt
-        )
-    );
-
-    @Override
-    public Class<?> getClassType() {
-        return DoublyLinkedList.class;
-    }
-
-    @Override
-    public String getMethodName() {
-        return "add";
-    }
-
-    @Override
-    public List<Class<?>> getMethodParameters() {
-        return List.of(int.class, Object.class);
-    }
+public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
 
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_3_End.json", customConverters = CUSTOM_CONVERTERS)
@@ -69,13 +45,7 @@ public class H10_2_3_TestsPrivate extends H10_Test {
 
         list.add(index, element);
 
-        Iterator<Integer> expectedIterator = expected.iterator();
-        Iterator<Integer> actualIterator = ListItems.iterator(list.getHead());
-        while (expectedIterator.hasNext() && actualIterator.hasNext()) {
-            Assertions2.assertEquals(expectedIterator.next(), actualIterator.next(), context, result -> "Element mismatch");
-        }
-        Assertions2.assertFalse(expectedIterator.hasNext(), context, result -> "Expected list has more elements");
-        Assertions2.assertFalse(actualIterator.hasNext(), context, result -> "Actual list has more elements");
+        TutorAssertionsPublic.assertEquals(expected.iterator(), ListItems.iterator(list.getHead()), context);
 
         // Check references
         Assertions2.assertNull(list.getTail().next, context, result -> "Tail next should be null");
@@ -101,13 +71,7 @@ public class H10_2_3_TestsPrivate extends H10_Test {
         list.add(index, element);
         List<ListItem<Integer>> itemsAfter = ListItems.itemStream(list.getHead()).toList();
 
-        Iterator<Integer> expectedIterator = expected.iterator();
-        Iterator<Integer> actualIterator = ListItems.iterator(list.getHead());
-        while (expectedIterator.hasNext() && actualIterator.hasNext()) {
-            Assertions2.assertEquals(expectedIterator.next(), actualIterator.next(), context, result -> "Element mismatch");
-        }
-        Assertions2.assertFalse(expectedIterator.hasNext(), context, result -> "Expected list has more elements");
-        Assertions2.assertFalse(actualIterator.hasNext(), context, result -> "Actual list has more elements");
+        TutorAssertionsPublic.assertEquals(expected.iterator(), ListItems.iterator(list.getHead()), context);
 
         // Check references
 

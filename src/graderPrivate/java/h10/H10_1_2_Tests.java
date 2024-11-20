@@ -2,7 +2,7 @@ package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
-import h10.util.TutorAssertions;
+import h10.util.TutorAssertionsPrivate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,9 +50,8 @@ public class H10_1_2_Tests extends H10_1_CountSkipCards_Tests {
         super.testResult(parameters);
     }
 
-    @Override
     @Test
     public void testRequirements() {
-        TutorAssertions.assertIterative(getMethod(), getMethodName(), contextBuilder());
+        TutorAssertionsPrivate.assertIterative(getMethod(), getMethodName(), contextBuilder());
     }
 }

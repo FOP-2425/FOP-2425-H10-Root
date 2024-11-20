@@ -2,7 +2,6 @@ package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
-import h10.util.TutorAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,7 +25,7 @@ import java.util.function.Function;
 @TestForSubmission
 @DisplayName("H10.2.1 | Ist dieses Element bereits in der Liste?")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_2_1_Tests extends H10_Test {
+public class H10_2_1_TestsPublic extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
         Map.of(

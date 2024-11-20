@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
 import h10.util.Links;
 import h10.util.ListItems;
+import h10.util.TutorAssertionsPublic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,7 +39,8 @@ public class H10_2_3_TestsPublic extends H10_Test {
             "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
             "index", JsonNode::asInt,
             "key", JsonNode::asInt,
-            "expected", node -> JsonConverters.toList(node, JsonNode::asInt)
+            "expected", node -> JsonConverters.toList(node, JsonNode::asInt),
+            "size", JsonNode::asInt
         )
     );
 
@@ -95,18 +97,12 @@ public class H10_2_3_TestsPublic extends H10_Test {
 
         list.add(0, element);
 
-        Iterator<Integer> expectedIterator = expected.iterator();
-        Iterator<Integer> actualIterator = ListItems.iterator(list.getHead());
-        while (expectedIterator.hasNext() && actualIterator.hasNext()) {
-            Assertions2.assertEquals(expectedIterator.next(), actualIterator.next(), context, result -> "Element mismatch");
-        }
-        Assertions2.assertFalse(expectedIterator.hasNext(), context, result -> "Expected list has more elements");
-        Assertions2.assertFalse(actualIterator.hasNext(), context, result -> "Actual list has more elements");
+        TutorAssertionsPublic.assertEquals(expected.iterator(), ListItems.iterator(list.getHead()), context);
 
         // Check references
-        Assertions2.assertEquals(list.getHead().next, items.get(0), context, result -> "Head next mismatch");
+        Assertions2.assertEquals(list.getHead().next, items.getFirst(), context, result -> "Head next mismatch");
         Assertions2.assertEquals(list.getHead().prev, null, context, result -> "Head prev mismatch");
-        Assertions2.assertEquals(items.get(0).prev, list.getHead(), context, result -> "First item prev mismatch");
+        Assertions2.assertEquals(items.getFirst().prev, list.getHead(), context, result -> "First item prev mismatch");
     }
 
     @ParameterizedTest

@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
  *
  * @author Nhan huynh
  */
-public final class TutorAssertions {
+public final class TutorAssertionsPrivate {
 
     /**
      * Prevent instantiation of this utility class.
      */
-    private TutorAssertions() {
+    private TutorAssertionsPrivate() {
     }
 
     /**

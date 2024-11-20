@@ -20,15 +20,13 @@ public abstract class H10_1_CountSkipCards_Tests extends H10_Test {
         Object deck = parameters.get("deck");
         int expectedSkips = parameters.get("count");
         Context context = contextBuilder()
-                .add("Deck", deck instanceof ListItem<?> items ? ListItems.stream(items).toList() : deck)
-                .add("Number of skips", expectedSkips)
-                .build();
+            .add("Deck", deck instanceof ListItem<?> items ? ListItems.stream(items).toList() : deck)
+            .add("Number of skips", expectedSkips)
+            .build();
 
         MethodLink method = getMethod();
         int actualSkips = method.invokeStatic(deck);
 
         Assertions2.assertEquals(expectedSkips, actualSkips, context, result -> "Number of skips is incorrect");
     }
-
-    abstract void testRequirements();
 }

@@ -30,7 +30,8 @@ public class H10_2_2_TestsPublic extends H10_Test {
         Map.of(
             "list", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
             "index", JsonNode::asInt,
-            "element", JsonNode::asInt
+            "element", JsonNode::asInt,
+            "begin", JsonNode::asBoolean
         )
     );
 
