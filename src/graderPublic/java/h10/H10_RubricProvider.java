@@ -276,6 +276,41 @@ public class H10_RubricProvider implements RubricProvider {
                 "h10.H10_3_2_Tests",
                 "testCalledRemove"
             )
+        ).build();
+
+    private static final Criterion H10_3_3 = Criterion.builder()
+        .shortDescription("H10.3.3 | Verlierer des Spiels bestimmen")
+        .addChildCriteria(
+            criterion(
+                "Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.",
+                "h10.H10_3_3_TestsPublic",
+                "testLastCards"
+            ),
+            criterion(
+                "Bei einem SKIP wird der nächste Spieler übersprungen.",
+                "h10.H10_3_3_TestsPublic",
+                "testSkip"
+            ),
+            criterion(
+                "Bei einer REVERSE-Karte wird die Richtung des Iterators umgekehrt.",
+                "h10.H10_3_3_TestsPublic",
+                "testReverse"
+            ),
+            criterion(
+                "Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.",
+                "h10.H10_3_3_TestsPrivate",
+                "testDrawTwoLastTurn"
+            ),
+            criterion(
+                "Wurden in den vorherigen Zügen mehrere DRAW_TWO-Karten gespielt, so erhöht sich die Anzahl der zu ziehenden Karten entsprechend.",
+                "h10.H10_3_3_TestsPrivate",
+                "testDrawTwoMultiple"
+            ),
+            criterion(
+                "Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.",
+                "h10.H10_3_3_TestsPrivate",
+                "testNoCards"
+            )
         )
         .build();
 
@@ -283,37 +318,9 @@ public class H10_RubricProvider implements RubricProvider {
         .shortDescription("H10.3 | Zyklischer Iterator über die DoublyLinkedList")
         .addChildCriteria(
             H10_3_1,
-            H10_3_2
+            H10_3_2,
+            H10_3_3
         ).build();
-
-    /*
-
-
-    private static final Criterion H10_3_3 = Criterion.builder()
-        .shortDescription("H10.3.3 | Verlierer des Spiels bestimmen")
-        .minPoints(0)
-        .maxPoints(6)
-        .addChildCriteria(
-                criterion("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben."), // TODO: PUBLIC TEST
-                criterion("Bei einem SKIP wird der nächste Spieler übersprungen."), // TODO: PUBLIC TEST
-                criterion("Bei einer REVERSE-Karte wird die Richtung des Iterators umgekehrt."), // TODO: PUBLIC TEST
-                criterion("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt."),
-                criterion("Wurden in den vorherigen Zügen mehrere DRAW_TWO-Karten gespielt, so erhöht sich die Anzahl der zu ziehenden Karten entsprechend."),
-                criterion("Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.")
-        )
-        .build();
-
-
-
-    public static final Rubric RUBRIC = Rubric.builder()
-        .title("H10 | Doppelt verkette Listen")
-        .addChildCriteria(
-            H10_1,
-            H10_2,
-            H10_3
-        )
-        .build();
-     */
 
     private final boolean privateTests;
 
@@ -325,7 +332,11 @@ public class H10_RubricProvider implements RubricProvider {
     public Rubric getRubric() {
         return Rubric.builder()
             .title("H10 | Doppelt verkette Listen - %s Tests".formatted(privateTests ? "Private" : "Public"))
-            .addChildCriteria(H10_1, H10_2, H10_3)
+            .addChildCriteria(
+                H10_1,
+                H10_2,
+                H10_3
+            )
             .build();
     }
 }
