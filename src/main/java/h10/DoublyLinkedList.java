@@ -211,23 +211,6 @@ public class DoublyLinkedList<T> {
         return removeListItem(p);
     }
 
-    public static void main(String[] args) {
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
-        list.add(0);
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-
-        BidirectionalIterator<Integer> it = list.cyclicIterator();
-        it.next();
-        it.next();
-        it.remove();
-        it.next();
-        it.remove();
-
-    }
     /**
      * Removes all elements from the list.
      */
