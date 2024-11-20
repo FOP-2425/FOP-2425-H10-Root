@@ -30,9 +30,9 @@ import java.util.function.Function;
 public class H10_1_1_Tests extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
-            Map.of(
-                    "data", node -> JsonConverters.toList(node, JsonNode::asText)
-            )
+        Map.of(
+            "data", node -> JsonConverters.toList(node, JsonNode::asText)
+        )
     );
 
     @Override
@@ -50,13 +50,14 @@ public class H10_1_1_Tests extends H10_Test {
         return List.of(String[].class);
     }
 
+    @DisplayName("Die Liste wird korrekt erstellt und zurückgegeben. Jedes Listenelement verweist korrekt auf den vorherigen und nächsten Spieler, sofern dieser existiert.")
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_1_1.json", customConverters = CUSTOM_CONVERTERS)
     void testResult(JsonParameterSet parameters) {
         List<String> expected = parameters.get("data");
         Context context = contextBuilder()
-                .add("names", expected)
-                .build();
+            .add("names", expected)
+            .build();
         ListItem<CardGamePlayer> actual = ListItemExamples.createPlayerListFromNames(expected.toArray(String[]::new));
 
         Iterator<String> expectedIterator = expected.iterator();

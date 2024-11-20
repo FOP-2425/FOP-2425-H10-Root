@@ -42,6 +42,7 @@ public class H10_1_4_TestsPublic extends H10_1_CountSkipCards_Tests {
         return List.of(List.class);
     }
 
+    @DisplayName("Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.")
     @Override
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_1_3.json", customConverters = CUSTOM_CONVERTERS)

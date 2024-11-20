@@ -24,6 +24,7 @@ import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
 
+    @DisplayName("Die Suche wird in der Liste von vorne oder hinten gestartet, je nachdem, welcher Weg kürzer ist.")
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Path.json", customConverters = CUSTOM_CONVERTERS)
     void testPath(JsonParameterSet parameters) {
@@ -48,6 +49,7 @@ public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
         Assertions2.call(() -> list.get(index), context, result -> "Search strategy mismatch");
     }
 
+    @DisplayName("Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.")
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Exception.json", customConverters = CUSTOM_CONVERTERS)
     void testException(JsonParameterSet parameters) {
@@ -68,6 +70,7 @@ public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
         Assertions2.assertEquals("Index out of bounds", throwable.getMessage(), context, result -> "Exception message mismatch");
     }
 
+    @DisplayName("Verbindliche Anforderung nicht erfüllt")
     @Test
     void testRequirements() {
         TutorAssertionsPrivate.assertIterative(getMethod(), getMethodName(), contextBuilder());

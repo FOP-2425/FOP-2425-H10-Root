@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_1_4_TestsPrivate extends H10_1_4_TestsPublic {
 
+    @DisplayName("Verbindliche Anforderung nicht erfüllt")
     @Test
     void testRequirements() {
         MethodLink method = getMethod();

@@ -52,6 +52,7 @@ public class H10_2_2_TestsPublic extends H10_Test {
         return List.of(int.class);
     }
 
+    @DisplayName("Die Methode gibt das Element an der angegebenen Position zurück.")
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Position.json", customConverters = CUSTOM_CONVERTERS)
     void testPositions(JsonParameterSet parameters) {
@@ -61,7 +62,7 @@ public class H10_2_2_TestsPublic extends H10_Test {
         Context context = contextBuilder()
             .add("List", list)
             .add("Index", index)
-            .add("Element", element)
+            .add("Element to add", element)
             .build();
         int actual = list.get(index);
         Assertions2.assertEquals(element, actual, context, result -> "Element at the index %s mismatch".formatted(index));

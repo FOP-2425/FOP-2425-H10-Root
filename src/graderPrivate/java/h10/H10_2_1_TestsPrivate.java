@@ -17,6 +17,7 @@ import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_2_1_TestsPrivate extends H10_2_1_TestsPublic {
 
+    @DisplayName("Verbindliche Anforderung nicht erfüllt")
     @Test
     void testRequirements() {
         TutorAssertionsPrivate.assertRecursive(getMethod(), getMethodName(), contextBuilder());

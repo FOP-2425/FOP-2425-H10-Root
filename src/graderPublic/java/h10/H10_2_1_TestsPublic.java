@@ -51,6 +51,7 @@ public class H10_2_1_TestsPublic extends H10_Test {
         return List.of(ListItem.class, Object.class, int.class);
     }
 
+    @DisplayName("Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben.")
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_1.json", customConverters = CUSTOM_CONVERTERS)
     void testResult(JsonParameterSet parameters) {

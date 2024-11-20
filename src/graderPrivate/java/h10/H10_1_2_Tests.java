@@ -44,6 +44,7 @@ public class H10_1_2_Tests extends H10_1_CountSkipCards_Tests {
         return List.of(ListItem.class);
     }
 
+    @DisplayName("Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.")
     @Override
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_1_3.json", customConverters = CUSTOM_CONVERTERS)
@@ -51,6 +52,7 @@ public class H10_1_2_Tests extends H10_1_CountSkipCards_Tests {
         super.testResult(parameters);
     }
 
+    @DisplayName("Verbindliche Anforderung nicht erfüllt")
     @Test
     public void testRequirements() {
         TutorAssertionsPrivate.assertIterative(getMethod(), getMethodName(), contextBuilder());

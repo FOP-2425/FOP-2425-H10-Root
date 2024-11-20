@@ -6,6 +6,9 @@ import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
 import org.tudalgo.algoutils.tutor.general.jagr.RubricUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public final class Rubrics {
 
@@ -30,12 +33,16 @@ public final class Rubrics {
     }
 
     public static Criterion criterion(String description, int points,
-                                      String className, String methodName, Class<?>... parametersType
-    ) {
+                                      String className, Map<String, List<Class<?>>> methods) {
         Criterion.Builder builder;
         try {
-            Method method = Class.forName(className).getDeclaredMethod(methodName, parametersType);
-            builder = criterionBuilder(description, JUnitTestRef.ofMethod(method));
+            List<JUnitTestRef> testRefs = new ArrayList<>(methods.size());
+            for (Map.Entry<String, List<Class<?>>> entry : methods.entrySet()) {
+                Method method = Class.forName(className)
+                    .getDeclaredMethod(entry.getKey(), entry.getValue().toArray(Class[]::new));
+                testRefs.add(JUnitTestRef.ofMethod(method));
+            }
+            builder = criterionBuilder(description, JUnitTestRef.and(testRefs.toArray(JUnitTestRef[]::new)));
         } catch (Exception e) {
             builder = criterionBuilder(description, RubricUtils.graderPrivateOnly());
         }
@@ -49,8 +56,20 @@ public final class Rubrics {
         return builder.build();
     }
 
+
+    public static Criterion criterion(String description, int points,
+                                      String className, String methodName, Class<?>... parametersType
+    ) {
+        return criterion(description, points, className, Map.of(methodName, List.of(parametersType)));
+    }
+
     public static Criterion criterion(String description,
                                       String className, String methodName, Class<?>... parametersType) {
         return criterion(description, 1, className, methodName, parametersType);
+    }
+
+    public static Criterion criterion(String description,
+                                      String className, Map<String, List<Class<?>>> methods) {
+        return criterion(description, 1, className, methods);
     }
 }
