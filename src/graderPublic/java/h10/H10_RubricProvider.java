@@ -15,171 +15,199 @@ import static h10.util.Rubrics.criterion;
 public class H10_RubricProvider implements RubricProvider {
 
     private static final Criterion H10_1_1 = Criterion.builder()
-            .shortDescription("H10.1.1 | Liste von Spielern erstellen")
-            .addChildCriteria(
-                    criterion(
-                            "Die Liste wird korrekt erstellt und zurückgegeben. Jedes Listenelement verweist korrekt auf den vorherigen und nächsten Spieler, sofern dieser existiert.",
-                            "h10.H10_1_1_Tests",
-                            "testResult", JsonParameterSet.class
-                    )
-            ).build();
+        .shortDescription("H10.1.1 | Liste von Spielern erstellen")
+        .addChildCriteria(
+            criterion(
+                "Die Liste wird korrekt erstellt und zurückgegeben. Jedes Listenelement verweist korrekt auf den vorherigen und nächsten Spieler, sofern dieser existiert.",
+                "h10.H10_1_1_Tests",
+                "testResult", JsonParameterSet.class
+            )
+        ).build();
 
     private static final Criterion H10_1_2 = Criterion.builder()
-            .shortDescription("H10.1.2 | Vorkommen der Karte SKIP zählen - iterativ")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion(
-                            "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
-                            "h10.H10_1_2_Tests",
-                            "testResult", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -1,
-                            "h10.H10_1_2_Tests",
-                            "testRequirements"
-                    )
-            ).build();
+        .shortDescription("H10.1.2 | Vorkommen der Karte SKIP zählen - iterativ")
+        .minPoints(0)
+        .maxPoints(1)
+        .addChildCriteria(
+            criterion(
+                "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
+                "h10.H10_1_2_Tests",
+                "testResult", JsonParameterSet.class
+            ),
+            criterion(
+                "Verbindliche Anforderung nicht erfüllt",
+                -1,
+                "h10.H10_1_2_Tests",
+                "testRequirements"
+            )
+        ).build();
 
     private static final Criterion H10_1_3 = Criterion.builder()
-            .shortDescription("H10.1.3 | Vorkommen der Karte SKIP zählen - rekursiv")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion(
-                            "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
-                            "h10.H10_1_3_TestsPublic",
-                            "testResult", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -1,
-                            "h10.H10_1_3_TestsPrivate",
-                            "testRequirements"
-                    )
-            ).build();
+        .shortDescription("H10.1.3 | Vorkommen der Karte SKIP zählen - rekursiv")
+        .minPoints(0)
+        .maxPoints(1)
+        .addChildCriteria(
+            criterion(
+                "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
+                "h10.H10_1_3_TestsPublic",
+                "testResult", JsonParameterSet.class
+            ),
+            criterion(
+                "Verbindliche Anforderung nicht erfüllt",
+                -1,
+                "h10.H10_1_3_TestsPrivate",
+                "testRequirements"
+            )
+        ).build();
 
     private static final Criterion H10_1_4 = Criterion.builder()
-            .shortDescription("H10.1.4 | Vorkommen der Karte SKIP zählen - mit Iterator")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion(
-                            "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
-                            "h10.H10_1_3_TestsPublic",
-                            "testResult", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -1,
-                            "h10.H10_1_3_TestsPrivate",
-                            "testRequirements"
-                    )
-            ).build();
+        .shortDescription("H10.1.4 | Vorkommen der Karte SKIP zählen - mit Iterator")
+        .minPoints(0)
+        .maxPoints(1)
+        .addChildCriteria(
+            criterion(
+                "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
+                "h10.H10_1_3_TestsPublic",
+                "testResult", JsonParameterSet.class
+            ),
+            criterion(
+                "Verbindliche Anforderung nicht erfüllt",
+                -1,
+                "h10.H10_1_3_TestsPrivate",
+                "testRequirements"
+            )
+        ).build();
 
     private static final Criterion H10_1 = Criterion.builder()
-            .shortDescription("H10.1 | Beispiele mit Klasse ListItem<T>")
-            .addChildCriteria(
-                    H10_1_1,
-                    H10_1_2,
-                    H10_1_3,
-                    H10_1_4
-            ).build();
+        .shortDescription("H10.1 | Beispiele mit Klasse ListItem<T>")
+        .addChildCriteria(
+            H10_1_1,
+            H10_1_2,
+            H10_1_3,
+            H10_1_4
+        ).build();
 
     private static final Criterion H10_2_1 = Criterion.builder()
-            .shortDescription("H10.2.1 | Ist dieses Element bereits in der Liste?")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion(
-                            "Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben.",
-                            "h10.H10_2_1_TestsPublic",
-                            "testResult", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -1,
-                            "h10.H10_2_1_TestsPrivate",
-                            "testRequirements"
-                    )
-            ).build();
+        .shortDescription("H10.2.1 | Ist dieses Element bereits in der Liste?")
+        .minPoints(0)
+        .maxPoints(1)
+        .addChildCriteria(
+            criterion(
+                "Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben.",
+                "h10.H10_2_1_TestsPublic",
+                "testResult", JsonParameterSet.class
+            ),
+            criterion(
+                "Verbindliche Anforderung nicht erfüllt",
+                -1,
+                "h10.H10_2_1_TestsPrivate",
+                "testRequirements"
+            )
+        ).build();
 
     private static final Criterion H10_2_2 = Criterion.builder()
-            .shortDescription("H10.2.2 | Auf ein Element in der Liste zugreifen")
-            .minPoints(0)
-            .maxPoints(3)
-            .addChildCriteria(
-                    criterion(
-                            "Die Methode gibt das Element an der angegebenen Position zurück.",
-                            "h10.H10_2_2_TestsPublic",
-                            "testPositions", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Die Suche wird in der Liste von vorne oder hinten gestartet, je nachdem, welcher Weg kürzer ist.",
-                            "h10.H10_2_2_TestsPrivate",
-                            "testPath", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.",
-                            "h10.H10_2_2_TestsPrivate",
-                            "testException", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Verbindliche Anforderung nicht erfüllt",
-                            -3,
-                            "h10.H10_2_2_TestsPrivate",
-                            "testRequirements"
-                    )
-            ).build();
+        .shortDescription("H10.2.2 | Auf ein Element in der Liste zugreifen")
+        .minPoints(0)
+        .maxPoints(3)
+        .addChildCriteria(
+            criterion(
+                "Die Methode gibt das Element an der angegebenen Position zurück.",
+                "h10.H10_2_2_TestsPublic",
+                "testPositions", JsonParameterSet.class
+            ),
+            criterion(
+                "Die Suche wird in der Liste von vorne oder hinten gestartet, je nachdem, welcher Weg kürzer ist.",
+                "h10.H10_2_2_TestsPrivate",
+                "testPath", JsonParameterSet.class
+            ),
+            criterion(
+                "Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.",
+                "h10.H10_2_2_TestsPrivate",
+                "testException", JsonParameterSet.class
+            ),
+            criterion(
+                "Verbindliche Anforderung nicht erfüllt",
+                -3,
+                "h10.H10_2_2_TestsPrivate",
+                "testRequirements"
+            )
+        ).build();
 
     private static final Criterion H10_2_3 = Criterion.builder()
-            .shortDescription("H10.2.3 | Ein Element hinzufügen")
-            .addChildCriteria(
-                    criterion(
-                            "Fall 1: Die Liste ist leer wurde korrekt implementiert.",
-                            "h10.H10_2_3_TestsPublic",
-                            "testEmptyList"
-                    ),
-                    criterion(
-                            "Fall 2: Neues Element an das Ende der Liste wurde korrekt implementiert.",
-                            "h10.H10_2_3_TestsPrivate",
-                            "testEnd", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Fall 3: Neues Element an den Anfang der Liste wurde korrekt implementiert.",
-                            "h10.H10_2_3_TestsPublic",
-                            "testStart", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Fall 4: Neues Element in der Mitte der Liste wurde korrekt implementiert.",
-                            "h10.H10_2_3_TestsPrivate",
-                            "testMiddle", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Die Größe der Liste wird um 1 erhöht.",
-                            "h10.H10_2_3_TestsPrivate",
-                            "testSize", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.",
-                            "h10.H10_2_3_TestsPublic",
-                            "testException", JsonParameterSet.class
-                    ),
-                    criterion(
-                            "Falls der übergebene key null ist, wird eine IllegalArgumentException geworfen.",
-                            "h10.H10_2_3_TestsPrivate",
-                            "testNull", JsonParameterSet.class
-                    )
-            ).build();
+        .shortDescription("H10.2.3 | Ein Element hinzufügen")
+        .addChildCriteria(
+            criterion(
+                "Fall 1: Die Liste ist leer wurde korrekt implementiert.",
+                "h10.H10_2_3_TestsPublic",
+                "testEmptyList"
+            ),
+            criterion(
+                "Fall 2: Neues Element an das Ende der Liste wurde korrekt implementiert.",
+                "h10.H10_2_3_TestsPrivate",
+                "testEnd", JsonParameterSet.class
+            ),
+            criterion(
+                "Fall 3: Neues Element an den Anfang der Liste wurde korrekt implementiert.",
+                "h10.H10_2_3_TestsPublic",
+                "testStart", JsonParameterSet.class
+            ),
+            criterion(
+                "Fall 4: Neues Element in der Mitte der Liste wurde korrekt implementiert.",
+                "h10.H10_2_3_TestsPrivate",
+                "testMiddle", JsonParameterSet.class
+            ),
+            criterion(
+                "Die Größe der Liste wird um 1 erhöht.",
+                "h10.H10_2_3_TestsPrivate",
+                "testSize", JsonParameterSet.class
+            ),
+            criterion(
+                "Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.",
+                "h10.H10_2_3_TestsPublic",
+                "testException", JsonParameterSet.class
+            ),
+            criterion(
+                "Falls der übergebene key null ist, wird eine IllegalArgumentException geworfen.",
+                "h10.H10_2_3_TestsPrivate",
+                "testNull", JsonParameterSet.class
+            )
+        ).build();
+
+    private static final Criterion H10_2_4 = Criterion.builder()
+        .shortDescription("H10.2.4 | Ein Element entfernen")
+        .minPoints(0)
+        .maxPoints(4)
+        .addChildCriteria(
+            criterion(
+                "Die Fälle 1 und 4 wurden korrekt implementiert.",
+                "h10.H10_2_4_TestsPublic",
+                "testCase1And4", JsonParameterSet.class
+            ),
+            criterion(
+                "Die Fälle 2 und 3 wurden korrekt implementiert.",
+                "h10.H10_2_4_TestsPrivate",
+                "testCase2And3", JsonParameterSet.class
+            ),
+            criterion(
+                "Die Größe der Liste wird um 1 verringert.",
+                "h10.H10_2_4_TestsPrivate",
+                "testSize", JsonParameterSet.class
+            ),
+            criterion(
+                "Das entfernte Element verweist immernoch auf seine Nachbarn.",
+                "h10.H10_2_4_TestsPublic",
+                "testReference", JsonParameterSet.class
+            )
+        ).build();
 
     private static final Criterion H10_2 = Criterion.builder()
-            .shortDescription("H10.2 | DoublyLinkedList<T>")
-            .addChildCriteria(
-                    H10_2_1,
-                    H10_2_2,
-                    H10_2_3
-            ).build();
+        .shortDescription("H10.2 | DoublyLinkedList<T>")
+        .addChildCriteria(
+            H10_2_1,
+            H10_2_2,
+            H10_2_3,
+            H10_2_4
+        ).build();
 
     /*
 
@@ -270,8 +298,8 @@ public class H10_RubricProvider implements RubricProvider {
     @Override
     public Rubric getRubric() {
         return Rubric.builder()
-                .title("H10 | Doppelt verkette Listen - %s Tests".formatted(privateTests ? "Private" : "Public"))
-                .addChildCriteria(H10_1, H10_2)
-                .build();
+            .title("H10 | Doppelt verkette Listen - %s Tests".formatted(privateTests ? "Private" : "Public"))
+            .addChildCriteria(H10_1, H10_2)
+            .build();
     }
 }

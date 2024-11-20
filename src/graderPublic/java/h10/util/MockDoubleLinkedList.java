@@ -1,6 +1,7 @@
-package h10;
+package h10.util;
 
-import h10.util.Links;
+import h10.DoublyLinkedList;
+import h10.ListItem;
 import org.jetbrains.annotations.NotNull;
 import org.tudalgo.algoutils.tutor.general.reflections.FieldLink;
 

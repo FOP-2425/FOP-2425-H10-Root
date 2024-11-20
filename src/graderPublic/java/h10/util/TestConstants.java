@@ -1,4 +1,4 @@
-package h10;
+package h10.util;
 
 /**
  * Constants for tests.

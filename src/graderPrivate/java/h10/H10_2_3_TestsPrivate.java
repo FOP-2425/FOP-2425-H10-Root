@@ -1,8 +1,8 @@
 package h10;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import h10.util.JsonConverters;
 import h10.util.ListItems;
+import h10.util.MockDoubleLinkedList;
+import h10.util.TestConstants;
 import h10.util.TutorAssertionsPublic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,11 +13,7 @@ import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
  * Tests for H10.2.3.

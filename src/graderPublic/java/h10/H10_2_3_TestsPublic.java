@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
 import h10.util.Links;
 import h10.util.ListItems;
+import h10.util.MockDoubleLinkedList;
+import h10.util.TestConstants;
 import h10.util.TutorAssertionsPublic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,6 @@ import org.tudalgo.algoutils.tutor.general.reflections.BasicTypeLink;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
