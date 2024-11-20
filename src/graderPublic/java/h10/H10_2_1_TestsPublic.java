@@ -64,9 +64,4 @@ public class H10_2_1_TestsPublic extends H10_Test {
         int actual = list.findFirst(key);
         Assertions2.assertEquals(index, actual, context, result -> "Index of first occurrence mismatch");
     }
-
-    @Test
-    void testRequirements() {
-        TutorAssertions.assertRecursive(getMethod(), getMethodName(), contextBuilder());
-    }
 }

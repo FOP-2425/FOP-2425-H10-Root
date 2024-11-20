@@ -49,13 +49,13 @@ public class H10_RubricProvider implements RubricProvider {
             .addChildCriteria(
                     criterion(
                             "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
-                            "h10.H10_1_3_Tests",
+                            "h10.H10_1_3_TestsPublic",
                             "testResult", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
                             -1,
-                            "h10.H10_1_3_Tests",
+                            "h10.H10_1_3_TestsPrivate",
                             "testRequirements"
                     )
             ).build();
@@ -67,13 +67,13 @@ public class H10_RubricProvider implements RubricProvider {
             .addChildCriteria(
                     criterion(
                             "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
-                            "h10.H10_1_3_Tests",
+                            "h10.H10_1_3_TestsPublic",
                             "testResult", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
                             -1,
-                            "h10.H10_1_3_Tests",
+                            "h10.H10_1_3_TestsPrivate",
                             "testRequirements"
                     )
             ).build();
@@ -94,13 +94,13 @@ public class H10_RubricProvider implements RubricProvider {
             .addChildCriteria(
                     criterion(
                             "Die Methode gibt den Index des ersten Vorkommens des Elements zurück, falls es in der Liste enthalten ist. Andernfalls wird -1 zurückgegeben.",
-                            "h10.H10_2_1_Tests",
+                            "h10.H10_2_1_TestsPublic",
                             "testResult", JsonParameterSet.class
                     ),
                     criterion(
                             "Verbindliche Anforderung nicht erfüllt",
                             -1,
-                            "h10.H10_2_1_Tests",
+                            "h10.H10_2_1_TestsPrivate",
                             "testRequirements"
                     )
             ).build();

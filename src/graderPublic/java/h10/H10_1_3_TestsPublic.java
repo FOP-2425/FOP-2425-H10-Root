@@ -2,9 +2,7 @@ package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
-import h10.util.TutorAssertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
