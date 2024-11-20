@@ -14,14 +14,14 @@ import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import java.util.List;
 
 /**
- * Tests for H10.3.1.
+ * Tests for H10.3.2.
  *
  * @author Nhan Huynh.
  */
 @TestForSubmission
-@DisplayName("H10.3.1 | Das nächste Element zurückgeben")
+@DisplayName("H10.3.2 | Das vorherige Element zurückgeben")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_3_1_Tests extends H10_Test {
+public class H10_3_2_Tests extends H10_Test {
 
     @Override
     public Class<?> getClassType() {
@@ -38,9 +38,9 @@ public class H10_3_1_Tests extends H10_Test {
         return List.of();
     }
 
-    @DisplayName("Die Methode hasNext() gibt korrekt an, ob es ein nächstes Element gibt.")
+    @DisplayName("Die Methode hasPrevious() gibt korrekt an, ob es ein vorheriges Element gibt.")
     @Test
-    void testHasNext() {
+    void testHasPrevious() {
         List<List<Integer>> testCases = List.of(
             List.of(1, 2, 3),
             List.of(1),
@@ -51,52 +51,53 @@ public class H10_3_1_Tests extends H10_Test {
             BidirectionalIterator<Integer> it = mock.cyclicIterator();
             Context context = contextBuilder()
                 .add("List", list)
-                .add("Current element", list.isEmpty() ? "No elements left" : "null")
-                .add("Next element", list.isEmpty() ? "No elements left" : list.getFirst())
+                .add("Current element", list.isEmpty() ? "No elements left" : list.getFirst())
+                .add("Previous element", list.isEmpty() ? "No elements left" : list.getLast())
                 .build();
             if (list.isEmpty()) {
-                Assertions2.assertFalse(it.hasNext(), context, result -> "hasNext() should return false if there are no elements left.");
+                Assertions2.assertFalse(it.hasPrevious(), context, result -> "hasPrevious() should return false if there are no elements left.");
             } else {
-                Assertions2.assertTrue(it.hasNext(), context, result -> "hasNext() should return true if there are elements left.");
+                Assertions2.assertTrue(it.hasPrevious(), context, result -> "hasPrevious() should return true if there are elements left.");
             }
         });
     }
 
-    @DisplayName("Die Methode next() gibt das nächste Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.")
+    @DisplayName("Die Methode previous() gibt das vorherige Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.")
     @Test
-    void testNextEmpty() {
-        List<Integer> list = List.of(1, 2, 3);
-        ListItem<Integer> items = ListItems.toItems(list);
-        MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
-        DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
-        Context context = contextBuilder()
-            .add("List", list)
-            .add("Current element", "null")
-            .add("Next element", list.getFirst())
-            .build();
-        Assertions2.assertEquals(list.getFirst(), it.next(), context, result -> "next() should return the first element of the list.");
-        Assertions2.assertEquals(items, it.p, context, result -> "p should point to the first element of the list.");
-    }
-
-    @DisplayName("Die Methode next() gibt das nächste Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.")
-    @Test
-    void testNextEnd() {
+    void testPreviousEmpty() {
         List<Integer> list = List.of(1, 2, 3);
         ListItem<Integer> items = ListItems.toItems(list);
         List<ListItem<Integer>> refs = ListItems.itemStream(items).toList();
         MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
         DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
-        it.p = refs.getLast();
         Context context = contextBuilder()
             .add("List", list)
-            .add("Current element", list.getLast())
-            .add("Next element", list.getFirst())
+            .add("Current element", "null")
+            .add("Previous element", list.getLast())
             .build();
-        Assertions2.assertEquals(list.getFirst(), it.next(), context, result -> "next() should return the first element of the list.");
-        Assertions2.assertEquals(items, it.p, context, result -> "p should point to the first element of the list.");
+        Assertions2.assertEquals(list.getLast(), it.previous(), context, result -> "previous() should return the last element of the list.");
+        Assertions2.assertEquals(refs.getLast(), it.p, context, result -> "p should point to the last element of the list.");
     }
 
-    @DisplayName("Die Methode next() gibt das nächste Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.")
+    @DisplayName("Die Methode previous() gibt das vorherige Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.")
+    @Test
+    void testPreviousEnd() {
+        List<Integer> list = List.of(1, 2, 3);
+        ListItem<Integer> items = ListItems.toItems(list);
+        List<ListItem<Integer>> refs = ListItems.itemStream(items).toList();
+        MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
+        DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
+        it.p = refs.getFirst();
+        Context context = contextBuilder()
+            .add("List", list)
+            .add("Current element", list.getFirst())
+            .add("Previous element", list.getLast())
+            .build();
+        Assertions2.assertEquals(list.getLast(), it.previous(), context, result -> "previous() should return the last element of the list.");
+        Assertions2.assertEquals(refs.getLast(), it.p, context, result -> "p should point to the last element of the list.");
+    }
+
+    @DisplayName("Die Methode previous() gibt das vorherige Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.")
     @Test
     void testNextMiddle() {
         List<Integer> list = List.of(1, 2, 3, 4, 5);
@@ -107,18 +108,18 @@ public class H10_3_1_Tests extends H10_Test {
         int start = 1;
         int end = list.size() - 1;
         for (int i = start; i < end; i++) {
-            it.p = refs.get(i - 1);
+            it.p = refs.get(i);
             Context context = contextBuilder()
                 .add("List", list)
-                .add("Current element", list.get(i - 1))
-                .add("Next element", list.get(i))
+                .add("Current element", list.get(i))
+                .add("Previous element", list.get(i - 1))
                 .build();
-            Assertions2.assertEquals(list.get(i), it.next(), context, result -> "next() result mismatch");
-            Assertions2.assertEquals(refs.get(i), it.p, context, result -> "p reference mismatch");
+            Assertions2.assertEquals(list.get(i - 1), it.previous(), context, result -> "previous() result mismatch");
+            Assertions2.assertEquals(refs.get(i - 1), it.p, context, result -> "p reference mismatch");
         }
     }
 
-    @DisplayName("Die Methode next() setzt das Attribut calledRemove auf false.")
+    @DisplayName("Die Methode previous() setzt das Attribut calledRemove auf false.")
     @Test
     void testCalledRemove() {
         List<Integer> list = List.of(1, 2, 3, 4, 5);
@@ -126,16 +127,17 @@ public class H10_3_1_Tests extends H10_Test {
 
         MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
         DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
-        it.p = items;
+        assert items != null;
+        it.p = items.next;
         it.calledRemove = true;
 
         Context context = contextBuilder()
             .add("List", list)
-            .add("Current element", list.getFirst())
-            .add("Next element", list.get(1))
+            .add("Current element", list.get(1))
+            .add("Previous element", list.getFirst())
             .add("calledRemove", true)
             .build();
-        it.next();
+        it.previous();
         Assertions.assertFalse(it.calledRemove, "calledRemove should be set to false after call");
     }
 

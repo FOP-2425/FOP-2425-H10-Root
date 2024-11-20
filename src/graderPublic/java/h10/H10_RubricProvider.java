@@ -252,35 +252,42 @@ public class H10_RubricProvider implements RubricProvider {
             )
         ).build();
 
+
+    private static final Criterion H10_3_2 = Criterion.builder()
+        .shortDescription("H10.3.2 | Das vorherige Element zurückgeben")
+
+        .addChildCriteria(
+            criterion(
+                "Die Methode hasPrevious() gibt korrekt an, ob es ein vorheriges Element gibt.",
+                "h10.H10_3_2_Tests",
+                "testHasPrevious"
+            ),
+            criterion(
+                "Die Methode previous() gibt das vorherige Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement.",
+                "h10.H10_3_2_Tests",
+                Map.of(
+                    "testPreviousEmpty", List.of(),
+                    "testPreviousEnd", List.of(),
+                    "testNextMiddle", List.of()
+                )
+            ),
+            criterion(
+                "Die Methode previous() setzt das Attribut calledRemove auf false.",
+                "h10.H10_3_2_Tests",
+                "testCalledRemove"
+            )
+        )
+        .build();
+
     private static final Criterion H10_3 = Criterion.builder()
         .shortDescription("H10.3 | Zyklischer Iterator über die DoublyLinkedList")
         .addChildCriteria(
-            H10_3_1
+            H10_3_1,
+            H10_3_2
         ).build();
 
     /*
 
-    private static final Criterion H10_3_1 = Criterion.builder()
-        .shortDescription("H10.3.1 | Das nächste Element zurückgeben")
-        .minPoints(0)
-        .maxPoints(3)
-        .addChildCriteria(
-                criterion("Die Methode hasNext() gibt korrekt an, ob es ein nächstes Element gibt."), // TODO: PUBLIC TEST
-                criterion("Die Methode next() gibt das nächste Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement."), // TODO: PUBLIC TEST
-                criterion("Die Methode next() setzt das Attribut calledRemove auf false.") // TODO: PUBLIC TEST
-        )
-        .build();
-
-    private static final Criterion H10_3_2 = Criterion.builder()
-        .shortDescription("H10.3.2 | Das vorherige Element zurückgeben")
-        .minPoints(0)
-        .maxPoints(3)
-            .addChildCriteria(
-                    criterion("Die Methode hasPrevious() gibt korrekt an, ob es ein vorheriges Element gibt."),
-                    criterion("Die Methode previous() gibt das vorherige Element des Iterators zurück. Der Pointer p zeigt auf das neue Listenelement."),
-                    criterion("Die Methode previous() setzt das Attribut calledRemove auf false.")
-            )
-        .build();
 
     private static final Criterion H10_3_3 = Criterion.builder()
         .shortDescription("H10.3.3 | Verlierer des Spiels bestimmen")
