@@ -29,10 +29,8 @@ import java.util.function.Function;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_1_1_Tests extends H10_Test {
 
-    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
-        Map.of(
-            "data", node -> JsonConverters.toList(node, JsonNode::asText)
-        )
+    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
+        "data", node -> JsonConverters.toList(node, JsonNode::asText)
     );
 
     @Override

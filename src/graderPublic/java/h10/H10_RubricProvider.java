@@ -178,8 +178,6 @@ public class H10_RubricProvider implements RubricProvider {
 
     private static final Criterion H10_2_4 = Criterion.builder()
         .shortDescription("H10.2.4 | Ein Element entfernen")
-        .minPoints(0)
-        .maxPoints(4)
         .addChildCriteria(
             criterion(
                 "Die Fälle 1 und 4 wurden korrekt implementiert.",
@@ -209,39 +207,28 @@ public class H10_RubricProvider implements RubricProvider {
             )
         ).build();
 
+    private static final Criterion H10_2_5 = Criterion.builder()
+        .shortDescription("H10.2.5 | Alle Elemente entfernen")
+        .addChildCriteria(
+            criterion(
+                "Nach einem Aufruf von clear() ist die Liste leer. Insbesondere sind head und tail auf null gesetzt, und die Größe der Liste ist 0.",
+                "h10.H10_2_5_Tests",
+                "testResult", JsonParameterSet.class
+            )
+        )
+        .build();
+
     private static final Criterion H10_2 = Criterion.builder()
         .shortDescription("H10.2 | DoublyLinkedList<T>")
         .addChildCriteria(
             H10_2_1,
             H10_2_2,
             H10_2_3,
-            H10_2_4
+            H10_2_4,
+            H10_2_5
         ).build();
 
     /*
-
-
-    private static final Criterion H10_2_4 = Criterion.builder()
-            .shortDescription("H10.2.4 | Ein Element entfernen")
-            .minPoints(0)
-            .maxPoints(4)
-            .addChildCriteria(
-                    criterion("Die Fälle 1 und 4 wurden korrekt implementiert."), // TODO: PUBLIC TEST
-                    criterion("Die Fälle 2 und 3 wurden korrekt implementiert."),
-                    criterion("Die Größe der Liste wird um 1 verringert."),
-                    criterion("Das entfernte Element verweist immernoch auf seine Nachbarn.") // TODO: PUBLIC TEST
-            )
-            .build();
-
-    private static final Criterion H10_2_5 = Criterion.builder()
-            .shortDescription("H10.2.5 | Alle Elemente entfernen")
-            .minPoints(0)
-            .maxPoints(1)
-            .addChildCriteria(
-                    criterion("Nach einem Aufruf von clear() ist die Liste leer. Insbesondere sind head und tail auf null gesetzt, und die Größe der Liste ist 0.") // TODO: PUBLIC TEST
-            )
-            .build();
-
 
     private static final Criterion H10_3_1 = Criterion.builder()
         .shortDescription("H10.3.1 | Das nächste Element zurückgeben")

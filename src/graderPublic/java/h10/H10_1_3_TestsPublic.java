@@ -25,11 +25,9 @@ import java.util.function.Function;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_1_3_TestsPublic extends H10_1_CountSkipCards_Tests {
 
-    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
-        Map.of(
-            "deck", node -> JsonConverters.toItems(node, JsonConverters::toPlayingCard),
-            "count", JsonNode::asInt
-        )
+    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
+        "deck", node -> JsonConverters.toItems(node, JsonConverters::toPlayingCard),
+        "count", JsonNode::asInt
     );
 
     @Override

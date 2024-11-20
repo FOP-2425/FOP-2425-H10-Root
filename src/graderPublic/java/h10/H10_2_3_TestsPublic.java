@@ -35,14 +35,12 @@ import java.util.function.Function;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_2_3_TestsPublic extends H10_Test {
 
-    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
-        Map.of(
-            "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
-            "index", JsonNode::asInt,
-            "key", JsonNode::asInt,
-            "expected", node -> JsonConverters.toList(node, JsonNode::asInt),
-            "size", JsonNode::asInt
-        )
+    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
+        "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
+        "index", JsonNode::asInt,
+        "key", JsonNode::asInt,
+        "expected", node -> JsonConverters.toList(node, JsonNode::asInt),
+        "size", JsonNode::asInt
     );
 
     @Override

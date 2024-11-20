@@ -28,12 +28,10 @@ import java.util.function.Function;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_2_1_TestsPublic extends H10_Test {
 
-    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
-        Map.of(
-            "list", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
-            "key", JsonNode::asInt,
-            "index", JsonNode::asInt
-        )
+    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
+        "list", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
+        "key", JsonNode::asInt,
+        "index", JsonNode::asInt
     );
 
     @Override

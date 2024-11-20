@@ -19,20 +19,17 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Tests for H10.2.2
+ * Tests for H10.2.5.
  *
  * @author Nhan Huynh.
  */
 @TestForSubmission
-@DisplayName("H10.2.2 | Auf ein Element in der Liste zugreifen")
+@DisplayName("H10.2.5 | Alle Elemente entfernen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_2_2_TestsPublic extends H10_Test {
+public class H10_2_5_Tests extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
-        "list", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
-        "index", JsonNode::asInt,
-        "element", JsonNode::asInt,
-        "begin", JsonNode::asBoolean
+        "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt)
     );
 
     @Override
@@ -42,27 +39,29 @@ public class H10_2_2_TestsPublic extends H10_Test {
 
     @Override
     public String getMethodName() {
-        return "getListItem";
+        return "clear";
     }
 
     @Override
     public List<Class<?>> getMethodParameters() {
-        return List.of(int.class);
+        return List.of();
     }
 
-    @DisplayName("Die Methode gibt das Element an der angegebenen Position zurück.")
+    @DisplayName("Nach einem Aufruf von clear() ist die Liste leer. Insbesondere sind head und tail auf null gesetzt, und die Größe der Liste ist 0.")
     @ParameterizedTest
-    @JsonParameterSetTest(value = "H10_2_2_Position.json", customConverters = CUSTOM_CONVERTERS)
-    void testPositions(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("list");
-        int index = parameters.get("index");
-        int element = parameters.get("element");
+    @JsonParameterSetTest(value = "H10_2_5.json", customConverters = CUSTOM_CONVERTERS)
+    void testResult(JsonParameterSet parameters) {
+        MockDoubleLinkedList<Integer> list = parameters.get("input");
         Context context = contextBuilder()
             .add("List", list)
-            .add("Index", index)
-            .add("Element to add", element)
+            .add("List after clear()", List.of())
+            .add("Size after clear()", 0)
             .build();
-        int actual = list.get(index);
-        Assertions2.assertEquals(element, actual, context, result -> "Element at the index %s mismatch".formatted(index));
+
+        list.clear();
+
+        Assertions2.assertNull(list.getHead(), context, result -> "Head should be null after clear()");
+        Assertions2.assertNull(list.getTail(), context, result -> "Tail should be null after clear()");
+        Assertions2.assertEquals(0, list.size(), context, result -> "Size should be 0 after clear()");
     }
 }
