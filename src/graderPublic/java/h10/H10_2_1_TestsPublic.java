@@ -2,7 +2,7 @@ package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +13,6 @@ import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -29,7 +28,7 @@ import java.util.function.Function;
 public class H10_2_1_TestsPublic extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
-        "list", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
+        "list", node -> JsonConverters.toDoublyLinkedList(node, JsonNode::asInt),
         "key", JsonNode::asInt,
         "index", JsonNode::asInt
     );
@@ -53,7 +52,7 @@ public class H10_2_1_TestsPublic extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_1.json", customConverters = CUSTOM_CONVERTERS)
     void testResult(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("list");
+        MockDoublyLinkedList<Integer> list = parameters.get("list");
         int key = parameters.get("key");
         int index = parameters.get("index");
         Context context = contextBuilder()

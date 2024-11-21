@@ -1,7 +1,7 @@
 package h10;
 
 import h10.util.ListItems;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,7 +28,7 @@ public class H10_2_4_TestsPrivate extends H10_2_4_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_4_Case2.json", customConverters = CUSTOM_CONVERTERS)
     void testCase2(JsonParameterSet parameters) throws Throwable {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
         ListItem<Integer> head = items.getFirst();
         ListItem<Integer> newHead = head.next;
@@ -48,7 +48,7 @@ public class H10_2_4_TestsPrivate extends H10_2_4_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_4_Case3.json", customConverters = CUSTOM_CONVERTERS)
     void testCase3(JsonParameterSet parameters) throws Throwable {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
         ListItem<Integer> newTail = items.get(items.size() - 2);
         ListItem<Integer> toRemove = items.getLast();
@@ -69,7 +69,7 @@ public class H10_2_4_TestsPrivate extends H10_2_4_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_4_Size.json", customConverters = CUSTOM_CONVERTERS)
     void testSize(JsonParameterSet parameters) throws Throwable {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
         int key = parameters.get("key");
         ListItem<Integer> toRemove = items.stream().filter(item -> item.key.equals(key)).findFirst().orElseThrow();

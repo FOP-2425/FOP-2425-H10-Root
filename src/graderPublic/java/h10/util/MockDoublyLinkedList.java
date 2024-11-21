@@ -5,13 +5,13 @@ import h10.ListItem;
 import org.jetbrains.annotations.NotNull;
 import org.tudalgo.algoutils.tutor.general.reflections.FieldLink;
 
-public class MockDoubleLinkedList<T> extends DoublyLinkedList<T> {
+public class MockDoublyLinkedList<T> extends DoublyLinkedList<T> {
 
     private final @NotNull FieldLink head;
     private final @NotNull FieldLink tail;
     private final @NotNull FieldLink size;
 
-    public MockDoubleLinkedList(ListItem<T> items) {
+    public MockDoublyLinkedList(ListItem<T> items) {
         this.head = Links.getField(DoublyLinkedList.class, "head");
         this.tail = Links.getField(DoublyLinkedList.class, "tail");
         this.size = Links.getField(DoublyLinkedList.class, "size");

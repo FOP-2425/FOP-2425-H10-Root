@@ -1,5 +1,6 @@
 package h10;
 
+import org.jetbrains.annotations.Nullable;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
@@ -11,7 +12,7 @@ import java.util.NoSuchElementException;
  * @param <T> the type of elements stored in the list
  * @author Manuel Peters
  */
-public class DoublyLinkedList<T> {
+public class DoublyLinkedList<T> implements List<T> {
 
     /**
      * The head of the doubly linked list.
@@ -33,12 +34,6 @@ public class DoublyLinkedList<T> {
     @DoNotTouch
     private int size;
 
-
-    @DoNotTouch
-    public int size() {
-        return size;
-    }
-
     /**
      * Constructs an empty doubly linked list.
      */
@@ -49,13 +44,9 @@ public class DoublyLinkedList<T> {
         this.size = 0;
     }
 
-    /**
-     * Checks if the list contains the specified element and returns the index of the first occurrence.
-     *
-     * @param key the element to be checked for presence in the list
-     * @return the index of the element if the element is present, -1 otherwise
-     */
+
     @DoNotTouch
+    @Override
     public int findFirst(T key) {
         return findFirstHelper(head, key, 0);
     }
@@ -75,14 +66,14 @@ public class DoublyLinkedList<T> {
         return findFirstHelper(p.next, key, index + 1);
     }
 
-    /**
-     * Retrieves the element at the specified index in the doubly linked list.
-     *
-     * @param index the index of the element to retrieve
-     * @return the element at the specified index
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
     @DoNotTouch
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @DoNotTouch
+    @Override
     public T get(int index) {
         return getListItem(index).key;
     }
@@ -117,27 +108,15 @@ public class DoublyLinkedList<T> {
         return p;
     }
 
-    /**
-     * Adds a new element at the end of the doubly linked list.
-     *
-     * @param key the element to be added
-     * @throws IllegalArgumentException if the key is null
-     */
     @DoNotTouch
+    @Override
     public void add(T key) {
         add(size, key);
     }
 
-    /**
-     * Adds a new element at the specified index in the doubly linked list.
-     *
-     * @param index the position at which the element is to be added
-     * @param key   the element to be added
-     * @throws IllegalArgumentException  if the key is null
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
     @StudentImplementationRequired
-    public void add(int index, T key) {
+    @Override
+    public void add(int index, @Nullable T key) {
         if (key == null) {
             throw new IllegalArgumentException("Key must not be null");
         }
@@ -198,23 +177,15 @@ public class DoublyLinkedList<T> {
         return p.key;
     }
 
-    /**
-     * Removes the element at the specified position in the list.
-     *
-     * @param index the index of the element to be removed
-     * @return the element that was removed from the list
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
     @DoNotTouch
+    @Override
     public T removeAtIndex(int index) {
         ListItem<T> p = getListItem(index);
         return removeListItem(p);
     }
 
-    /**
-     * Removes all elements from the list.
-     */
     @StudentImplementationRequired
+    @Override
     public void clear() {
         head = null;
         tail = null;
@@ -330,10 +301,8 @@ public class DoublyLinkedList<T> {
         }
     }
 
-    /**
-     * Retrieve an iterator for traversing this doubly linked list in a cyclic manner.
-     */
     @DoNotTouch
+    @Override
     public BidirectionalIterator<T> cyclicIterator() {
         return new CyclicIterator();
     }

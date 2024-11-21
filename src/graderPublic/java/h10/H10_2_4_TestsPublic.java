@@ -3,7 +3,7 @@ package h10;
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
 import h10.util.ListItems;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import h10.util.TutorAssertionsPublic;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +33,7 @@ public class H10_2_4_TestsPublic extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = new HashMap<>(
         Map.of(
-            "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
+            "input", node -> JsonConverters.toDoublyLinkedList(node, JsonNode::asInt),
             "element", JsonNode::asInt,
             "expected", node -> JsonConverters.toList(node, JsonNode::asInt),
             "size", JsonNode::asInt
@@ -59,7 +59,7 @@ public class H10_2_4_TestsPublic extends H10_Test {
     @Test
     void testCase1() throws Throwable {
         ListItem<Integer> item = new ListItem<>(1);
-        MockDoubleLinkedList<Integer> list = new MockDoubleLinkedList<>(item);
+        MockDoublyLinkedList<Integer> list = new MockDoublyLinkedList<>(item);
         Context context = contextBuilder()
             .add("List", list)
             .add("Element to remove", item)
@@ -75,7 +75,7 @@ public class H10_2_4_TestsPublic extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_4_Case4.json", customConverters = CUSTOM_CONVERTERS)
     void testCase4(JsonParameterSet parameters) throws Throwable {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
         int key = parameters.get("key");
         ListItem<Integer> toRemove = items.stream().filter(item -> item.key.equals(key)).findFirst().orElseThrow();
@@ -102,7 +102,7 @@ public class H10_2_4_TestsPublic extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_4_References.json", customConverters = CUSTOM_CONVERTERS)
     void testReference(JsonParameterSet parameters) throws Throwable {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
         int key = parameters.get("key");
         ListItem<Integer> toRemove = items.stream().filter(item -> item.key.equals(key)).findFirst().orElseThrow();

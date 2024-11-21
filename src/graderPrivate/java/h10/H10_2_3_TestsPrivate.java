@@ -1,7 +1,7 @@
 package h10;
 
 import h10.util.ListItems;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import h10.util.TutorAssertionsPublic;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +29,7 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_3_End.json", customConverters = CUSTOM_CONVERTERS)
     void testEnd(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
         int element = parameters.get("key");
         int index = parameters.get("index");
@@ -56,7 +56,7 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_3_Middle.json", customConverters = CUSTOM_CONVERTERS)
     void testMiddle(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> itemsBefore = ListItems.itemStream(list.getHead()).toList();
         int index = parameters.get("index");
         int element = parameters.get("key");
@@ -90,7 +90,7 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_3_Size.json", customConverters = CUSTOM_CONVERTERS)
     void testSize(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         int index = parameters.get("index");
         int element = parameters.get("key");
         int size = parameters.get("size");
@@ -109,7 +109,7 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_3_Null.json", customConverters = CUSTOM_CONVERTERS)
     void testNull(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         int index = parameters.get("index");
 
         Context context = Assertions2.contextBuilder()

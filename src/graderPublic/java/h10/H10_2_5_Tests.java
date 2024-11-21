@@ -2,7 +2,7 @@ package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,7 +28,7 @@ import java.util.function.Function;
 public class H10_2_5_Tests extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
-        "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt)
+        "input", node -> JsonConverters.toDoublyLinkedList(node, JsonNode::asInt)
     );
 
     @Override
@@ -50,7 +50,7 @@ public class H10_2_5_Tests extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_5.json", customConverters = CUSTOM_CONVERTERS)
     void testResult(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         Context context = contextBuilder()
             .add("List", list)
             .add("List after clear()", List.of())

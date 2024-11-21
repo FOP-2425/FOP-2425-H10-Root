@@ -57,7 +57,7 @@ public final class JsonConverters extends org.tudalgo.algoutils.tutor.general.js
      * @param <T>    the type of the items in the list
      * @return the doubly linked list represented by the JSON node
      */
-    public static <T> MockDoubleLinkedList<T> toDoubleLinkedList(JsonNode node, Function<JsonNode, T> mapper) {
-        return new MockDoubleLinkedList<>(toItems(node, mapper));
+    public static <T> MockDoublyLinkedList<T> toDoublyLinkedList(JsonNode node, Function<JsonNode, T> mapper) {
+        return new MockDoublyLinkedList<>(toItems(node, mapper));
     }
 }

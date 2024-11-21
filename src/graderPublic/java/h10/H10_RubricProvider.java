@@ -299,7 +299,10 @@ public class H10_RubricProvider implements RubricProvider {
             criterion(
                 "Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.",
                 "h10.H10_3_3_TestsPrivate",
-                "testDrawTwoLastTurn"
+                Map.of(
+                    "testDrawTwoLastTurnNoDrawTwo", List.of(),
+                    "testDrawTwoLastTurnDrawTwo", List.of()
+                )
             ),
             criterion(
                 "Wurden in den vorherigen Zügen mehrere DRAW_TWO-Karten gespielt, so erhöht sich die Anzahl der zu ziehenden Karten entsprechend.",

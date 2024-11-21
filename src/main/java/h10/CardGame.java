@@ -7,33 +7,41 @@ import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
  * Represents a simple card game with 4 players and a deck of cards
  */
 public class CardGame {
+
     @DoNotTouch
-    private DoublyLinkedList<CardGamePlayer> players;
+    private List<CardGamePlayer> players;
+
     @DoNotTouch
     private BidirectionalIterator<CardGamePlayer> iter;
+
     @DoNotTouch
-    private DoublyLinkedList<PlayingCard> cardDeck;
+    private List<PlayingCard> cardDeck;
 
     // Game state variables
     @DoNotTouch
     private boolean reverseDirection = false; // If true, the direction of play is reversed in the next turn
+
     @DoNotTouch
     private boolean skipNextPlayer = false; // If true, the next player is skipped
+
     @DoNotTouch
     private int takeCards = 0; // Number of cards the next player has to draw
+
     @DoNotTouch
     private CardGamePlayer currentPlayer = null; // The player whose turn it is
+
     @DoNotTouch
     private PlayingCard currentCard = null; // The card that is played in the current turn
 
     @DoNotTouch
-    private CardGame() {}
+    private CardGame() {
+    }
 
     /**
      * Creates a new card game with the given players and card deck
      */
     @DoNotTouch
-    public CardGame(DoublyLinkedList<CardGamePlayer> players, DoublyLinkedList<PlayingCard> cardDeck) {
+    public CardGame(List<CardGamePlayer> players, List<PlayingCard> cardDeck) {
         this.players = players;
         this.cardDeck = cardDeck;
         this.iter = this.players.cyclicIterator();
@@ -53,11 +61,11 @@ public class CardGame {
         // Create card deck with 100 random cards
         PlayingCard[] cards = PlayingCard.values();
         for (int i = 0; i < 100; i++) {
-            cardGame.cardDeck.add(cards[(int)(Math.random() * 4)]);
+            cardGame.cardDeck.add(cards[(int) (Math.random() * 4)]);
         }
 
         // 4 players with 5 cards each
-        for ( int i = 1; i < 5; i++) {
+        for (int i = 1; i < 5; i++) {
             CardGamePlayer player = new CardGamePlayer("Player " + i);
             cardGame.players.add(player);
             for (int j = 0; j < 5; j++) {
@@ -72,11 +80,12 @@ public class CardGame {
 
     /**
      * Determines the loser of the game
+     *
      * @return the last player who still has cards in their hand
      */
     @DoNotTouch
     public CardGamePlayer determineLoser() {
-        while(players.size() > 1) {
+        while (players.size() > 1) {
             doTurn();
         }
 
@@ -90,7 +99,7 @@ public class CardGame {
     private void doTurn() {
         currentPlayer = reverseDirection ? iter.previous() : iter.next();
 
-        if(skipNextPlayer) {
+        if (skipNextPlayer) {
             skipNextPlayer = false;
             return;
         }
@@ -99,9 +108,9 @@ public class CardGame {
         boolean prioritizeDrawTwo = PlayingCard.DRAW_TWO.equals(currentCard);
         currentCard = currentPlayer.playNextCard(prioritizeDrawTwo);
 
-        if(PlayingCard.DRAW_TWO.equals(currentCard)) {
+        if (PlayingCard.DRAW_TWO.equals(currentCard)) {
             takeCards += 2;
-        } else if(takeCards > 0) {
+        } else if (takeCards > 0) {
             for (int i = 0; i < takeCards; i++) {
                 currentPlayer.takeCard(cardDeck.removeAtIndex(0));
             }

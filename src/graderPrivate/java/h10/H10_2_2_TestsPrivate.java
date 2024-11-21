@@ -1,7 +1,7 @@
 package h10;
 
 import h10.util.ListItems;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import h10.util.TutorAssertionsPrivate;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,7 @@ public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Path.json", customConverters = CUSTOM_CONVERTERS)
     void testPath(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("list");
+        MockDoublyLinkedList<Integer> list = parameters.get("list");
         int index = parameters.get("index");
         boolean begin = parameters.get("begin");
 
@@ -53,7 +53,7 @@ public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Exception.json", customConverters = CUSTOM_CONVERTERS)
     void testException(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("list");
+        MockDoublyLinkedList<Integer> list = parameters.get("list");
         int index = parameters.get("index");
         Context context = contextBuilder()
             .add("List", list)

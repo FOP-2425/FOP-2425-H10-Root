@@ -1,7 +1,7 @@
 package h10;
 
 import h10.util.ListItems;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -47,7 +47,7 @@ public class H10_3_1_Tests extends H10_Test {
             List.of()
         );
         testCases.forEach(list -> {
-            MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(ListItems.toItems(list));
+            MockDoublyLinkedList<Integer> mock = new MockDoublyLinkedList<>(ListItems.toItems(list));
             BidirectionalIterator<Integer> it = mock.cyclicIterator();
             Context context = contextBuilder()
                 .add("List", list)
@@ -67,7 +67,7 @@ public class H10_3_1_Tests extends H10_Test {
     void testNextEmpty() {
         List<Integer> list = List.of(1, 2, 3);
         ListItem<Integer> items = ListItems.toItems(list);
-        MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
+        MockDoublyLinkedList<Integer> mock = new MockDoublyLinkedList<>(items);
         DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
         Context context = contextBuilder()
             .add("List", list)
@@ -84,7 +84,7 @@ public class H10_3_1_Tests extends H10_Test {
         List<Integer> list = List.of(1, 2, 3);
         ListItem<Integer> items = ListItems.toItems(list);
         List<ListItem<Integer>> refs = ListItems.itemStream(items).toList();
-        MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
+        MockDoublyLinkedList<Integer> mock = new MockDoublyLinkedList<>(items);
         DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
         it.p = refs.getLast();
         Context context = contextBuilder()
@@ -102,7 +102,7 @@ public class H10_3_1_Tests extends H10_Test {
         List<Integer> list = List.of(1, 2, 3, 4, 5);
         ListItem<Integer> items = ListItems.toItems(list);
         List<ListItem<Integer>> refs = ListItems.itemStream(items).toList();
-        MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
+        MockDoublyLinkedList<Integer> mock = new MockDoublyLinkedList<>(items);
         DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
         int start = 1;
         int end = list.size() - 1;
@@ -124,7 +124,7 @@ public class H10_3_1_Tests extends H10_Test {
         List<Integer> list = List.of(1, 2, 3, 4, 5);
         ListItem<Integer> items = ListItems.toItems(list);
 
-        MockDoubleLinkedList<Integer> mock = new MockDoubleLinkedList<>(items);
+        MockDoublyLinkedList<Integer> mock = new MockDoublyLinkedList<>(items);
         DoublyLinkedList<Integer>.CyclicIterator it = (DoublyLinkedList<Integer>.CyclicIterator) mock.cyclicIterator();
         it.p = items;
         it.calledRemove = true;

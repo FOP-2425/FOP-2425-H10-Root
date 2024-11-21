@@ -1,6 +1,7 @@
 package h10;
 
 public class Main {
+
     public static void main(String[] args) {
         // Manual testing
         CardGame game = CardGame.generateRandomCardGame();

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import h10.util.JsonConverters;
 import h10.util.Links;
 import h10.util.ListItems;
-import h10.util.MockDoubleLinkedList;
+import h10.util.MockDoublyLinkedList;
 import h10.util.TestConstants;
 import h10.util.TutorAssertionsPublic;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +20,6 @@ import org.tudalgo.algoutils.tutor.general.match.Matcher;
 import org.tudalgo.algoutils.tutor.general.reflections.BasicTypeLink;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -36,7 +35,7 @@ import java.util.function.Function;
 public class H10_2_3_TestsPublic extends H10_Test {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
-        "input", node -> JsonConverters.toDoubleLinkedList(node, JsonNode::asInt),
+        "input", node -> JsonConverters.toDoublyLinkedList(node, JsonNode::asInt),
         "index", JsonNode::asInt,
         "key", JsonNode::asInt,
         "expected", node -> JsonConverters.toList(node, JsonNode::asInt),
@@ -66,7 +65,7 @@ public class H10_2_3_TestsPublic extends H10_Test {
             getMethodName(),
             Matcher.of(method -> method.typeList().equals(List.of(BasicTypeLink.of(Object.class))))
         );
-        MockDoubleLinkedList<Integer> list = new MockDoubleLinkedList<>(null);
+        MockDoublyLinkedList<Integer> list = new MockDoublyLinkedList<>(null);
         int element = 1;
         Context context = Assertions2.contextBuilder()
             .subject(methodLink)
@@ -87,7 +86,7 @@ public class H10_2_3_TestsPublic extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_3_Start.json", customConverters = CUSTOM_CONVERTERS)
     void testStart(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
         int element = parameters.get("key");
         List<Integer> expected = parameters.get("expected");
@@ -112,7 +111,7 @@ public class H10_2_3_TestsPublic extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_3_Exception.json", customConverters = CUSTOM_CONVERTERS)
     void testException(JsonParameterSet parameters) {
-        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        MockDoublyLinkedList<Integer> list = parameters.get("input");
         int index = parameters.get("index");
         int element = parameters.get("key");
         Context context = Assertions2.contextBuilder()
