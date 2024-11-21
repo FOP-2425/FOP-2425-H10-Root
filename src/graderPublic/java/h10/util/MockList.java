@@ -1,12 +1,12 @@
 package h10.util;
 
 import h10.BidirectionalIterator;
-import h10.List;
+import h10.MyList;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class MockList<T> implements List<T> {
+public class MockList<T> implements MyList<T> {
 
     private final java.util.List<T> delegate = new ArrayList<>();
 

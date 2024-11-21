@@ -1,7 +1,7 @@
 package h10.util;
 
 import h10.CardGamePlayer;
-import h10.List;
+import h10.MyList;
 import h10.PlayingCard;
 import org.tudalgo.algoutils.tutor.general.reflections.FieldLink;
 
@@ -20,14 +20,14 @@ public class MockCardGamePlayer extends CardGamePlayer {
 
     public java.util.List<PlayingCard> getHand() {
         java.util.List<PlayingCard> mapped = new ArrayList<>();
-        List<PlayingCard> cards = hand.get(this);
+        MyList<PlayingCard> cards = hand.get(this);
         for (int i = 0; i < cards.size(); i++) {
             mapped.add(cards.get(i));
         }
         return mapped;
     }
 
-    public void setHand(List<PlayingCard> hand) {
+    public void setHand(MyList<PlayingCard> hand) {
         this.hand.set(this, hand);
     }
 }

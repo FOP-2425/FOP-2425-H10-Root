@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * @param <T> the type of elements stored in the list
  * @author Manuel Peters
  */
-public class DoublyLinkedList<T> implements List<T> {
+public class DoublyLinkedList<T> implements MyList<T> {
 
     /**
      * The head of the doubly linked list.

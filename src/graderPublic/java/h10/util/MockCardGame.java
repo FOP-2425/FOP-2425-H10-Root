@@ -2,11 +2,10 @@ package h10.util;
 
 import h10.CardGame;
 import h10.CardGamePlayer;
-import h10.List;
+import h10.MyList;
 import h10.PlayingCard;
 import org.tudalgo.algoutils.tutor.general.reflections.FieldLink;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
 
 public class MockCardGame extends CardGame {
@@ -51,7 +50,7 @@ public class MockCardGame extends CardGame {
 
     public java.util.List<CardGamePlayer> getPlayers() {
         java.util.List<CardGamePlayer> mapped = new ArrayList<>();
-        List<CardGamePlayer> result = players.get(this);
+        MyList<CardGamePlayer> result = players.get(this);
         for (int i = 0; i < result.size(); i++) {
             mapped.add(result.get(i));
         }
@@ -60,7 +59,7 @@ public class MockCardGame extends CardGame {
 
     public java.util.List<PlayingCard> getDeck() {
         java.util.List<PlayingCard> mapped = new ArrayList<>();
-        List<PlayingCard> result = deck.get(this);
+        MyList<PlayingCard> result = deck.get(this);
         for (int i = 0; i < result.size(); i++) {
             mapped.add(result.get(i));
         }

@@ -9,13 +9,13 @@ import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 public class CardGame {
 
     @DoNotTouch
-    private List<CardGamePlayer> players;
+    private MyList<CardGamePlayer> players;
 
     @DoNotTouch
     private BidirectionalIterator<CardGamePlayer> iter;
 
     @DoNotTouch
-    private List<PlayingCard> cardDeck;
+    private MyList<PlayingCard> cardDeck;
 
     // Game state variables
     @DoNotTouch
@@ -41,7 +41,7 @@ public class CardGame {
      * Creates a new card game with the given players and card deck
      */
     @DoNotTouch
-    public CardGame(List<CardGamePlayer> players, List<PlayingCard> cardDeck) {
+    public CardGame(MyList<CardGamePlayer> players, MyList<PlayingCard> cardDeck) {
         this.players = players;
         this.cardDeck = cardDeck;
         this.iter = this.players.cyclicIterator();

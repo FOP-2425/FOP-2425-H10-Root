@@ -3,7 +3,7 @@ package h10;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
 @DoNotTouch
-public interface List<T> {
+public interface MyList<T> {
 
     /**
      * Checks if the list contains the specified element and returns the index of the first occurrence.

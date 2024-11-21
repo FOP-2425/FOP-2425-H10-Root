@@ -10,7 +10,7 @@ public class CardGamePlayer {
     @DoNotTouch
     private final String name;
     @DoNotTouch
-    private final List<PlayingCard> hand;
+    private final MyList<PlayingCard> hand;
 
     @DoNotTouch
     public CardGamePlayer(String name) {
