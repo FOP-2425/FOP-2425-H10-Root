@@ -103,9 +103,9 @@ public class H10_2_3_TestsPublic extends H10_Test {
         TutorAssertionsPublic.assertEquals(expected.iterator(), ListItems.iterator(list.getHead()), context);
 
         // Check references
-        Assertions2.assertEquals(list.getHead().next, items.getFirst(), context, result -> "Head next mismatch");
-        Assertions2.assertEquals(list.getHead().prev, null, context, result -> "Head prev mismatch");
-        Assertions2.assertEquals(items.getFirst().prev, list.getHead(), context, result -> "First item prev mismatch");
+        Assertions2.assertSame(list.getHead().next, items.getFirst(), context, result -> "Head next mismatch");
+        Assertions2.assertSame(list.getHead().prev, null, context, result -> "Head prev mismatch");
+        Assertions2.assertSame(items.getFirst().prev, list.getHead(), context, result -> "First item prev mismatch");
     }
 
     @DisplayName("Falls die Position nicht existiert, wird eine IndexOutOfBoundsException geworfen.")

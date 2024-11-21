@@ -47,9 +47,9 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
 
         // Check references
         Assertions2.assertNull(list.getTail().next, context, result -> "Tail next should be null");
-        Assertions2.assertEquals(items.getLast(), list.getTail().prev, context, result -> "old last != tail.prev ");
-        Assertions2.assertEquals(items.getLast().next, list.getTail(), context, result -> "old last.next != tail");
-        Assertions2.assertEquals(items.getLast().prev.next, items.getLast(), context, result -> "old last.prev.next != old last");
+        Assertions2.assertSame(items.getLast(), list.getTail().prev, context, result -> "old last != tail.prev ");
+        Assertions2.assertSame(items.getLast().next, list.getTail(), context, result -> "old last.next != tail");
+        Assertions2.assertSame(items.getLast().prev.next, items.getLast(), context, result -> "old last.prev.next != old last");
     }
 
     @DisplayName("Fall 4: Neues Element in der Mitte der Liste wurde korrekt implementiert.")
@@ -80,10 +80,10 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
         ListItem<Integer> addedNext = itemsBefore.get(index);
         Assertions2.assertEquals(added.key, element, context, result -> "Added element mismatch");
 
-        Assertions2.assertEquals(addedPrev.next, added, context, result -> "predecessor.next != added");
-        Assertions2.assertEquals(addedPrev, added.prev, context, result -> "predecessor != added.prev");
-        Assertions2.assertEquals(addedNext.prev, added, context, result -> "successor.prev != added");
-        Assertions2.assertEquals(addedNext, added.next, context, result -> "successor != added.next");
+        Assertions2.assertSame(addedPrev.next, added, context, result -> "predecessor.next != added");
+        Assertions2.assertSame(addedPrev, added.prev, context, result -> "predecessor != added.prev");
+        Assertions2.assertSame(addedNext.prev, added, context, result -> "successor.prev != added");
+        Assertions2.assertSame(addedNext, added.next, context, result -> "successor != added.next");
     }
 
     @DisplayName("Die Größe der Liste wird um 1 erhöht.")

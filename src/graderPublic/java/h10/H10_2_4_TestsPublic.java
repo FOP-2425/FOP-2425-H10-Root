@@ -94,14 +94,28 @@ public class H10_2_4_TestsPublic extends H10_Test {
         TutorAssertionsPublic.assertEquals(expected.iterator(), ListItems.iterator(list.getHead()), context);
 
         // Check references
-        Assertions2.assertEquals(next, prev.next, context, result -> "successor of the removed element != predecessor of the removed element.next");
-        Assertions2.assertEquals(prev, next.prev, context, result -> "predecessor of the removed element != successor of the removed element.prev");
+        Assertions2.assertSame(next, prev.next, context, result -> "successor of the removed element != predecessor of the removed element.next");
+        Assertions2.assertSame(prev, next.prev, context, result -> "predecessor of the removed element != successor of the removed element.prev");
     }
 
     @DisplayName("Das entfernte Element verweist immernoch auf seine Nachbarn.")
     @ParameterizedTest
-    @JsonParameterSetTest(value = "H10_2_3_Exception.json", customConverters = CUSTOM_CONVERTERS)
-    void testReference(JsonParameterSet parameters) {
-        Assertions2.fail(contextBuilder().build(), result -> "TODO: Implement this test");
+    @JsonParameterSetTest(value = "H10_2_4_References.json", customConverters = CUSTOM_CONVERTERS)
+    void testReference(JsonParameterSet parameters) throws Throwable {
+        MockDoubleLinkedList<Integer> list = parameters.get("input");
+        List<ListItem<Integer>> items = ListItems.itemStream(list.getHead()).toList();
+        int key = parameters.get("key");
+        ListItem<Integer> toRemove = items.stream().filter(item -> item.key.equals(key)).findFirst().orElseThrow();
+        ListItem<Integer> prev = toRemove.prev;
+        ListItem<Integer> next = toRemove.next;
+
+        Context context = contextBuilder()
+            .add("List", list)
+            .add("Element to remove", toRemove)
+            .build();
+        getMethod().invoke(list, toRemove);
+
+        Assertions2.assertSame(prev, toRemove.prev, context, result -> "predecessor of the removed element should still point to the removed element");
+        Assertions2.assertSame(next, toRemove.next, context, result -> "successor of the removed element should still point to the removed element");
     }
 }

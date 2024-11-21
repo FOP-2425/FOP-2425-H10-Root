@@ -40,7 +40,7 @@ public class H10_2_4_TestsPrivate extends H10_2_4_TestsPublic {
 
         int removed = getMethod().invoke(list, head);
         Assertions2.assertEquals(head.key, removed, context, result -> "Returned value should be the key of the removed item");
-        Assertions2.assertEquals(newHead, list.getHead(), context, result -> "New head mismatch");
+        Assertions2.assertSame(newHead, list.getHead(), context, result -> "New head mismatch");
         Assertions2.assertNull(newHead.prev, context, result -> "No previous for the new head");
     }
 
@@ -61,7 +61,7 @@ public class H10_2_4_TestsPrivate extends H10_2_4_TestsPublic {
 
         int removed = getMethod().invoke(list, toRemove);
         Assertions2.assertEquals(key, removed, context, result -> "Returned value should be the key of the removed item");
-        Assertions2.assertEquals(newTail, list.getTail(), context, result -> "Tail should be the new tail");
+        Assertions2.assertSame(newTail, list.getTail(), context, result -> "Tail should be the new tail");
         Assertions2.assertNull(newTail.next, context, result -> "Next of the new tail should be null");
     }
 
