@@ -1,18 +1,28 @@
 package h10;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import h10.util.JsonConverters;
+import h10.util.Links;
 import h10.util.MockCardGame;
 import h10.util.MockCardGamePlayer;
 import h10.util.TestConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
+import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
+import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
+import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Tests for H10.3.3.
@@ -23,6 +33,13 @@ import java.util.List;
 @DisplayName("H10.3.3 | Verlierer des Spiels bestimmen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_3_3_TestsPublic extends H10_Test {
+
+    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
+        "deck", JsonConverters::toDeck,
+        "players", node -> JsonConverters.toList(node, JsonConverters::toPlayer),
+        "loser", JsonNode::intValue
+    );
+
 
     List<MockCardGamePlayer> players;
 
@@ -51,9 +68,28 @@ public class H10_3_3_TestsPublic extends H10_Test {
     }
 
     @DisplayName("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.")
-    @Test
-    void testLastCards() throws Throwable {
-        Assertions2.fail(contextBuilder().build(), result -> "Not implemented");
+    @ParameterizedTest
+    @JsonParameterSetTest(value = "H10_3_3_Loser.json", customConverters = CUSTOM_CONVERTERS)
+    void testLastCards(JsonParameterSet parameters) throws Throwable {
+        List<PlayingCard> deck = parameters.get("deck");
+        players = parameters.get("players");
+        int loser = parameters.get("loser");
+        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
+
+
+        MethodLink methodLink = Links.getMethod(getClassType(), "determineLoser");
+        Context.Builder<?> builder = Assertions2.contextBuilder().subject(methodLink)
+            .add("Deck", deck);
+        players.forEach(p -> builder.add(p.getName(), p.getHand()));
+        Context context = builder.build();
+        CardGamePlayer actualLoser = game.determineLoser();
+
+        Assertions2.assertSame(
+            players.get(loser),
+            actualLoser,
+            context,
+            result -> "Loser mismatch."
+        );
     }
 
     @DisplayName("Bei einem SKIP wird der nächste Spieler übersprungen.")

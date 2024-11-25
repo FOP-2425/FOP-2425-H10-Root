@@ -255,7 +255,6 @@ public class H10_RubricProvider implements RubricProvider {
 
     private static final Criterion H10_3_2 = Criterion.builder()
         .shortDescription("H10.3.2 | Das vorherige Element zurückgeben")
-
         .addChildCriteria(
             criterion(
                 "Die Methode hasPrevious() gibt korrekt an, ob es ein vorheriges Element gibt.",
@@ -284,7 +283,7 @@ public class H10_RubricProvider implements RubricProvider {
             criterion(
                 "Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.",
                 "h10.H10_3_3_TestsPublic",
-                "testLastCards"
+                "testLastCards", JsonParameterSet.class
             ),
             criterion(
                 "Bei einem SKIP wird der nächste Spieler übersprungen.",

@@ -1,10 +1,12 @@
 package h10.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import h10.CardGamePlayer;
 import h10.ListItem;
 import h10.PlayingCard;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -59,5 +61,33 @@ public final class JsonConverters extends org.tudalgo.algoutils.tutor.general.js
      */
     public static <T> MockDoublyLinkedList<T> toDoublyLinkedList(JsonNode node, Function<JsonNode, T> mapper) {
         return new MockDoublyLinkedList<>(toItems(node, mapper));
+    }
+
+    /**
+     * Converts the given JSON node to a deck of playing cards.
+     *
+     * @param node the JSON node to convert
+     * @return the deck of playing cards represented by the JSON node
+     */
+    public static List<PlayingCard> toDeck(JsonNode node) {
+        if (!node.isArray()) {
+            throw new IllegalArgumentException("Node is not an array");
+        }
+        return toList(node, JsonConverters::toPlayingCard);
+    }
+
+    /**
+     * Converts the given JSON node to a player.
+     *
+     * @param node the JSON node to convert
+     * @return the player represented by the JSON node
+     */
+    public static MockCardGamePlayer toPlayer(JsonNode node) {
+        if (!node.isObject()) {
+            throw new IllegalArgumentException("Node is not an object");
+        }
+        MockCardGamePlayer player = new MockCardGamePlayer(node.get("name").asText());
+        player.setHand(toDoublyLinkedList(node.get("hand"), JsonConverters::toPlayingCard));
+        return player;
     }
 }
