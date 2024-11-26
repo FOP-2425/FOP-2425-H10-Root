@@ -67,31 +67,6 @@ public class H10_3_3_TestsPublic extends H10_Test {
         return List.of();
     }
 
-    @DisplayName("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.")
-    @ParameterizedTest
-    @JsonParameterSetTest(value = "H10_3_3_Loser.json", customConverters = CUSTOM_CONVERTERS)
-    void testLastCards(JsonParameterSet parameters) throws Throwable {
-        List<PlayingCard> deck = parameters.get("deck");
-        players = parameters.get("players");
-        int loser = parameters.get("loser");
-        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
-
-
-        MethodLink methodLink = Links.getMethod(getClassType(), "determineLoser");
-        Context.Builder<?> builder = Assertions2.contextBuilder().subject(methodLink)
-            .add("Deck", deck);
-        players.forEach(p -> builder.add(p.getName(), p.getHand()));
-        Context context = builder.build();
-        CardGamePlayer actualLoser = game.determineLoser();
-
-        Assertions2.assertSame(
-            players.get(loser),
-            actualLoser,
-            context,
-            result -> "Loser mismatch."
-        );
-    }
-
     @DisplayName("Bei einem SKIP wird der nächste Spieler übersprungen.")
     @Test
     void testSkip() throws Throwable {
@@ -181,4 +156,28 @@ public class H10_3_3_TestsPublic extends H10_Test {
         Assertions2.assertEquals(lastPlayersHandSize - 1, lastPlayer.getHandSize(), context, result -> "The last player should play one card.");
     }
 
+    @DisplayName("Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.")
+    @Test
+    void testNoCards() throws Throwable {
+        players.forEach(p -> {
+            p.takeCard(PlayingCard.PASS);
+        });
+        List<PlayingCard> deck = players.stream().map(MockCardGamePlayer::getHand).flatMap(Collection::stream).toList();
+        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
+
+        MockCardGamePlayer player = players.getFirst();
+
+        Context context = contextBuilder()
+            .add("Players", players)
+            .add("Deck", deck)
+            .add("Current player", player)
+            .add("Playing card", PlayingCard.PASS)
+            .build();
+
+        int numberOfPlayers = players.size();
+        // Current player turn
+        getMethod().invoke(game);
+        Assertions2.assertEquals(0, player.getHandSize(), context, result -> "The player should not have any card.");
+        Assertions2.assertEquals(numberOfPlayers - 1, game.getPlayers().size(), context, result -> "The player should be removed from the game.");
+    }
 }

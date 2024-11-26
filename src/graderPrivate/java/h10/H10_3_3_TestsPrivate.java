@@ -1,16 +1,21 @@
 package h10;
 
+import h10.util.Links;
 import h10.util.MockCardGame;
 import h10.util.MockCardGamePlayer;
 import h10.util.TestConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.Mock;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
+import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
+import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
+import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
 import java.util.Collection;
 import java.util.List;
@@ -148,29 +153,28 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
         Assertions2.assertEquals(6, game.getTakeCards(), context, result -> "The number of cards to draw should be 6.");
     }
 
-    @DisplayName("Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.")
-    @Test
-    void testNoCards() throws Throwable {
-        players.forEach(p -> {
-            p.takeCard(PlayingCard.PASS);
-        });
-        List<PlayingCard> deck = players.stream().map(MockCardGamePlayer::getHand).flatMap(Collection::stream).toList();
+   @DisplayName("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.")
+    @ParameterizedTest
+    @JsonParameterSetTest(value = "H10_3_3_Loser.json", customConverters = CUSTOM_CONVERTERS)
+    void testLastCards(JsonParameterSet parameters) throws Throwable {
+        List<PlayingCard> deck = parameters.get("deck");
+        players = parameters.get("players");
+        int loser = parameters.get("loser");
         MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
 
-        MockCardGamePlayer player = players.getFirst();
 
-        Context context = contextBuilder()
-            .add("Players", players)
-            .add("Deck", deck)
-            .add("Current player", player)
-            .add("Playing card", PlayingCard.PASS)
-            .build();
+        MethodLink methodLink = Links.getMethod(getClassType(), "determineLoser");
+        Context.Builder<?> builder = Assertions2.contextBuilder().subject(methodLink)
+            .add("Deck", deck);
+        players.forEach(p -> builder.add(p.getName(), p.getHand()));
+        Context context = builder.build();
+        CardGamePlayer actualLoser = game.determineLoser();
 
-        int numberOfPlayers = players.size();
-        // Current player turn
-        getMethod().invoke(game);
-        Assertions2.assertEquals(0, player.getHandSize(), context, result -> "The player should not have any card.");
-        Assertions2.assertEquals(numberOfPlayers - 1, game.getPlayers().size(), context, result -> "The player should be removed from the game.");
+        Assertions2.assertSame(
+            players.get(loser),
+            actualLoser,
+            context,
+            result -> "Loser mismatch."
+        );
     }
-
 }

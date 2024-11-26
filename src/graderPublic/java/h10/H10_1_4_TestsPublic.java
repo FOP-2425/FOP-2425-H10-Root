@@ -43,7 +43,7 @@ public class H10_1_4_TestsPublic extends H10_1_CountSkipCards_Tests {
     @DisplayName("Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.")
     @Override
     @ParameterizedTest
-    @JsonParameterSetTest(value = "H10_1_3.json", customConverters = CUSTOM_CONVERTERS)
+    @JsonParameterSetTest(value = "H10_1_4.json", customConverters = CUSTOM_CONVERTERS)
     void testResult(JsonParameterSet parameters) throws Throwable {
         super.testResult(parameters);
     }

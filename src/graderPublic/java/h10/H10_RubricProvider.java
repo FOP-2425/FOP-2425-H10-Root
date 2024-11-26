@@ -52,13 +52,13 @@ public class H10_RubricProvider implements RubricProvider {
         .addChildCriteria(
             criterion(
                 "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
-                "h10.H10_1_3_TestsPublic",
+                "h10.H10_1_3_Tests",
                 "testResult", JsonParameterSet.class
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
                 -1,
-                "h10.H10_1_3_TestsPrivate",
+                "h10.H10_1_3_Tests",
                 "testRequirements"
             )
         ).build();
@@ -70,13 +70,13 @@ public class H10_RubricProvider implements RubricProvider {
         .addChildCriteria(
             criterion(
                 "Die Anzahl der Karten des Typs SKIP wird korrekt gezählt und zurückgegeben.",
-                "h10.H10_1_3_TestsPublic",
+                "h10.H10_1_4_TestsPublic",
                 "testResult", JsonParameterSet.class
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
                 -1,
-                "h10.H10_1_3_TestsPrivate",
+                "h10.H10_1_4_TestsPrivate",
                 "testRequirements"
             )
         ).build();
@@ -281,11 +281,6 @@ public class H10_RubricProvider implements RubricProvider {
         .shortDescription("H10.3.3 | Verlierer des Spiels bestimmen")
         .addChildCriteria(
             criterion(
-                "Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.",
-                "h10.H10_3_3_TestsPublic",
-                "testLastCards", JsonParameterSet.class
-            ),
-            criterion(
                 "Bei einem SKIP wird der nächste Spieler übersprungen.",
                 "h10.H10_3_3_TestsPublic",
                 "testSkip"
@@ -310,8 +305,13 @@ public class H10_RubricProvider implements RubricProvider {
             ),
             criterion(
                 "Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.",
-                "h10.H10_3_3_TestsPrivate",
+                "h10.H10_3_3_TestsPublic",
                 "testNoCards"
+            ),
+            criterion(
+                "Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.",
+                "h10.H10_3_3_TestsPrivate",
+                "testLastCards", JsonParameterSet.class
             )
         )
         .build();
