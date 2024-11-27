@@ -17,14 +17,19 @@ public class ListItemExamples {
      */
     @StudentImplementationRequired
     public static ListItem<CardGamePlayer> createPlayerListFromNames(String[] names) {
-        ListItem<CardGamePlayer> playerList = new ListItem<>();
-        ListItem<CardGamePlayer> current = playerList;
+        ListItem<CardGamePlayer> playerList = null;
+        ListItem<CardGamePlayer> current = null;
 
         for (String name : names) {
-            current.key = new CardGamePlayer(name);
-            current.next = new ListItem<>();
-            current.next.prev = current;
-            current = current.next;
+            ListItem<CardGamePlayer> newItem = new ListItem<>();
+            newItem.key = new CardGamePlayer(name);
+            if (playerList == null) {
+                playerList = newItem;
+            } else {
+                current.next = newItem;
+                newItem.prev = current;
+            }
+            current = newItem;
         }
 
         return playerList;
