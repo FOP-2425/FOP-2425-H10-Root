@@ -51,8 +51,9 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
 
         List<PlayingCard> deck = players.stream()
             .map(player -> player.hand)
-            .map(this::fromMyList).flatMap(List::stream).
-            toList();
+            .map(this::fromMyList)
+            .flatMap(List::stream)
+            .toList();
 
         CardGame game = CardGames.create(players, deck);
 
@@ -96,8 +97,9 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
 
         List<PlayingCard> deck = players.stream()
             .map(player -> player.hand)
-            .map(this::fromMyList).flatMap(List::stream).
-            toList();
+            .map(this::fromMyList)
+            .flatMap(List::stream)
+            .toList();
 
         CardGame game = CardGames.create(players, deck);
 
@@ -154,8 +156,9 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
 
         List<PlayingCard> deck = players.stream()
             .map(player -> player.hand)
-            .map(this::fromMyList).flatMap(List::stream).
-            toList();
+            .map(this::fromMyList)
+            .flatMap(List::stream)
+            .toList();
 
         CardGame game = CardGames.create(players, deck);
 
@@ -195,7 +198,8 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
         CardGame game = CardGames.create(players, deck);
 
         MethodLink methodLink = Links.getMethod(getClassType(), "determineLoser");
-        Context.Builder<?> builder = Assertions2.contextBuilder().subject(methodLink)
+        Context.Builder<?> builder = Assertions2.contextBuilder()
+            .subject(methodLink)
             .add("Deck", deck);
         players.forEach(p -> builder.add(p.getName(), p.hand));
         Context context = builder.add("Loser", players.get(loser)).build();
