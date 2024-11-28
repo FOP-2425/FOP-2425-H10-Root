@@ -59,8 +59,12 @@ public class DoublyLinkedList<T> implements MyList<T> {
      */
     @StudentImplementationRequired
     private int findFirstHelper(ListItem<T> p, T key, int index) {
-        if (p == null) return -1;
-        if (p.key.equals(key)) return index;
+        if (p == null) {
+            return -1;
+        }
+        if (p.key.equals(key)) {
+            return index;
+        }
         return findFirstHelper(p.next, key, index + 1);
     }
 
@@ -218,8 +222,7 @@ public class DoublyLinkedList<T> implements MyList<T> {
          * Returns {@code true} if this iterator has more elements when
          * traversing the list in the forward direction.
          *
-         * @return {@code true} if the list iterator has more elements when
-         * traversing the list in the forward direction
+         * @return {@code true} if the list iterator has more elements when traversing the list in the forward direction
          */
         @Override
         @StudentImplementationRequired
@@ -238,7 +241,9 @@ public class DoublyLinkedList<T> implements MyList<T> {
         @Override
         @StudentImplementationRequired
         public T next() {
-            if (!hasNext()) throw new NoSuchElementException("The list is empty");
+            if (!hasNext()) {
+                throw new NoSuchElementException("The list is empty");
+            }
 
             if (p == null || p.next == null) {
                 p = head;
@@ -272,7 +277,9 @@ public class DoublyLinkedList<T> implements MyList<T> {
          */
         @StudentImplementationRequired
         public T previous() {
-            if (!hasPrevious()) throw new NoSuchElementException("The list is empty");
+            if (!hasPrevious()) {
+                throw new NoSuchElementException("The list is empty");
+            }
 
             if (p == null || p.prev == null) {
                 p = tail;
@@ -288,7 +295,8 @@ public class DoublyLinkedList<T> implements MyList<T> {
         /**
          * Removes the last element that was returned.
          *
-         * @throws IllegalStateException if the `next` or `previous` method has not been called yet or the element has already been removed
+         * @throws IllegalStateException if the `next` or `previous` method has not been called yet or the element has
+         *                               already been removed
          */
         @Override
         @DoNotTouch

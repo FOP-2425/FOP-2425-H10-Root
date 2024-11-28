@@ -3,7 +3,7 @@ package h10;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
 /**
- * Represents a player in the card game
+ * Represents a player in the card game.
  */
 @DoNotTouch
 public class CardGamePlayer {

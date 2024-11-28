@@ -3,7 +3,7 @@ package h10;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
 /**
- * Represents a single item in a doubly linked list
+ * Represents a single item in a doubly linked list.
  */
 @DoNotTouch
 public class ListItem<T> {
@@ -55,8 +55,9 @@ public class ListItem<T> {
 
     @Override
     public String toString() {
-        return "ListItem{" +
-            "key=" + key +
-            '}';
+        return "ListItem{"
+            + "key="
+            + key
+            + '}';
     }
 }

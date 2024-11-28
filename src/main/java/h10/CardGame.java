@@ -78,8 +78,8 @@ public class CardGame {
 
     /**
      * Creates a new card game with four players and a deck of 100 cards.
-     * <p>
-     * The deck is shuffled and each player gets five random cards.
+     *
+     * <p>The deck is shuffled and each player gets five random cards.
      *
      * @return a new card game with four players and a deck of 100 cards
      */
