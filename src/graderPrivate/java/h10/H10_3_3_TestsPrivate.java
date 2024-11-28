@@ -37,13 +37,6 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
         "loser", JsonNode::intValue
     );
 
-    @Test
-    void test() {
-        CtElement element = ((BasicMethodLink) getMethod()).getCtElement();
-        element.filterChildren(e -> e instanceof CtInvocation<?>).forEach(System.out::println);
-
-    }
-
     @DisplayName("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.")
     @Test
     void testDrawTwoLastTurnNoDrawTwo() throws Throwable {

@@ -7,7 +7,6 @@ import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 import spoon.SpoonException;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtElement;
-import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.ImportScanner;
 import spoon.reflect.visitor.ImportScannerImpl;
 

@@ -22,7 +22,7 @@ import java.util.function.Function;
  * @author Nhan Huynh
  */
 @TestForSubmission
-@DisplayName("H10.1.3 | Vorkommen der Karte SKIP zählen - rekursis")
+@DisplayName("H10.1.3 | Vorkommen der Karte SKIP zählen - rekursiv")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_1_3_TestsPrivate extends H10_1_CountSkipCards_Tests {
 
