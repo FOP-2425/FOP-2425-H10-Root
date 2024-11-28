@@ -1,44 +1,73 @@
 package h10;
 
+import org.jetbrains.annotations.Nullable;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 /**
- * Represents a simple card game with 4 players and a deck of cards
+ * Represents a simple card game with four players and a deck of cards.
  */
 public class CardGame {
 
+    /**
+     * The players in the game.
+     */
     @DoNotTouch
-    private MyList<CardGamePlayer> players;
+    MyList<CardGamePlayer> players;
 
+    /**
+     * An iterator over the players in the game.
+     */
     @DoNotTouch
     private BidirectionalIterator<CardGamePlayer> iter;
 
+    /**
+     * The deck of cards that are used in the game.
+     */
     @DoNotTouch
     private MyList<PlayingCard> cardDeck;
 
     // Game state variables
-    @DoNotTouch
-    private boolean reverseDirection = false; // If true, the direction of play is reversed in the next turn
 
+    /**
+     * The direction of play in the game which determines the order in which the players take turns.
+     */
     @DoNotTouch
-    private boolean skipNextPlayer = false; // If true, the next player is skipped
+    boolean reverseDirection = false;
 
+    /**
+     * The state of the next player in the game. If true, the next player is skipped.
+     */
     @DoNotTouch
-    private int takeCards = 0; // Number of cards the next player has to draw
+    boolean skipNextPlayer = false;
 
+    /**
+     * The number of cards the next player has to draw in the game.
+     */
     @DoNotTouch
-    private CardGamePlayer currentPlayer = null; // The player whose turn it is
+    int takeCards = 0;
 
+    /**
+     * The current player in the game whose turn it is.
+     */
     @DoNotTouch
-    private PlayingCard currentCard = null; // The card that is played in the current turn
+    @Nullable CardGamePlayer currentPlayer = null;
+
+    /**
+     * The card that is played in the current turn.
+     */
+    @DoNotTouch
+    @Nullable PlayingCard currentCard = null;
 
     @DoNotTouch
     private CardGame() {
     }
 
     /**
-     * Creates a new card game with the given players and card deck
+     * Creates a new card game with the given players and card deck.
+     *
+     * @param players  the players in the game
+     * @param cardDeck the deck of cards used in the game
      */
     @DoNotTouch
     public CardGame(MyList<CardGamePlayer> players, MyList<PlayingCard> cardDeck) {
@@ -48,8 +77,11 @@ public class CardGame {
     }
 
     /**
-     * Creates a new card game with 4 players and a deck of 100 cards
-     * The deck is shuffled and each player gets 5 random cards
+     * Creates a new card game with four players and a deck of 100 cards.
+     * <p>
+     * The deck is shuffled and each player gets five random cards.
+     *
+     * @return a new card game with four players and a deck of 100 cards
      */
     @DoNotTouch
     public static CardGame generateRandomCardGame() {
@@ -58,7 +90,7 @@ public class CardGame {
         cardGame.players = new DoublyLinkedList<>();
         cardGame.cardDeck = new DoublyLinkedList<>();
 
-        // Create card deck with 100 random cards
+        // Create a card deck with 100 random cards
         PlayingCard[] cards = PlayingCard.values();
         for (int i = 0; i < 100; i++) {
             cardGame.cardDeck.add(cards[(int) (Math.random() * 4)]);
@@ -79,7 +111,7 @@ public class CardGame {
     }
 
     /**
-     * Determines the loser of the game
+     * Determines the loser of the game.
      *
      * @return the last player who still has cards in their hand
      */
@@ -117,14 +149,18 @@ public class CardGame {
             takeCards = 0;
         }
 
-        if (PlayingCard.SKIP.equals(currentCard)) { // Skip next player
+        // Skip next player
+        if (PlayingCard.SKIP.equals(currentCard)) {
             skipNextPlayer = true;
         }
-        if (PlayingCard.REVERSE.equals(currentCard)) { // Change of direction
+
+        // Change of direction
+        if (PlayingCard.REVERSE.equals(currentCard)) {
             reverseDirection = !reverseDirection;
         }
 
-        if (currentPlayer.getHandSize() == 0) { // This player is out of the game (is not the loser)
+        // This player is out of the game (is not the loser)
+        if (currentPlayer.getHandSize() == 0) {
             iter.remove();
         }
     }

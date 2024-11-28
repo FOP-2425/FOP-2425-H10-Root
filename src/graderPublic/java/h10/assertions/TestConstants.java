@@ -1,11 +1,12 @@
-package h10.util;
+package h10.assertions;
 
 /**
- * Constants for tests.
+ * Constants for tests for configuring test behavior.
  *
  * @author Nhan Huynh
  */
 public final class TestConstants {
+
 
     /**
      * Timeout for tests in seconds.
@@ -18,7 +19,7 @@ public final class TestConstants {
     public static final boolean SKIP_AFTER_FIRST_FAILED_TEST = true;
 
     /**
-     * Private constructor to prevent instantiation.
+     * Prevent instantiation of this utility class.
      */
     private TestConstants() {
     }

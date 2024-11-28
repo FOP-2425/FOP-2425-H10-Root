@@ -2,6 +2,14 @@ package h10;
 
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
+/**
+ * An ordered collection of elements, where the user has precise control over where in the
+ * list each element is inserted.
+ *
+ * <p>The user can access elements by their integer index (position in the list) and search for elements in the list.
+ *
+ * @param <T> the type of elements stored in the list
+ */
 @DoNotTouch
 public interface MyList<T> {
 
@@ -74,5 +82,5 @@ public interface MyList<T> {
      * Retrieve an iterator for traversing this doubly linked list in a cyclic manner.
      */
     @DoNotTouch
-    public BidirectionalIterator<T> cyclicIterator();
+    BidirectionalIterator<T> cyclicIterator();
 }

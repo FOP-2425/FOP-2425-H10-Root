@@ -6,14 +6,38 @@ import h10.MyList;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+/**
+ * A simple implementation of a list that can be used for testing.
+ *
+ * @param <T> the type of the elements in the list
+ */
 public class MockList<T> implements MyList<T> {
 
+    /**
+     * The delegate list that holds the elements.
+     */
     private final java.util.List<T> delegate = new ArrayList<>();
 
+
+    /**
+     * Creates a list with the given elements.
+     *
+     * @param elements the elements to add to the list
+     * @param <T>      the type of the elements in the list
+     * @return the list with the given elements
+     */
+    @SafeVarargs
     public static <T> MockList<T> of(T... elements) {
         return of(java.util.List.of(elements));
     }
 
+    /**
+     * Creates a list with the given elements.
+     *
+     * @param elements the elements to add to the list
+     * @param <T>      the type of the elements in the list
+     * @return the list with the given elements
+     */
     public static <T> MockList<T> of(Iterable<T> elements) {
         MockList<T> list = new MockList<>();
         for (T element : elements) {
@@ -118,7 +142,6 @@ public class MockList<T> implements MyList<T> {
             }
         };
     }
-
 
     @Override
     public String toString() {

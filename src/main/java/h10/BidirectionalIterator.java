@@ -5,14 +5,20 @@ import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * An iterator over elements that can be traversed in both directions.
+ *
+ * @param <T> the type of elements returned by this iterator
+ */
 @DoNotTouch
 public interface BidirectionalIterator<T> extends Iterator<T> {
+
     /**
      * Returns {@code true} if this iterator has more elements when
      * traversing the list in the forward direction.
      *
      * @return {@code true} if the list iterator has more elements when
-     *         traversing the list in the forward direction
+     * traversing the list in the forward direction
      */
     boolean hasNext();
 

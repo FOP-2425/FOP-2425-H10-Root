@@ -1,9 +1,10 @@
-package h10.util;
+package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import h10.CardGamePlayer;
-import h10.ListItem;
-import h10.PlayingCard;
+import h10.assertions.Links;
+import h10.util.ListItems;
+import h10.util.MockList;
+import org.tudalgo.algoutils.tutor.general.reflections.FieldLink;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,18 +53,6 @@ public final class JsonConverters extends org.tudalgo.algoutils.tutor.general.js
     }
 
     /**
-     * Converts the given JSON node to a doubly linked list.
-     *
-     * @param node   the JSON node to convert
-     * @param mapper the mapper to use for mapping the items
-     * @param <T>    the type of the items in the list
-     * @return the doubly linked list represented by the JSON node
-     */
-    public static <T> MockDoublyLinkedList<T> toDoublyLinkedList(JsonNode node, Function<JsonNode, T> mapper) {
-        return new MockDoublyLinkedList<>(toItems(node, mapper));
-    }
-
-    /**
      * Converts the given JSON node to a deck of playing cards.
      *
      * @param node the JSON node to convert
@@ -82,12 +71,37 @@ public final class JsonConverters extends org.tudalgo.algoutils.tutor.general.js
      * @param node the JSON node to convert
      * @return the player represented by the JSON node
      */
-    public static MockCardGamePlayer toPlayer(JsonNode node) {
+    public static CardGamePlayer toPlayer(JsonNode node) {
         if (!node.isObject()) {
             throw new IllegalArgumentException("Node is not an object");
         }
-        MockCardGamePlayer player = new MockCardGamePlayer(node.get("name").asText());
-        player.setHand(toDoublyLinkedList(node.get("hand"), JsonConverters::toPlayingCard));
+        CardGamePlayer player = new CardGamePlayer(node.get("name").asText());
+        FieldLink hand = Links.getField(CardGamePlayer.class, "hand");
+        hand.set(player, MockList.of(toList(node.get("hand"), JsonConverters::toPlayingCard)));
         return player;
+    }
+
+    /**
+     * Converts the given JSON node to a doubly linked list.
+     *
+     * @param node   the JSON node to convert
+     * @param mapper the mapper to use for mapping the items
+     * @param <T>    the type of the items in the list
+     * @return the doubly linked list represented by the JSON nodeo
+     */
+    public static <T> DoublyLinkedList<T> toDoublyLinkedList(JsonNode node, Function<JsonNode, T> mapper) {
+        if (!node.isArray()) {
+            throw new IllegalArgumentException("Node is not an array");
+        }
+        DoublyLinkedList<T> list = new DoublyLinkedList<>();
+        list.head = toItems(node, mapper);
+        list.tail = list.head;
+        int size = 0;
+        for (ListItem<T> current = list.head; current != null; current = current.next) {
+            list.tail = current;
+            size++;
+        }
+        list.size = size;
+        return list;
     }
 }

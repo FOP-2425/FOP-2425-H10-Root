@@ -1,9 +1,8 @@
 package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import h10.util.JsonConverters;
-import h10.util.MockDoublyLinkedList;
-import h10.util.TestConstants;
+import h10.assertions.TestConstants;
+import h10.rubric.H10_Tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -18,20 +17,20 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Tests for H10.2.2
+ * Defines the public tests for H10.2.2.
  *
- * @author Nhan Huynh.
+ * @author Nhan Huynh
  */
 @TestForSubmission
 @DisplayName("H10.2.2 | Auf ein Element in der Liste zugreifen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_2_2_TestsPublic extends H10_Test {
+public class H10_2_2_TestsPublic extends H10_Tests {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
-        "list", node -> JsonConverters.toDoublyLinkedList(node, JsonNode::asInt),
+        "input", node -> JsonConverters.toDoublyLinkedList(node, JsonNode::asInt),
         "index", JsonNode::asInt,
         "element", JsonNode::asInt,
-        "begin", JsonNode::asBoolean
+        "searchFromStart", JsonNode::asBoolean
     );
 
     @Override
@@ -53,13 +52,13 @@ public class H10_2_2_TestsPublic extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Position.json", customConverters = CUSTOM_CONVERTERS)
     void testPositions(JsonParameterSet parameters) {
-        MockDoublyLinkedList<Integer> list = parameters.get("list");
+        DoublyLinkedList<Integer> list = parameters.get("input");
         int index = parameters.get("index");
         int element = parameters.get("element");
         Context context = contextBuilder()
-            .add("List", list)
+            .add("List", list.toString())
             .add("Index", index)
-            .add("Element to add", element)
+            .add("Element to get", element)
             .build();
         int actual = list.get(index);
         Assertions2.assertEquals(element, actual, context, result -> "Element at the index %s mismatch".formatted(index));

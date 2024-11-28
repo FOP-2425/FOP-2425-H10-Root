@@ -1,6 +1,6 @@
 [
   {
-    "list": [
+    "input": [
       1,
       2,
       3,
@@ -8,10 +8,10 @@
       5
     ],
     "index": 1,
-    "begin": true
+    "searchFromStart": true
   },
   {
-    "list": [
+    "input": [
       1,
       2,
       3,
@@ -19,20 +19,20 @@
       5
     ],
     "index": 2,
-    "begin": false
+    "searchFromStart": false
   },
-    {
-    "list": [
+  {
+    "input": [
       1,
       2,
       3,
       4
     ],
     "index": 2,
-    "begin": false
+    "searchFromStart": false
   },
   {
-    "list": [
+    "input": [
       10,
       20,
       30,
@@ -41,10 +41,10 @@
       60
     ],
     "index": 5,
-    "begin": false
+    "searchFromStart": false
   },
   {
-    "list": [
+    "input": [
       7,
       14,
       21,
@@ -53,10 +53,10 @@
       42
     ],
     "index": 2,
-    "begin": true
+    "searchFromStart": true
   },
   {
-    "list": [
+    "input": [
       100,
       200,
       300,
@@ -66,10 +66,10 @@
       700
     ],
     "index": 6,
-    "begin": false
+    "searchFromStart": false
   },
   {
-    "list": [
+    "input": [
       5,
       15,
       25,
@@ -80,10 +80,10 @@
       75
     ],
     "index": 3,
-    "begin": true
+    "searchFromStart": true
   },
   {
-    "list": [
+    "input": [
       3,
       6,
       9,
@@ -95,10 +95,10 @@
       27
     ],
     "index": 8,
-    "begin": false
+    "searchFromStart": false
   },
   {
-    "list": [
+    "input": [
       8,
       16,
       24,
@@ -111,10 +111,10 @@
       80
     ],
     "index": 4,
-    "begin": true
+    "searchFromStart": true
   },
   {
-    "list": [
+    "input": [
       11,
       22,
       33,
@@ -123,10 +123,10 @@
       66
     ],
     "index": 2,
-    "begin": true
+    "searchFromStart": true
   },
   {
-    "list": [
+    "input": [
       2,
       4,
       6,
@@ -139,10 +139,10 @@
       20
     ],
     "index": 7,
-    "begin": false
+    "searchFromStart": false
   },
   {
-    "list": [
+    "input": [
       9,
       18,
       27,
@@ -157,6 +157,6 @@
       108
     ],
     "index": 3,
-    "begin": true
+    "searchFromStart": true
   }
 ]

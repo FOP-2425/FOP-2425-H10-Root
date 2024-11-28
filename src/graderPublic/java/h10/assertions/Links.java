@@ -1,4 +1,4 @@
-package h10.util;
+package h10.assertions;
 
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions3;
 import org.tudalgo.algoutils.tutor.general.match.BasicStringMatchers;
@@ -37,16 +37,16 @@ public final class Links {
     }
 
     /**
-     * Returns the field link for the given class and field name.
+     * Returns the type link for the given class.
      *
-     * @param clazz     the class to get the field from
-     * @param fieldName the name of the field
-     * @param matchers  the matchers for additional checks to retrieve the field
-     * @return the field link for the given class and field name
+     * @param clazz the class to get the type from
+     * @return the type link for the given class
      */
-    @SafeVarargs
-    public static FieldLink getField(Class<?> clazz, String fieldName, Matcher<FieldLink>... matchers) {
-        return getField(getType(clazz), fieldName, matchers);
+    public static TypeLink getType(Class<?> clazz) {
+        return Assertions3.assertTypeExists(
+            PACKAGE,
+            STRING_MATCHER_FACTORY.matcher(clazz.getSimpleName())
+        );
     }
 
     /**
@@ -66,16 +66,16 @@ public final class Links {
     }
 
     /**
-     * Returns the method link for the given class and method name.
+     * Returns the field link for the given class and field name.
      *
-     * @param clazz      the class to get the method from
-     * @param methodName the name of the method
-     * @param matchers   the matchers for additional checks to retrieve the method
-     * @return the method link for the given class and method name
+     * @param clazz     the class to get the field from
+     * @param fieldName the name of the field
+     * @param matchers  the matchers for additional checks to retrieve the field
+     * @return the field link for the given class and field name
      */
     @SafeVarargs
-    public static MethodLink getMethod(Class<?> clazz, String methodName, Matcher<MethodLink>... matchers) {
-        return getMethod(getType(clazz), methodName, matchers);
+    public static FieldLink getField(Class<?> clazz, String fieldName, Matcher<FieldLink>... matchers) {
+        return getField(getType(clazz), fieldName, matchers);
     }
 
     /**
@@ -95,15 +95,15 @@ public final class Links {
     }
 
     /**
-     * Returns the type link for the given class.
+     * Returns the method link for the given class and method name.
      *
-     * @param clazz the class to get the type from
-     * @return the type link for the given class
+     * @param clazz      the class to get the method from
+     * @param methodName the name of the method
+     * @param matchers   the matchers for additional checks to retrieve the method
+     * @return the method link for the given class and method name
      */
-    public static TypeLink getType(Class<?> clazz) {
-        return Assertions3.assertTypeExists(
-            PACKAGE,
-            STRING_MATCHER_FACTORY.matcher(clazz.getSimpleName())
-        );
+    @SafeVarargs
+    public static MethodLink getMethod(Class<?> clazz, String methodName, Matcher<MethodLink>... matchers) {
+        return getMethod(getType(clazz), methodName, matchers);
     }
 }

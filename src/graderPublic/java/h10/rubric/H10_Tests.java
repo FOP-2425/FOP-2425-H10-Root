@@ -1,9 +1,13 @@
-package h10;
+package h10.rubric;
 
-import h10.util.Links;
+import h10.assertions.Links;
+import h10.assertions.TestConstants;
 import org.jetbrains.annotations.Nullable;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
+import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.match.Matcher;
@@ -14,12 +18,9 @@ import org.tudalgo.algoutils.tutor.general.reflections.TypeLink;
 import java.util.List;
 
 /**
- * Base class for tests in the h10 package. If you want to use custom converts, please add a static final field named
- * {@link #CUSTOM_CONVERTERS} in your test class with the type {@code Map<String, Function<JsonNode, ?>>} in order to
- * receive the custom converters from the JSON parameter set test annotation.
- *
+ * Defines a test skeleton for the H10 assignment.
+ * <p>
  * Use the following schema:
- *
  * <pre>{@code
  *     public class TestClass extends H10_Test {
  *          public static final Map<String, Function<JsonNode, ?>> CUSTOM_CONVERTERS = Map.of(
@@ -49,11 +50,12 @@ import java.util.List;
  *   }
  * }</pre>
  *
- *
  * @author Nhan Huynh
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class H10_Test {
+@TestForSubmission
+@SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
+public abstract class H10_Tests {
 
     /**
      * The attribute name for custom converters in the JSON parameter set test annotation.
@@ -71,15 +73,20 @@ public abstract class H10_Test {
     private @Nullable MethodLink method;
 
     /**
-     * Set up the type and method for the test.
+     * Configuration for all tests.
      */
     @BeforeAll
     void globalSetup() {
+        Assertions.assertNotNull(
+            getClass().getAnnotation(TestForSubmission.class),
+            "The test class is not annotated with @TestForSubmission."
+        );
+
         this.type = Links.getType(getClassType());
         this.method = Links.getMethod(
-                type,
-                getMethodName(),
-                Matcher.of(method -> method.typeList().equals(getMethodParametersLink()))
+            type,
+            getMethodName(),
+            Matcher.of(method -> method.typeList().equals(getMethodParametersLink()))
         );
     }
 

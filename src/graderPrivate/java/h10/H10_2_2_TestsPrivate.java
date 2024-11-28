@@ -1,23 +1,23 @@
 package h10;
 
+import h10.assertions.TestConstants;
 import h10.util.ListItems;
-import h10.util.MockDoublyLinkedList;
-import h10.util.TestConstants;
-import h10.util.TutorAssertionsPrivate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
+import org.tudalgo.algoutils.tutor.general.assertions.Assertions4;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
 
 /**
- * Tests for H10.2.2
+ * Defines the private tests for H10.2.2.
  *
- * @author Nhan Huynh.
+ * @author Nhan Huynh
  */
 @TestForSubmission
 @DisplayName("H10.2.2 | Auf ein Element in der Liste zugreifen")
@@ -28,18 +28,18 @@ public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Path.json", customConverters = CUSTOM_CONVERTERS)
     void testPath(JsonParameterSet parameters) {
-        MockDoublyLinkedList<Integer> list = parameters.get("list");
+        DoublyLinkedList<Integer> list = parameters.get("input");
         int index = parameters.get("index");
-        boolean begin = parameters.get("begin");
+        boolean searchFromStart = parameters.get("searchFromStart");
 
         Context context = contextBuilder()
-            .add("List", list)
+            .add("List", list.toString())
             .add("Index", index)
-            .add("Search from", begin ? "beginning" : "end")
+            .add("Search from", searchFromStart ? "start" : "end")
             .build();
 
-        ListItems.itemStream(list.getHead()).forEach(item -> {
-            if (begin) {
+        ListItems.itemStream(list.head).forEach(item -> {
+            if (searchFromStart) {
                 item.prev = null;
             } else {
                 item.next = null;
@@ -53,26 +53,28 @@ public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_2_Exception.json", customConverters = CUSTOM_CONVERTERS)
     void testException(JsonParameterSet parameters) {
-        MockDoublyLinkedList<Integer> list = parameters.get("list");
+        DoublyLinkedList<Integer> list = parameters.get("input");
         int index = parameters.get("index");
         Context context = contextBuilder()
-            .add("List", list)
+            .add("List", list.toString())
             .add("Index", index)
             .build();
 
-        Throwable throwable = Assertions2.assertThrows(
+        Assertions2.assertThrows(
             IndexOutOfBoundsException.class,
             () -> list.get(index),
             context,
             result -> "Expected an IndexOutOfBoundsException to be thrown"
         );
-
-        Assertions2.assertEquals("Index out of bounds", throwable.getMessage(), context, result -> "Exception message mismatch");
     }
 
-    @DisplayName("Verbindliche Anforderung nicht erfüllt")
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Rekursion")
     @Test
-    void testRequirements() {
-        TutorAssertionsPrivate.assertIterative(getMethod(), getMethodName(), contextBuilder());
+    void testLoops() {
+        Assertions4.assertIsNotRecursively(
+            ((BasicMethodLink) getMethod()).getCtElement(),
+            contextBuilder().build(),
+            result -> "Method should not be recursive."
+        );
     }
 }

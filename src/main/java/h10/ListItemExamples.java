@@ -62,7 +62,9 @@ public class ListItemExamples {
      */
     @StudentImplementationRequired
     public static int countSkipCardsRecursive(ListItem<PlayingCard> cardDeck) {
-        if (cardDeck == null) return 0;
+        if (cardDeck == null) {
+            return 0;
+        }
         int count = PlayingCard.SKIP.equals(cardDeck.key) ? 1 : 0;
         return count + countSkipCardsRecursive(cardDeck.next);
     }
@@ -74,10 +76,11 @@ public class ListItemExamples {
      * @return the number of SKIP cards in the list
      */
     @StudentImplementationRequired
+    @SuppressWarnings({"WhileLoopReplaceableByForEach", "ForLoopReplaceableByForEach"})
     public static int countSkipCardsIterator(List<PlayingCard> cardDeck) {
         int count = 0;
-        Iterator<PlayingCard> iter = cardDeck.iterator();
 
+        Iterator<PlayingCard> iter = cardDeck.iterator();
         while (iter.hasNext()) {
             if (iter.next().equals(PlayingCard.SKIP)) {
                 count++;

@@ -1,14 +1,15 @@
 package h10;
 
-import h10.util.TestConstants;
-import h10.util.TutorAssertionsPrivate;
+import h10.assertions.TestConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
+import org.tudalgo.algoutils.tutor.general.assertions.Assertions4;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
 
 /**
- * Tests for H10.2.1.
+ * Defines the private tests for H10.2.1.
  *
  * @author Nhan Huynh
  */
@@ -17,9 +18,13 @@ import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_2_1_TestsPrivate extends H10_2_1_TestsPublic {
 
-    @DisplayName("Verbindliche Anforderung nicht erfüllt")
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Schleifen")
     @Test
-    void testRequirements() {
-        TutorAssertionsPrivate.assertRecursive(getMethod(), getMethodName(), contextBuilder());
+    void testRecursions() {
+        Assertions4.assertIsNotIteratively(
+            ((BasicMethodLink) getMethod()).getCtElement(),
+            contextBuilder().build(),
+            result -> "Method should not be iterative."
+        );
     }
 }

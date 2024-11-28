@@ -1,143 +1,37 @@
 [
   {
-    "data": [
-      "PlayerOne"
+    "names": [
     ]
   },
   {
-    "data": [
-      "PlayerOne",
-      "Speedster"
+    "names": [
+      "IU"
     ]
   },
   {
-    "data": [
-      "PlayerOne",
-      "Speedster",
-      "ShadowHunter"
+    "names": [
+      "Jo Youngmin",
+      "Jo Kwangmin"
     ]
   },
   {
-    "data": [
-      "PlayerOne",
-      "Speedster",
-      "ShadowHunter",
-      "BlazeStorm",
-      "ThunderStrike",
-      "MysticFury",
-      "SkyWalker",
-      "IronClaw",
-      "NightShade",
-      "FrostBite"
+    "names": [
+      "Han",
+      "Changbin",
+      "Bang Chan"
     ]
   },
   {
-    "data": [
-      "PlayerOne",
-      "Speedster",
-      "ShadowHunter",
-      "BlazeStorm",
-      "ThunderStrike",
-      "MysticFury",
-      "SkyWalker",
-      "IronClaw",
-      "NightShade",
-      "FrostBite",
-      "SilverArrow",
-      "FireFly",
-      "LoneWolf",
-      "StormBringer",
-      "DarkKnight",
-      "LightBearer",
-      "SoulReaper",
-      "FlameTamer",
-      "OceanMist",
-      "WindRider",
-      "SteelFang",
-      "DragonHeart",
-      "PhoenixWing",
-      "LionHeart",
-      "MoonDancer",
-      "CrimsonViper",
-      "FuryFist",
-      "AquaMarine",
-      "ShadowWing",
-      "SilverFox",
-      "IronWill",
-      "BlazePhantom",
-      "GoldenHawk",
-      "ThunderBlade",
-      "DarkPhoenix",
-      "StormRider",
-      "SkyFire",
-      "SunBlade",
-      "FrozenShadow",
-      "LightningStrike",
-      "SilentStorm",
-      "CrystalWave",
-      "BladeRunner",
-      "WildSpirit",
-      "FireClaw",
-      "StormShadow",
-      "MysticLight",
-      "DarkReign",
-      "ThunderWolf",
-      "IronBlade",
-      "StormBreaker",
-      "SolarFlame",
-      "NightWolf",
-      "SkyLancer",
-      "FireStorm",
-      "FrostFlame",
-      "RogueShadow",
-      "SteelClaw",
-      "NightHawk",
-      "BlazingFury",
-      "OceanBreeze",
-      "MoonGlider",
-      "LoneRanger",
-      "GhostHunter",
-      "PhantomMist",
-      "IronPhoenix",
-      "SilentReaper",
-      "FlameBlade",
-      "ThunderClaw",
-      "DarkHunter",
-      "SkySword",
-      "StormChaser",
-      "SolarWind",
-      "MysticWind",
-      "ShadowSword",
-      "IronKnight",
-      "FlameFist",
-      "ThunderBlade",
-      "RogueFire",
-      "SteelShadow",
-      "LunarWave",
-      "BlazeDragon",
-      "StormWolf",
-      "IronLion",
-      "SkyPhoenix",
-      "DarkSoul",
-      "SolarSpirit",
-      "LightningWolf",
-      "PhantomBlade",
-      "CrystalKnight",
-      "SilentKnight",
-      "WindSeeker",
-      "FireHunter",
-      "FrostSpirit",
-      "OceanKnight",
-      "ShadowStorm",
-      "DarkFire",
-      "ThunderStorm",
-      "SkyHunter",
-      "BlazingSpirit",
-      "LoneDragon",
-      "MoonHunter",
-      "FrozenBlade",
-      "SteelPhoenix",
-      "IronStorm"
+    "names": [
+      "Xiumin",
+      "Suho",
+      "Lay",
+      "Baekhyun",
+      "Chen",
+      "Chanyeol",
+      "D.O.",
+      "Kai",
+      "Sehun"
     ]
   }
 ]

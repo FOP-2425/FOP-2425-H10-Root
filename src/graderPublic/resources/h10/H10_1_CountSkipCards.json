@@ -3,14 +3,14 @@
     "deck": [
       "SKIP"
     ],
-    "count": 1
+    "skips": 1
   },
   {
     "deck": [
       "PASS",
       "REVERSE"
     ],
-    "count": 0
+    "skips": 0
   },
   {
     "deck": [
@@ -18,7 +18,7 @@
       "PASS",
       "DRAW_TWO"
     ],
-    "count": 1
+    "skips": 1
   },
   {
     "deck": [
@@ -28,7 +28,7 @@
       "DRAW_TWO",
       "PASS"
     ],
-    "count": 1
+    "skips": 1
   },
   {
     "deck": [
@@ -43,7 +43,7 @@
       "REVERSE",
       "SKIP"
     ],
-    "count": 3
+    "skips": 3
   },
   {
     "deck": [
@@ -58,7 +58,7 @@
       "SKIP",
       "SKIP"
     ],
-    "count": 10
+    "skips": 10
   },
   {
     "deck": [
@@ -113,7 +113,7 @@
       "PASS",
       "PASS"
     ],
-    "count": 9
+    "skips": 9
   },
   {
     "deck": [
@@ -229,6 +229,6 @@
       "SKIP",
       "DRAW_TWO"
     ],
-    "count": 23
+    "skips": 23
   }
 ]

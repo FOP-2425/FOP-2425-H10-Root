@@ -1,16 +1,18 @@
 package h10;
 
+import h10.rubric.H10_RubricProvider;
+
 /**
- * Rubric provider (Public Tests) for the H10 package.
+ * A public rubric provider for H10.
  *
  * @author Nhan Huynh
  */
 public class H10_RubricProviderPublic extends H10_RubricProvider {
 
     /**
-     * Creates a new rubric provider for the public tests of the H10 package.
+     * Constructs a new public rubric provider.
      */
     public H10_RubricProviderPublic() {
-        super(false);
+        super(true);
     }
 }

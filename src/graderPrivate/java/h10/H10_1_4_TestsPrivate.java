@@ -1,21 +1,15 @@
 package h10;
 
-import h10.util.TestConstants;
-import h10.util.TutorAssertionsPrivate;
+import h10.assertions.TestConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
-import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
-import org.tudalgo.algoutils.tutor.general.assertions.Context;
-import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import org.tudalgo.algoutils.tutor.general.assertions.Assertions4;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
 
 /**
- * Tests for H10.1.4.
+ * Defines the private tests for H10.1.4.
  *
  * @author Nhan Huynh
  */
@@ -24,17 +18,13 @@ import java.util.stream.Stream;
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_1_4_TestsPrivate extends H10_1_4_TestsPublic {
 
-    @DisplayName("Verbindliche Anforderung nicht erfüllt")
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Rekursion")
     @Test
-    void testRequirements() {
-        MethodLink method = getMethod();
-        TutorAssertionsPrivate.assertIterative(method, getMethodName(), contextBuilder());
-        Set<String> expected = Stream.of("hasNext", "next", "iterator").collect(Collectors.toSet());
-        Set<String> actual = TutorAssertionsPrivate.getMethodCalls(method).stream().map(MethodLink::name)
-            .filter(expected::contains).collect(Collectors.toSet());
-
-        Context context = contextBuilder().add("Expected method calls", expected).build();
-
-        Assertions2.assertEquals(expected, actual, context, result -> "Method calls are incorrect");
+    void testLoops() {
+        Assertions4.assertIsNotRecursively(
+            ((BasicMethodLink) getMethod()).getCtElement(),
+            contextBuilder().build(),
+            result -> "Method should not be recursive."
+        );
     }
 }

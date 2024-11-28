@@ -1,14 +1,12 @@
 package h10;
 
-import h10.util.Links;
-import h10.util.MockCardGame;
-import h10.util.MockCardGamePlayer;
-import h10.util.TestConstants;
-import org.junit.jupiter.api.BeforeEach;
+import com.fasterxml.jackson.databind.JsonNode;
+import h10.assertions.Links;
+import h10.assertions.TestConstants;
+import h10.util.CardGames;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.mockito.Mock;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
@@ -17,83 +15,105 @@ import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
- * Tests for H10.3.3.
+ * Defines the public tests for H10.3.3.
  *
- * @author Nhan Huynh.
+ * @author Nhan Huynh
  */
 @TestForSubmission
 @DisplayName("H10.3.3 | Verlierer des Spiels bestimmen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
 
+    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
+        "deck", JsonConverters::toDeck,
+        "players", node -> JsonConverters.toList(node, JsonConverters::toPlayer),
+        "loser", JsonNode::intValue
+    );
+
     @DisplayName("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.")
     @Test
     void testDrawTwoLastTurnNoDrawTwo() throws Throwable {
-        MockCardGamePlayer player = players.getFirst();
-        player.takeCard(PlayingCard.DRAW_TWO);
+        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
+        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
+        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
+        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
+
+        playerOne.takeCard(PlayingCard.DRAW_TWO);
         players.forEach(p -> {
             p.takeCard(PlayingCard.PASS);
         });
-        MockCardGamePlayer nextPlayer = players.get(1);
 
-        MockCardGame game = new MockCardGame(
-            players.stream().map(p -> (CardGamePlayer) p).toList(),
-            List.of(PlayingCard.PASS, PlayingCard.SKIP, PlayingCard.DRAW_TWO, PlayingCard.PASS)
-        );
+        List<PlayingCard> deck = players.stream()
+            .map(player -> player.hand)
+            .map(this::fromMyList).flatMap(List::stream).
+            toList();
+
+        CardGame game = CardGames.create(players, deck);
 
 
         Context context = contextBuilder()
-            .add("Players", game.getPlayers())
-            .add("Deck", game.getDeck())
-            .add("Current player", player)
-            .add("Next player", nextPlayer)
+            .add("Players", players)
+            .add("Deck", deck)
+            .add("Current player", playerOne)
+            .add("Next player", playerTwo)
             .add("Playing card", PlayingCard.DRAW_TWO)
             .build();
 
-        int numberOfCards = nextPlayer.getHandSize();
+        int numberOfCards = playerTwo.getHandSize();
+
         // Current player turn
         getMethod().invoke(game);
 
         // Next player turn
         getMethod().invoke(game);
+
         // Since he plays one card, he should draw two cards = 1 new card
-        Assertions2.assertEquals(numberOfCards + 1, nextPlayer.getHandSize(), context, result -> "The next player should draw two cards.");
+        Assertions2.assertEquals(numberOfCards + 1, playerTwo.getHandSize(),
+            context, result -> "The next player should draw two cards.");
     }
 
     @DisplayName("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.")
     @Test
     void testDrawTwoLastTurnDrawTwo() throws Throwable {
-        MockCardGamePlayer player = players.getFirst();
-        player.takeCard(PlayingCard.DRAW_TWO);
+        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
+        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
+        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
+        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
+
+        playerOne.takeCard(PlayingCard.DRAW_TWO);
+        playerTwo.takeCard(PlayingCard.DRAW_TWO);
+
         players.forEach(p -> {
             p.takeCard(PlayingCard.PASS);
         });
-        MockCardGamePlayer nextPlayer = players.get(1);
-        nextPlayer.takeCard(PlayingCard.DRAW_TWO);
 
-        MockCardGamePlayer thirdPlayer = players.get(2);
+        List<PlayingCard> deck = players.stream()
+            .map(player -> player.hand)
+            .map(this::fromMyList).flatMap(List::stream).
+            toList();
 
-        MockCardGame game = new MockCardGame(
-            players.stream().map(p -> (CardGamePlayer) p).toList(),
-            List.of(PlayingCard.PASS, PlayingCard.SKIP, PlayingCard.DRAW_TWO, PlayingCard.PASS)
-        );
+        CardGame game = CardGames.create(players, deck);
 
         Context context = contextBuilder()
-            .add("Players", game.getPlayers())
-            .add("Deck", game.getDeck())
-            .add("Current player", player)
-            .add("Next player", nextPlayer)
-            .add("Third player", thirdPlayer)
-            .add("Playing card", PlayingCard.DRAW_TWO)
-            .add("Playing card next", PlayingCard.DRAW_TWO)
+            .add("Players", players)
+            .add("Deck", deck)
+            .add("Current player", playerOne)
+            .add("Next player", playerTwo)
+            .add("Player to draw cards", playerThree)
+            .add("Playing card (first player)", PlayingCard.DRAW_TWO)
+            .add("Playing card (second player)", PlayingCard.DRAW_TWO)
             .build();
 
-        int numberOfCardsNext = nextPlayer.getHandSize();
-        int numberOfCardsThird = thirdPlayer.getHandSize();
+        int numberOfCardsNext = playerTwo.getHandSize();
+        int numberOfCardsThird = playerThree.getHandSize();
+
         // Current player turn
         getMethod().invoke(game);
 
@@ -103,71 +123,82 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
         // Third player turn
         getMethod().invoke(game);
 
-        Assertions2.assertEquals(numberOfCardsNext-1, nextPlayer.getHandSize(), context, result -> "The next player should not draw any cards.");
+        Assertions2.assertEquals(numberOfCardsNext - 1, playerTwo.getHandSize(), context,
+            result -> "The next player should not draw any cards.");
         // Since he plays one card, he should draw four cards = 3 new card
-        Assertions2.assertEquals(numberOfCardsThird + 3, thirdPlayer.getHandSize(), context, result -> "The next player should draw two cards.");
+        Assertions2.assertEquals(numberOfCardsThird + 3, playerThree.getHandSize(), context,
+            result -> "The next player should draw two cards.");
     }
 
     @DisplayName("Wurden in den vorherigen Zügen mehrere DRAW_TWO-Karten gespielt, so erhöht sich die Anzahl der zu ziehenden Karten entsprechend.")
     @Test
     void testDrawTwoMultiple() throws Throwable {
-        MockCardGamePlayer player = players.getFirst();
-        player.takeCard(PlayingCard.DRAW_TWO);
-        player.takeCard(PlayingCard.SKIP);
+        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
+        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
+        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
+        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
 
-        MockCardGamePlayer nextPlayer = players.get(1);
-        nextPlayer.takeCard(PlayingCard.SKIP);
-        nextPlayer.takeCard(PlayingCard.DRAW_TWO);
+        playerOne.takeCard(PlayingCard.DRAW_TWO);
+        playerOne.takeCard(PlayingCard.SKIP);
 
-        MockCardGamePlayer thirdPlayer = players.get(2);
-        thirdPlayer.takeCard(PlayingCard.DRAW_TWO);
+        playerTwo.takeCard(PlayingCard.SKIP);
+        playerTwo.takeCard(PlayingCard.DRAW_TWO);
+
+        playerThree.takeCard(PlayingCard.DRAW_TWO);
 
         players.forEach(p -> {
             p.takeCard(PlayingCard.PASS);
             p.takeCard(PlayingCard.PASS);
         });
 
-        List<PlayingCard> deck = players.stream().map(MockCardGamePlayer::getHand).flatMap(Collection::stream).toList();
-        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
+        List<PlayingCard> deck = players.stream()
+            .map(player -> player.hand)
+            .map(this::fromMyList).flatMap(List::stream).
+            toList();
 
-        int size = nextPlayer.getHandSize();
+        CardGame game = CardGames.create(players, deck);
+
+        int size = playerTwo.getHandSize();
 
         Context context = contextBuilder()
             .add("Players", players)
             .add("Deck", deck)
-            .add("Current player", player)
-            .add("Next player", nextPlayer)
-            .add("Playing cards", List.of(PlayingCard.DRAW_TWO,PlayingCard.DRAW_TWO,PlayingCard.DRAW_TWO))
+            .add("Current player", playerOne)
+            .add("Next player", playerTwo)
+            .add("Playing cards", List.of(PlayingCard.DRAW_TWO, PlayingCard.DRAW_TWO, PlayingCard.DRAW_TWO))
             .build();
 
         // Current player turn
         getMethod().invoke(game);
-        Assertions2.assertEquals(2, game.getTakeCards(), context, result -> "The number of cards to draw should be 2.");
+        Assertions2.assertEquals(2, game.takeCards, context,
+            result -> "The number of cards to draw should be 2.");
 
         // Next player turn
         getMethod().invoke(game);
-        Assertions2.assertEquals(4, game.getTakeCards(), context, result -> "The number of cards to draw should be 4.");
+        Assertions2.assertEquals(4, game.takeCards, context,
+            result -> "The number of cards to draw should be 4.");
 
         // Third player turn
         getMethod().invoke(game);
-        Assertions2.assertEquals(6, game.getTakeCards(), context, result -> "The number of cards to draw should be 6.");
+        Assertions2.assertEquals(6, game.takeCards, context,
+            result -> "The number of cards to draw should be 6.");
     }
 
-   @DisplayName("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.")
+    @DisplayName("Der Spieler, der als letztes Karten in der Hand hat, wird korrekt bestimmt und zurückgegeben.")
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_3_3_Loser.json", customConverters = CUSTOM_CONVERTERS)
-    void testLastCards(JsonParameterSet parameters) throws Throwable {
+    void testLoser(JsonParameterSet parameters) throws Throwable {
         List<PlayingCard> deck = parameters.get("deck");
-        players = parameters.get("players");
+        List<CardGamePlayer> players = parameters.get("players");
         int loser = parameters.get("loser");
-        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
-
+        CardGame game = CardGames.create(players, deck);
 
         MethodLink methodLink = Links.getMethod(getClassType(), "determineLoser");
         Context.Builder<?> builder = Assertions2.contextBuilder().subject(methodLink)
             .add("Deck", deck);
-        players.forEach(p -> builder.add(p.getName(), p.getHand()));
-        Context context = builder.build();
+        players.forEach(p -> builder.add(p.getName(), p.hand));
+        Context context = builder.add("Loser", players.get(loser)).build();
         CardGamePlayer actualLoser = game.determineLoser();
 
         Assertions2.assertSame(

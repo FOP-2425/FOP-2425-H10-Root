@@ -1,56 +1,27 @@
 package h10;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import h10.util.JsonConverters;
-import h10.util.Links;
-import h10.util.MockCardGame;
-import h10.util.MockCardGamePlayer;
-import h10.util.TestConstants;
-import org.junit.jupiter.api.BeforeEach;
+import h10.assertions.TestConstants;
+import h10.rubric.H10_Tests;
+import h10.util.CardGames;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
-import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
-import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
-import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
- * Tests for H10.3.3.
+ * Defines the public tests for H10.3.3.
  *
- * @author Nhan Huynh.
+ * @author Nhan Huynh
  */
 @TestForSubmission
 @DisplayName("H10.3.3 | Verlierer des Spiels bestimmen")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_3_3_TestsPublic extends H10_Test {
-
-    public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
-        "deck", JsonConverters::toDeck,
-        "players", node -> JsonConverters.toList(node, JsonConverters::toPlayer),
-        "loser", JsonNode::intValue
-    );
-
-
-    List<MockCardGamePlayer> players;
-
-    @BeforeEach
-    void setup() {
-        players = List.of(
-            new MockCardGamePlayer("Alice"),
-            new MockCardGamePlayer("Bob"),
-            new MockCardGamePlayer("Charlie")
-        );
-    }
+public class H10_3_3_TestsPublic extends H10_Tests {
 
     @Override
     public Class<?> getClassType() {
@@ -67,117 +38,165 @@ public class H10_3_3_TestsPublic extends H10_Test {
         return List.of();
     }
 
+    /**
+     * Converts a MyList to a List.
+     *
+     * @param myList the MyList to convert
+     * @param <T>    the type of the elements in the list.
+     * @return the converted List.
+     */
+    protected <T> List<T> fromMyList(MyList<T> myList) {
+        List<T> list = new ArrayList<>();
+        for (int i = 0; i < myList.size(); i++) {
+            list.add(myList.get(i));
+        }
+        return list;
+    }
+
     @DisplayName("Bei einem SKIP wird der nächste Spieler übersprungen.")
     @Test
     void testSkip() throws Throwable {
-        MockCardGamePlayer player = players.getFirst();
-        player.takeCard(PlayingCard.SKIP);
-        player.takeCard(PlayingCard.SKIP);
+        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
+        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
+        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
+        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
 
-        MockCardGamePlayer nextPlayer = players.get(1);
-        nextPlayer.takeCard(PlayingCard.SKIP);
-        nextPlayer.takeCard(PlayingCard.SKIP);
+        List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
+
+        playerOne.takeCard(PlayingCard.SKIP);
+        playerOne.takeCard(PlayingCard.SKIP);
+
+        playerTwo.takeCard(PlayingCard.SKIP);
+        playerTwo.takeCard(PlayingCard.SKIP);
 
         players.forEach(p -> {
             p.takeCard(PlayingCard.PASS);
             p.takeCard(PlayingCard.PASS);
         });
 
-        List<PlayingCard> deck = players.stream().map(MockCardGamePlayer::getHand).flatMap(Collection::stream).toList();
-        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
+        List<PlayingCard> deck = players.stream()
+            .map(player -> player.hand)
+            .map(this::fromMyList).flatMap(List::stream).
+            toList();
 
-        int size = nextPlayer.getHandSize();
+        CardGame game = CardGames.create(players, deck);
+
+        int nextHandSize = playerTwo.getHandSize();
 
         Context context = contextBuilder()
             .add("Players", players)
             .add("Deck", deck)
-            .add("Current player", player)
-            .add("Next player", nextPlayer)
+            .add("Current player", playerOne)
+            .add("Next player", playerTwo)
             .add("Playing card", PlayingCard.SKIP)
             .build();
 
         // Current player turn
         getMethod().invoke(game);
         // Check if skip is correctly set
-        Assertions2.assertTrue(game.getSkipNextPlayer(), context, result -> "The game should skip the next player.");
+        Assertions2.assertTrue(game.skipNextPlayer, context, result -> "The game should skip the next player.");
 
         // Next player turn
         getMethod().invoke(game);
-        // Check if next player is skipped
-        Assertions2.assertSame(nextPlayer, game.getCurrentPlayer(), context, result -> "The current player should be the next player.");
 
-        Assertions2.assertFalse(game.getSkipNextPlayer(), context, result -> "Skip player should be reset after skipping the next player.");
-        Assertions2.assertEquals(size, nextPlayer.getHandSize(), context, result -> "The next player should not play any cards.");
+        // Check if the next player is skipped
+        Assertions2.assertSame(playerTwo, game.currentPlayer, context,
+            result -> "The current player should be the next player.");
+
+        Assertions2.assertFalse(game.skipNextPlayer, context,
+            result -> "Skip player should be reset after skipping the next player.");
+        Assertions2.assertEquals(nextHandSize, nextHandSize, context,
+            result -> "The next player should not play any cards.");
     }
 
     @DisplayName("Bei einer REVERSE-Karte wird die Richtung des Iterators umgekehrt.")
     @Test
     void testReverse() throws Throwable {
-        MockCardGamePlayer player = players.getFirst();
-        player.takeCard(PlayingCard.REVERSE);
-        player.takeCard(PlayingCard.SKIP);
+        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
+        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
+        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
+        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
 
-        MockCardGamePlayer nextPlayer = players.get(1);
-        nextPlayer.takeCard(PlayingCard.SKIP);
-        nextPlayer.takeCard(PlayingCard.SKIP);
+        playerOne.takeCard(PlayingCard.REVERSE);
+        playerOne.takeCard(PlayingCard.SKIP);
 
-        MockCardGamePlayer lastPlayer = players.getLast();
-        lastPlayer.takeCard(PlayingCard.SKIP);
-        nextPlayer.takeCard(PlayingCard.SKIP);
+        playerTwo.takeCard(PlayingCard.SKIP);
+        playerTwo.takeCard(PlayingCard.SKIP);
+
+        playerFour.takeCard(PlayingCard.SKIP);
+        playerFour.takeCard(PlayingCard.SKIP);
+
+        playerTwo.takeCard(PlayingCard.SKIP);
+        playerTwo.takeCard(PlayingCard.SKIP);
 
         players.forEach(p -> {
             p.takeCard(PlayingCard.PASS);
             p.takeCard(PlayingCard.PASS);
         });
 
-        List<PlayingCard> deck = players.stream().map(MockCardGamePlayer::getHand).flatMap(Collection::stream).toList();
-        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
+        List<PlayingCard> deck = players.stream()
+            .map(player -> player.hand)
+            .map(this::fromMyList).flatMap(List::stream).
+            toList();
+        CardGame game = CardGames.create(players, deck);
 
-        int nextPlayersHandSize = nextPlayer.getHandSize();
-        int lastPlayersHandSize = lastPlayer.getHandSize();
+        int successorPlayerHandSize = playerTwo.getHandSize();
+        int predecessorPlayerHandSize = playerFour.getHandSize();
 
         Context context = contextBuilder()
             .add("Players", players)
             .add("Deck", deck)
-            .add("Current player", player)
-            .add("Next player", lastPlayer)
+            .add("Current player", playerOne)
+            .add("Next player", playerFour)
             .add("Playing card", PlayingCard.REVERSE)
             .build();
 
         // Current player turn
         getMethod().invoke(game);
+
         // Check if skip is correctly set
-        Assertions2.assertTrue(game.getReverseDirection(), context, result -> "The game should reverse the direction.");
+        Assertions2.assertTrue(game.reverseDirection, context, result -> "The game should reverse the direction.");
 
         // Last player turn
         getMethod().invoke(game);
-        Assertions2.assertSame(lastPlayer, game.getCurrentPlayer(), context, result -> "The current player should be the last player.");
-        Assertions2.assertEquals(nextPlayersHandSize, nextPlayer.getHandSize(), context, result -> "The last player should not play any card.");
-        Assertions2.assertEquals(lastPlayersHandSize - 1, lastPlayer.getHandSize(), context, result -> "The last player should play one card.");
+        Assertions2.assertSame(playerFour, game.currentPlayer, context, result -> "The current player should be the last player.");
+        Assertions2.assertEquals(successorPlayerHandSize, playerTwo.getHandSize(), context,
+            result -> "The last player should not play any card.");
+        Assertions2.assertEquals(predecessorPlayerHandSize - 1, playerFour.getHandSize(), context,
+            result -> "The last player should play one card.");
     }
 
     @DisplayName("Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.")
     @Test
     void testNoCards() throws Throwable {
+        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
+        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
+        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
+        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
         players.forEach(p -> {
             p.takeCard(PlayingCard.PASS);
         });
-        List<PlayingCard> deck = players.stream().map(MockCardGamePlayer::getHand).flatMap(Collection::stream).toList();
-        MockCardGame game = new MockCardGame(players.stream().map(p -> (CardGamePlayer) p).toList(), deck);
+        List<PlayingCard> deck = players.stream()
+            .map(player -> player.hand)
+            .map(this::fromMyList).flatMap(List::stream).
+            toList();
+        CardGame game = CardGames.create(players, deck);
 
-        MockCardGamePlayer player = players.getFirst();
 
         Context context = contextBuilder()
             .add("Players", players)
             .add("Deck", deck)
-            .add("Current player", player)
+            .add("Current player", playerOne)
             .add("Playing card", PlayingCard.PASS)
             .build();
 
         int numberOfPlayers = players.size();
         // Current player turn
         getMethod().invoke(game);
-        Assertions2.assertEquals(0, player.getHandSize(), context, result -> "The player should not have any card.");
-        Assertions2.assertEquals(numberOfPlayers - 1, game.getPlayers().size(), context, result -> "The player should be removed from the game.");
+        Assertions2.assertEquals(0, playerOne.getHandSize(), context, result -> "The player should not have any card.");
+        Assertions2.assertEquals(numberOfPlayers - 1, game.players.size(),
+            context, result -> "The player should be removed from the game.");
     }
 }

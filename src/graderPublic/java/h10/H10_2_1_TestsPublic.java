@@ -1,9 +1,8 @@
 package h10;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import h10.util.JsonConverters;
-import h10.util.MockDoublyLinkedList;
-import h10.util.TestConstants;
+import h10.assertions.TestConstants;
+import h10.rubric.H10_Tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -18,14 +17,14 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Tests for H10.2.1.
+ * Defines the public tests for H10.2.1.
  *
  * @author Nhan Huynh
  */
 @TestForSubmission
 @DisplayName("H10.2.1 | Ist dieses Element bereits in der Liste?")
 @SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
-public class H10_2_1_TestsPublic extends H10_Test {
+public class H10_2_1_TestsPublic extends H10_Tests {
 
     public static final Map<String, Function<JsonNode, ?>> CONVERTERS = Map.of(
         "list", node -> JsonConverters.toDoublyLinkedList(node, JsonNode::asInt),
@@ -52,15 +51,15 @@ public class H10_2_1_TestsPublic extends H10_Test {
     @ParameterizedTest
     @JsonParameterSetTest(value = "H10_2_1.json", customConverters = CUSTOM_CONVERTERS)
     void testResult(JsonParameterSet parameters) {
-        MockDoublyLinkedList<Integer> list = parameters.get("list");
+        DoublyLinkedList<Integer> list = parameters.get("list");
         int key = parameters.get("key");
         int index = parameters.get("index");
         Context context = contextBuilder()
-            .add("List", list)
+            .add("List", list.toString())
             .add("Key", key)
-            .add("Index", index)
+            .add("Expected index", index)
             .build();
         int actual = list.findFirst(key);
-        Assertions2.assertEquals(index, actual, context, result -> "Index of first occurrence mismatch");
+        Assertions2.assertEquals(index, actual, context, result -> "Index of first occurrence mismatch.");
     }
 }

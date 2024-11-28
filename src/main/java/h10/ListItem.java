@@ -51,4 +51,12 @@ public class ListItem<T> {
     public ListItem() {
         this(null, null, null);
     }
+
+
+    @Override
+    public String toString() {
+        return "ListItem{" +
+            "key=" + key +
+            '}';
+    }
 }

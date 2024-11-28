@@ -15,24 +15,22 @@ import java.util.NoSuchElementException;
 public class DoublyLinkedList<T> implements MyList<T> {
 
     /**
-     * The head of the doubly linked list.
-     * Points to the first element in the list.
+     * The head of the doubly linked list. Points to the first element in the list.
      */
     @DoNotTouch
-    private ListItem<T> head;
+    ListItem<T> head;
 
     /**
-     * The tail of the doubly linked list.
-     * Points to the last element in the list.
+     * The tail of the doubly linked list. Points to the last element in the list.
      */
     @DoNotTouch
-    private ListItem<T> tail;
+    ListItem<T> tail;
 
     /**
      * The size of the doubly linked list.
      */
     @DoNotTouch
-    private int size;
+    int size;
 
     /**
      * Constructs an empty doubly linked list.
@@ -147,7 +145,6 @@ public class DoublyLinkedList<T> implements MyList<T> {
                 p.prev = tmp;
             }
         }
-
         size++;
     }
 
@@ -168,11 +165,10 @@ public class DoublyLinkedList<T> implements MyList<T> {
         } else if (p == tail) { // Case 3: Remove tail
             tail = tail.prev;
             tail.next = null;
-        } else { // Case 4: Remove element in the middle
+        } else { // Case 4: Remove an element in the middle
             p.prev.next = p.next;
             p.next.prev = p.prev;
         }
-
         size--;
         return p.key;
     }
@@ -196,15 +192,22 @@ public class DoublyLinkedList<T> implements MyList<T> {
      * An iterator for traversing a doubly linked list in a cyclic manner.
      */
     class CyclicIterator implements BidirectionalIterator<T> {
+
         /**
          * The current ListItem of the iterator in the doubly linked list.
          */
         @DoNotTouch
         ListItem<T> p;
 
+        /**
+         * Indicates whether the `remove` method has been called after the last call to the `next` or `previous` method.
+         */
         @DoNotTouch
         boolean calledRemove;
 
+        /**
+         * Constructs a new cyclic iterator.
+         */
         @DoNotTouch
         public CyclicIterator() {
             this.p = null;
@@ -320,8 +323,7 @@ public class DoublyLinkedList<T> implements MyList<T> {
         StringBuilder sb = new StringBuilder();
         sb.append('[');
         for (ListItem<T> p = head; p != null; p = p.next) {
-            T e = p.key;
-            sb.append(e);
+            sb.append(p.key);
             if (p.next == null) {
                 break;
             }
