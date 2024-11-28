@@ -15,8 +15,9 @@ public class ListItemExamples {
      * @param names an array of names to create CardGamePlayer objects
      * @return the head of the doubly linked list of CardGamePlayer objects
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.1")
     public static ListItem<CardGamePlayer> createPlayerListFromNames(String[] names) {
+        // TODO: H10.1.1
         ListItem<CardGamePlayer> playerList = null;
         ListItem<CardGamePlayer> current = null;
 
@@ -41,8 +42,9 @@ public class ListItemExamples {
      * @param cardDeck the head of the doubly linked list of PlayingCard objects
      * @return the number of SKIP cards in the list
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.2")
     public static int countSkipCardsIterative(ListItem<PlayingCard> cardDeck) {
+        // TODO: H10.1.2
         int count = 0;
 
         for (ListItem<PlayingCard> p = cardDeck; p != null; p = p.next) {
@@ -60,8 +62,9 @@ public class ListItemExamples {
      * @param cardDeck the head of the doubly linked list of PlayingCard objects
      * @return the number of SKIP cards in the list
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.3")
     public static int countSkipCardsRecursive(ListItem<PlayingCard> cardDeck) {
+        // TODO: H10.1.3
         if (cardDeck == null) {
             return 0;
         }
@@ -75,9 +78,10 @@ public class ListItemExamples {
      * @param cardDeck the list of PlayingCard objects
      * @return the number of SKIP cards in the list
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.4")
     @SuppressWarnings({"WhileLoopReplaceableByForEach", "ForLoopReplaceableByForEach"})
     public static int countSkipCardsIterator(List<PlayingCard> cardDeck) {
+        // TODO: H10.1.4
         int count = 0;
 
         Iterator<PlayingCard> iter = cardDeck.iterator();

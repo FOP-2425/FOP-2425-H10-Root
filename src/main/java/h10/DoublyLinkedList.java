@@ -57,8 +57,9 @@ public class DoublyLinkedList<T> implements MyList<T> {
      * @param index the index of the current ListItem
      * @return the index of the element if the element is present, -1 otherwise
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.1")
     private int findFirstHelper(ListItem<T> p, T key, int index) {
+        // TODO: H10.2.1
         if (p == null) {
             return -1;
         }
@@ -87,8 +88,9 @@ public class DoublyLinkedList<T> implements MyList<T> {
      * @return the ListItem at the specified index
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.2")
     private ListItem<T> getListItem(int index) {
+        // TODO: H10.2.2
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
@@ -116,9 +118,10 @@ public class DoublyLinkedList<T> implements MyList<T> {
         add(size, key);
     }
 
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.3")
     @Override
     public void add(int index, @Nullable T key) {
+        // TODO: H10.2.3
         if (key == null) {
             throw new IllegalArgumentException("Key must not be null");
         }
@@ -158,8 +161,9 @@ public class DoublyLinkedList<T> implements MyList<T> {
      * @param p the ListItem to be removed
      * @return the key of the removed ListItem
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.4")
     private T removeListItem(ListItem<T> p) {
+        // TODO: H10.2.4
         if (size == 1) { // Case 1: Only one element in the list
             head = null;
             tail = null;
@@ -184,9 +188,10 @@ public class DoublyLinkedList<T> implements MyList<T> {
         return removeListItem(p);
     }
 
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.5")
     @Override
     public void clear() {
+        // TODO: H10.2.5
         head = null;
         tail = null;
         size = 0;
@@ -225,8 +230,9 @@ public class DoublyLinkedList<T> implements MyList<T> {
          * @return {@code true} if the list iterator has more elements when traversing the list in the forward direction
          */
         @Override
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.1")
         public boolean hasNext() {
+            // TODO: H10.3.1
             return size > 0; // Always true for cyclic iteration except if list is empty
         }
 
@@ -239,12 +245,12 @@ public class DoublyLinkedList<T> implements MyList<T> {
          * @throws NoSuchElementException if there are no more elements to iterate over
          */
         @Override
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.1")
         public T next() {
             if (!hasNext()) {
                 throw new NoSuchElementException("The list is empty");
             }
-
+            // TODO: H10.3.1
             if (p == null || p.next == null) {
                 p = head;
             } else {
@@ -262,8 +268,9 @@ public class DoublyLinkedList<T> implements MyList<T> {
          *
          * @return {@code true} if the iteration has more elements in the reverse direction
          */
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.2")
         public boolean hasPrevious() {
+            // TODO: H10.3.2
             return size > 0; // Always true for cyclic iteration except if list is empty
         }
 
@@ -275,12 +282,13 @@ public class DoublyLinkedList<T> implements MyList<T> {
          * @return the previous element in the iteration
          * @throws NoSuchElementException if there are no more elements to iterate over
          */
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.2")
         public T previous() {
             if (!hasPrevious()) {
                 throw new NoSuchElementException("The list is empty");
             }
 
+            // TODO: H10.3.2
             if (p == null || p.prev == null) {
                 p = tail;
             } else {

@@ -127,8 +127,9 @@ public class CardGame {
     /**
      * Executes a turn in the game.
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.3.3")
     private void doTurn() {
+        // TODO: Implement H10.3.3
         currentPlayer = reverseDirection ? iter.previous() : iter.next();
 
         if (skipNextPlayer) {
