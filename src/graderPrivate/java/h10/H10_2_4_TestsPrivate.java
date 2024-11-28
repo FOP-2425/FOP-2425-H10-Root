@@ -88,7 +88,7 @@ public class H10_2_4_TestsPrivate extends H10_2_4_TestsPublic {
         Context context = contextBuilder()
             .add("List", list.toString())
             .add("Element to remove", toRemove)
-            .add("Size after removal", size)
+            .add("Expected size after removal", size)
             .build();
 
         getMethod().invoke(list, toRemove);

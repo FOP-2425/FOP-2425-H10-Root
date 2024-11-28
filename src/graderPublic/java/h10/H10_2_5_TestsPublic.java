@@ -53,8 +53,8 @@ public class H10_2_5_TestsPublic extends H10_Tests {
 
         Context context = contextBuilder()
             .add("List", list.toString())
-            .add("List after clear()", List.of())
-            .add("Size after clear()", 0)
+            .add("Expected list after clear()", List.of())
+            .add("Expected size after clear()", 0)
             .build();
 
         list.clear();

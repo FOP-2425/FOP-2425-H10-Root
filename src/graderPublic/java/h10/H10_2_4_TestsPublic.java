@@ -66,7 +66,7 @@ public class H10_2_4_TestsPublic extends H10_Tests {
         Context context = contextBuilder()
             .add("List", list.toString())
             .add("Element to remove", item)
-            .add("List after removal", List.of())
+            .add("Expected list after removal", List.of())
             .build();
 
         int removed = getMethod().invoke(list, item);
@@ -92,7 +92,7 @@ public class H10_2_4_TestsPublic extends H10_Tests {
         Context context = contextBuilder()
             .add("List", list.toString())
             .add("Element to remove", toRemove)
-            .add("List after removal", expected.toString())
+            .add("Expected list after removal", expected.toString())
             .build();
 
         int removed = getMethod().invoke(list, toRemove);

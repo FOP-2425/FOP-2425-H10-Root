@@ -2,7 +2,6 @@ package h10;
 
 import h10.assertions.TestConstants;
 import h10.rubric.H10_Tests;
-import h10.util.CardGames;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -56,10 +55,10 @@ public class H10_3_3_TestsPublic extends H10_Tests {
     @DisplayName("Bei einem SKIP wird der nächste Spieler übersprungen.")
     @Test
     void testSkip() throws Throwable {
-        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
-        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
-        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
-        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        CardGamePlayer playerOne = CardGames.createPlayer("Lisa");
+        CardGamePlayer playerTwo = CardGames.createPlayer("Jennie");
+        CardGamePlayer playerThree = CardGames.createPlayer("Rosie");
+        CardGamePlayer playerFour = CardGames.createPlayer("Jisoo");
 
         List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
 
@@ -80,7 +79,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = CardGames.create(players, deck);
+        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
 
         int nextHandSize = playerTwo.getHandSize();
 
@@ -113,10 +112,10 @@ public class H10_3_3_TestsPublic extends H10_Tests {
     @DisplayName("Bei einer REVERSE-Karte wird die Richtung des Iterators umgekehrt.")
     @Test
     void testReverse() throws Throwable {
-        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
-        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
-        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
-        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        CardGamePlayer playerOne = CardGames.createPlayer("Lisa");
+        CardGamePlayer playerTwo = CardGames.createPlayer("Jennie");
+        CardGamePlayer playerThree = CardGames.createPlayer("Rosie");
+        CardGamePlayer playerFour = CardGames.createPlayer("Jisoo");
         List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
 
         playerOne.takeCard(PlayingCard.REVERSE);
@@ -140,7 +139,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
             .map(player -> player.hand)
             .map(this::fromMyList).flatMap(List::stream).
             toList();
-        CardGame game = CardGames.create(players, deck);
+        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
 
         int successorPlayerHandSize = playerTwo.getHandSize();
         int predecessorPlayerHandSize = playerFour.getHandSize();
@@ -172,11 +171,12 @@ public class H10_3_3_TestsPublic extends H10_Tests {
     @DisplayName("Spieler, die keine Karten mehr auf der Hand haben, werden aus dem Spiel entfernt.")
     @Test
     void testNoCards() throws Throwable {
-        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
-        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
-        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
-        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        CardGamePlayer playerOne = CardGames.createPlayer("Lisa");
+        CardGamePlayer playerTwo = CardGames.createPlayer("Jennie");
+        CardGamePlayer playerThree = CardGames.createPlayer("Rosie");
+        CardGamePlayer playerFour = CardGames.createPlayer("Jisoo");
         List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
+
         players.forEach(p -> {
             p.takeCard(PlayingCard.PASS);
         });
@@ -185,7 +185,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
             .map(this::fromMyList)
             .flatMap(List::stream)
             .toList();
-        CardGame game = CardGames.create(players, deck);
+        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
 
 
         Context context = contextBuilder()

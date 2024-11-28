@@ -61,7 +61,7 @@ public class H10_2_3_TestsPublic extends H10_Tests {
         Context context = contextBuilder()
             .add("List", list.toString())
             .add("Element to add", element)
-            .add("List after adding", List.of(element))
+            .add("Expected list after adding", List.of(element))
             .build();
         list.add(element);
 
@@ -86,7 +86,7 @@ public class H10_2_3_TestsPublic extends H10_Tests {
             .add("List", list.toString())
             .add("Index to add", index)
             .add("Element to add", element)
-            .add("List after adding", expected.toString())
+            .add("Expected list after adding", expected.toString())
             .build();
 
         list.add(index, element);

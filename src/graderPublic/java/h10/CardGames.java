@@ -1,9 +1,8 @@
-package h10.util;
+package h10;
 
-import h10.CardGame;
-import h10.CardGamePlayer;
-import h10.MyList;
-import h10.PlayingCard;
+import h10.assertions.Links;
+import h10.util.MockList;
+import org.tudalgo.algoutils.tutor.general.reflections.FieldLink;
 
 import java.util.List;
 
@@ -33,5 +32,18 @@ public final class CardGames {
         MyList<PlayingCard> cardList = new MockList<>();
         cardDeck.forEach(cardList::add);
         return new CardGame(playerList, cardList);
+    }
+
+    /**
+     * Creates a new card game player.
+     *
+     * @param name the name of the player
+     * @return the new card game player
+     */
+    public static CardGamePlayer createPlayer(String name) {
+        CardGamePlayer player = new CardGamePlayer(name);
+        FieldLink hand = Links.getField(CardGamePlayer.class, "hand");
+        hand.set(player, new MockList<>());
+        return player;
     }
 }

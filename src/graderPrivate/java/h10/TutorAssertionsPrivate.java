@@ -78,7 +78,7 @@ public final class TutorAssertionsPrivate {
             .toList();
 
         Context context = Assertions2.contextBuilder()
-            .subject(methodLink)
+            .subject(methodLink.reflection())
             .add("Imported classes", classes)
             .build();
         Assertions2.assertFalse(classes.stream().anyMatch(BLACKLIST_CLASSES::contains), context,

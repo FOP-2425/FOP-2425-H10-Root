@@ -150,6 +150,6 @@ public abstract class H10_Tests {
      * @return a context builder with the method under test as the subject
      */
     public Context.Builder<?> contextBuilder() {
-        return Assertions2.contextBuilder().subject(getMethod());
+        return Assertions2.contextBuilder().subject(getMethod().reflection());
     }
 }

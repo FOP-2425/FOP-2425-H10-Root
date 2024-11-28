@@ -3,7 +3,6 @@ package h10;
 import com.fasterxml.jackson.databind.JsonNode;
 import h10.assertions.Links;
 import h10.assertions.TestConstants;
-import h10.util.CardGames;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -48,10 +47,10 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
     @DisplayName("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.")
     @Test
     void testDrawTwoLastTurnNoDrawTwo() throws Throwable {
-        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
-        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
-        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
-        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        CardGamePlayer playerOne = CardGames.createPlayer("Lisa");
+        CardGamePlayer playerTwo = CardGames.createPlayer("Jennie");
+        CardGamePlayer playerThree = CardGames.createPlayer("Rosie");
+        CardGamePlayer playerFour = CardGames.createPlayer("Jisoo");
         List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
 
         playerOne.takeCard(PlayingCard.DRAW_TWO);
@@ -65,7 +64,7 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = CardGames.create(players, deck);
+        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
 
 
         Context context = contextBuilder()
@@ -92,10 +91,10 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
     @DisplayName("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.")
     @Test
     void testDrawTwoLastTurnDrawTwo() throws Throwable {
-        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
-        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
-        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
-        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        CardGamePlayer playerOne = CardGames.createPlayer("Lisa");
+        CardGamePlayer playerTwo = CardGames.createPlayer("Jennie");
+        CardGamePlayer playerThree = CardGames.createPlayer("Rosie");
+        CardGamePlayer playerFour = CardGames.createPlayer("Jisoo");
         List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
 
         playerOne.takeCard(PlayingCard.DRAW_TWO);
@@ -111,7 +110,7 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = CardGames.create(players, deck);
+        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
 
         Context context = contextBuilder()
             .add("Players", players)
@@ -145,10 +144,10 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
     @DisplayName("Wurden in den vorherigen Zügen mehrere DRAW_TWO-Karten gespielt, so erhöht sich die Anzahl der zu ziehenden Karten entsprechend.")
     @Test
     void testDrawTwoMultiple() throws Throwable {
-        CardGamePlayer playerOne = new CardGamePlayer("Lisa");
-        CardGamePlayer playerTwo = new CardGamePlayer("Jennie");
-        CardGamePlayer playerThree = new CardGamePlayer("Rosie");
-        CardGamePlayer playerFour = new CardGamePlayer("Jisoo");
+        CardGamePlayer playerOne = CardGames.createPlayer("Lisa");
+        CardGamePlayer playerTwo = CardGames.createPlayer("Jennie");
+        CardGamePlayer playerThree = CardGames.createPlayer("Rosie");
+        CardGamePlayer playerFour = CardGames.createPlayer("Jisoo");
         List<CardGamePlayer> players = List.of(playerOne, playerTwo, playerThree, playerFour);
 
         playerOne.takeCard(PlayingCard.DRAW_TWO);
@@ -170,7 +169,7 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = CardGames.create(players, deck);
+        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
 
         int size = playerTwo.getHandSize();
 
@@ -205,11 +204,11 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
         List<PlayingCard> deck = parameters.get("deck");
         List<CardGamePlayer> players = parameters.get("players");
         int loser = parameters.get("loser");
-        CardGame game = CardGames.create(players, deck);
+        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
 
         MethodLink methodLink = Links.getMethod(getClassType(), "determineLoser");
         Context.Builder<?> builder = Assertions2.contextBuilder()
-            .subject(methodLink)
+            .subject(methodLink.reflection())
             .add("Deck", deck);
         players.forEach(p -> builder.add(p.getName(), p.hand));
         Context context = builder.add("Loser", players.get(loser)).build();
