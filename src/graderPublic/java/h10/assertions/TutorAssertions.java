@@ -22,14 +22,37 @@ public final class TutorAssertions {
     }
 
 
+    /**
+     * Asserts that the given expected elements are equal to the actual elements.
+     *
+     * @param expected the expected elements
+     * @param actual   the actual elements
+     * @param mapper   the mapper to convert the actual elements to the expected elements
+     * @param context  the context to use for the assertions
+     * @param <T>      the type of the elements
+     */
     public static <T> void assertEquals(Iterable<?> expected, ListItem<T> actual, Function<T, ?> mapper, Context context) {
         assertEquals(expected, () -> ListItems.stream(actual).map(mapper).map(it -> (Object) it).iterator(), context);
     }
 
+    /**
+     * Asserts that the given expected elements are equal to the actual elements.
+     *
+     * @param expected the expected elements
+     * @param actual   the actual elements
+     * @param context  the context to use for the assertions
+     */
     public static void assertEquals(Iterable<?> expected, ListItem<?> actual, Context context) {
         assertEquals(expected, actual, Function.identity(), context);
     }
 
+    /**
+     * Asserts that the given expected elements are equal to the actual elements.
+     *
+     * @param expected the expected elements
+     * @param actual   the actual elements
+     * @param context  the context to use for the assertions
+     */
     public static void assertEquals(Iterable<?> expected, Iterable<?> actual, Context context) {
         Iterator<?> itE = expected.iterator();
         Iterator<?> itA = actual.iterator();

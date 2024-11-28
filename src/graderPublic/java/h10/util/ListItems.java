@@ -2,11 +2,11 @@ package h10.util;
 
 import h10.ListItem;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
+import javax.annotation.Nullable;
 
 /**
  * Utility class for working with {@link ListItem}s.

@@ -76,8 +76,9 @@ public class H10_3_3_TestsPublic extends H10_Tests {
 
         List<PlayingCard> deck = players.stream()
             .map(player -> player.hand)
-            .map(this::fromMyList).flatMap(List::stream).
-            toList();
+            .map(this::fromMyList)
+            .flatMap(List::stream)
+            .toList();
 
         CardGame game = CardGames.create(players, deck);
 
@@ -160,7 +161,8 @@ public class H10_3_3_TestsPublic extends H10_Tests {
 
         // Last player turn
         getMethod().invoke(game);
-        Assertions2.assertSame(playerFour, game.currentPlayer, context, result -> "The current player should be the last player.");
+        Assertions2.assertSame(playerFour, game.currentPlayer, context,
+            result -> "The current player should be the last player.");
         Assertions2.assertEquals(successorPlayerHandSize, playerTwo.getHandSize(), context,
             result -> "The last player should not play any card.");
         Assertions2.assertEquals(predecessorPlayerHandSize - 1, playerFour.getHandSize(), context,
@@ -180,8 +182,9 @@ public class H10_3_3_TestsPublic extends H10_Tests {
         });
         List<PlayingCard> deck = players.stream()
             .map(player -> player.hand)
-            .map(this::fromMyList).flatMap(List::stream).
-            toList();
+            .map(this::fromMyList)
+            .flatMap(List::stream)
+            .toList();
         CardGame game = CardGames.create(players, deck);
 
 

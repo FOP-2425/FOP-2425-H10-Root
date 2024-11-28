@@ -19,8 +19,8 @@ import java.util.List;
 
 /**
  * Defines a test skeleton for the H10 assignment.
- * <p>
- * Use the following schema:
+ *
+ * <p>Use the following schema:
  * <pre>{@code
  *     public class TestClass extends H10_Test {
  *          public static final Map<String, Function<JsonNode, ?>> CUSTOM_CONVERTERS = Map.of(

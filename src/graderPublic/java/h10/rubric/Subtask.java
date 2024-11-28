@@ -265,7 +265,11 @@ public record Subtask(
         }
 
         @Override
-        public SubtaskBuilder criterion(String description, boolean publicTest, Map<String, List<Class<?>>> testMethodsSignature) {
+        public SubtaskBuilder criterion(
+            String description,
+            boolean publicTest,
+            Map<String, List<Class<?>>> testMethodsSignature
+        ) {
             criteria.add(
                 criterion(
                     description,

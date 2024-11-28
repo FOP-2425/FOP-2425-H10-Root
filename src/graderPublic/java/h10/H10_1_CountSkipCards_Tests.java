@@ -10,11 +10,11 @@ import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 
 /**
  * Defines the tests for {@code countSkipCardsXYZ} in the class {@code ListItemExamples}.
- * <p>
- * The class which implements this abstract class should override the method {@code testResult} and annotate it
+ *
+ * <p>The class which implements this abstract class should override the method {@code testResult} and annotate it
  * with the {@code @ParameterizedTest} and {@code @JsonParameterSetTest} annotations.
- * <p>
- * Use the following schema:
+ *
+ * <p>Use the following schema:
  * <pre>{@code
  *      public class XYZ_Tests extends H10_1_CountSkipCards_Tests {
  *
@@ -66,6 +66,11 @@ public abstract class H10_1_CountSkipCards_Tests extends H10_Tests {
         return "countSkipCards" + getImplementationType();
     }
 
+    /**
+     * Asserts the result of the method.
+     * @param parameters the parameters for the test method
+     * @throws Throwable if an error occurs
+     */
     void assertResult(JsonParameterSet parameters) throws Throwable {
         Object deck = parameters.get("deck");
         int expectedSkips = parameters.get("skips");
