@@ -77,4 +77,10 @@ public class H10_2_2_TestsPrivate extends H10_2_2_TestsPublic {
             result -> "Method should not be recursive."
         );
     }
+
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Datenstrukturen")
+    @Test
+    void testDataStructure() {
+        TutorAssertionsPrivate.assertNoDataStructure(getMethod());
+    }
 }

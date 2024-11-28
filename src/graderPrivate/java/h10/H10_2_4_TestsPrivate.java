@@ -3,6 +3,7 @@ package h10;
 import h10.assertions.TestConstants;
 import h10.util.ListItems;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
@@ -93,5 +94,11 @@ public class H10_2_4_TestsPrivate extends H10_2_4_TestsPublic {
         getMethod().invoke(list, toRemove);
 
         Assertions2.assertEquals(size, list.size(), context, result -> "Size mismatch");
+    }
+
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Datenstrukturen")
+    @Test
+    void testDataStructure() {
+        TutorAssertionsPrivate.assertNoDataStructure(getMethod());
     }
 }

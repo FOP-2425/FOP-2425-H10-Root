@@ -13,7 +13,10 @@ import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,13 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
         "players", node -> JsonConverters.toList(node, JsonConverters::toPlayer),
         "loser", JsonNode::intValue
     );
+
+    @Test
+    void test() {
+        CtElement element = ((BasicMethodLink) getMethod()).getCtElement();
+        element.filterChildren(e -> e instanceof CtInvocation<?>).forEach(System.out::println);
+
+    }
 
     @DisplayName("Wurde im letzten Zug eine DRAW_TWO-Karte gespielt, so muss der nächste Spieler zwei Karten ziehen, sofern er nicht auch eine DRAW_TWO-Karte spielt.")
     @Test
@@ -211,5 +221,11 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
             context,
             result -> "Loser mismatch."
         );
+    }
+
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Datenstrukturen")
+    @Test
+    void testDataStructure() {
+        TutorAssertionsPrivate.assertNoDataStructure(getMethod());
     }
 }

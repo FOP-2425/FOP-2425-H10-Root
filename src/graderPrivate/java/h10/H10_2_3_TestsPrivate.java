@@ -4,6 +4,7 @@ import h10.assertions.TestConstants;
 import h10.assertions.TutorAssertions;
 import h10.util.ListItems;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
@@ -133,5 +134,11 @@ public class H10_2_3_TestsPrivate extends H10_2_3_TestsPublic {
             context,
             result -> "Illegal argument exception should be thrown"
         );
+    }
+
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Datenstrukturen")
+    @Test
+    void testDataStructure() {
+        TutorAssertionsPrivate.assertNoDataStructure(getMethod());
     }
 }

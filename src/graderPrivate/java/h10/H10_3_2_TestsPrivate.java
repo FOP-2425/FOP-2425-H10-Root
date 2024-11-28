@@ -158,4 +158,10 @@ public class H10_3_2_TestsPrivate extends H10_Tests {
 
         Assertions.assertFalse(it.calledRemove, "calledRemove should be set to false after call");
     }
+
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Datenstrukturen")
+    @Test
+    void testDataStructure() {
+        TutorAssertionsPrivate.assertNoDataStructure(getMethod());
+    }
 }

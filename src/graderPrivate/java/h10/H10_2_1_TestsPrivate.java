@@ -27,4 +27,10 @@ public class H10_2_1_TestsPrivate extends H10_2_1_TestsPublic {
             result -> "Method should not be iterative."
         );
     }
+
+    @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Datenstrukturen")
+    @Test
+    void testDataStructure() {
+        TutorAssertionsPrivate.assertNoDataStructure(getMethod());
+    }
 }
