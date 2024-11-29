@@ -5,7 +5,6 @@ import h10.assertions.TestConstants;
 import h10.assertions.TutorAssertions;
 import h10.rubric.H10_Tests;
 import h10.util.ListItems;
-import h10.util.MockList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -84,35 +83,6 @@ public class H10_1_1_TestsPublic extends H10_Tests {
                         .formatted(currentPrevious.key.getName(), actualPlayer.key.getName()));
             }
             previous = actualPlayer;
-        }
-    }
-
-    /**
-     * Utility class for card games.
-     *
-     * @author Nhan Huynh
-     */
-    public static final class CardGames {
-
-        /**
-         * Prevent instantiation of this utility class.
-         */
-        private CardGames() {
-        }
-
-        /**
-         * Creates a new card game from the given players and card deck.
-         *
-         * @param players  the players to create the game with
-         * @param cardDeck the card deck to create the game with
-         * @return the new card game
-         */
-        public static CardGame create(List<CardGamePlayer> players, List<PlayingCard> cardDeck) {
-            MyList<CardGamePlayer> playerList = new MockList<>();
-            players.forEach(playerList::add);
-            MyList<PlayingCard> cardList = new MockList<>();
-            cardDeck.forEach(cardList::add);
-            return new CardGame(playerList, cardList);
         }
     }
 }

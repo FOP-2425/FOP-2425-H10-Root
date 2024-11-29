@@ -7,6 +7,8 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions4;
 import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtMethod;
 
 /**
  * Defines the private tests for H10.1.4.
@@ -21,12 +23,16 @@ public class H10_1_4_TestsPrivate extends H10_1_4_TestsPublic {
     @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Rekursion")
     @Test
     void testLoops() {
+        BasicMethodLink method = (BasicMethodLink) getMethod();
         Assertions4.assertIsNotRecursively(
-            ((BasicMethodLink) getMethod()).getCtElement(),
+            method.getCtElement(),
             contextBuilder().build(),
             result -> "Method should not be recursive."
         );
+        TutorAssertionsPrivate.assertIteratorUsed(method);
     }
+
+
 
     @DisplayName("Verbindliche Anforderungen: Unerlaubte Verwendung von Datenstrukturen")
     @Test

@@ -12,10 +12,7 @@ import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
-import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
-import spoon.reflect.code.CtInvocation;
-import spoon.reflect.declaration.CtElement;
 
 import java.util.List;
 import java.util.Map;
@@ -57,7 +54,7 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
+        CardGame game = CardGames.create(players, deck);
 
 
         Context context = contextBuilder()
@@ -103,7 +100,7 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
+        CardGame game = CardGames.create(players, deck);
 
         Context context = contextBuilder()
             .add("Players", players)
@@ -162,7 +159,7 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
+        CardGame game = CardGames.create(players, deck);
 
         int size = playerTwo.getHandSize();
 
@@ -197,7 +194,7 @@ public class H10_3_3_TestsPrivate extends H10_3_3_TestsPublic {
         List<PlayingCard> deck = parameters.get("deck");
         List<CardGamePlayer> players = parameters.get("players");
         int loser = parameters.get("loser");
-        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
+        CardGame game = CardGames.create(players, deck);
 
         MethodLink methodLink = Links.getMethod(getClassType(), "determineLoser");
         Context.Builder<?> builder = Assertions2.contextBuilder()

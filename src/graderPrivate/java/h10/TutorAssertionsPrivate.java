@@ -7,17 +7,21 @@ import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
 import spoon.SpoonException;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.visitor.ImportScanner;
 import spoon.reflect.visitor.ImportScannerImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -44,6 +48,15 @@ public final class TutorAssertionsPrivate {
      */
     private static final Set<String> BLACKLIST_CALLS = Set.of(
         "stream"
+    );
+
+    /**
+     * Set of method calls that are required for the solution with iterators.
+     */
+    private static final Set<String> ITERATOR_METHOD_CALLS = Set.of(
+        "iterator",
+        "hasNext",
+        "next"
     );
 
     /**
@@ -88,4 +101,57 @@ public final class TutorAssertionsPrivate {
             result -> "Data structures are not allowed in this task.");
     }
 
+    /**
+     * Lists all method calls in the given method.
+     *
+     * @param method  the method to check
+     * @param visited the set of visited methods so far
+     *
+     * @return the set of method calls
+     */
+    private static Set<MethodLink> getMethodCalls(
+        MethodLink method,
+        Set<MethodLink> visited
+    ) {
+        CtMethod<?> ctMethod;
+        try {
+            ctMethod = ((BasicMethodLink) method).getCtElement();
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            // java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
+            // java.lang.NullPointerException: Cannot invoke "String.toCharArray()" because "this.content" is null
+            // Occurs if we read src code from stdlib - skip them
+            return Set.of();
+        }
+        return ctMethod.filterChildren(it -> it instanceof CtInvocation<?>)
+            .list()
+            .stream()
+            .filter(element -> element instanceof CtInvocation<?> invocation)
+            .map(element -> (CtInvocation<?>) element)
+            .map(CtInvocation::getExecutable)
+            .map(CtExecutableReference::getActualMethod)
+            .filter(Objects::nonNull)
+            .map(BasicMethodLink::of)
+            .filter(methodLink -> !visited.contains(methodLink))
+            .collect(Collectors.toSet());
+    }
+
+    /**
+     * Asserts that the given method link uses an iterator.
+     *
+     * @param methodLink the method link to check
+     */
+    public static void assertIteratorUsed(MethodLink methodLink) {
+        Set<MethodLink> methods = getMethodCalls(methodLink, new HashSet<>());
+        Context context = Assertions2.contextBuilder()
+            .subject(methodLink.reflection())
+            .add("Method calls", methods)
+            .build();
+        Assertions2.assertTrue(
+            methods.stream()
+                .map(MethodLink::name)
+                .collect(Collectors.toSet())
+                .containsAll(ITERATOR_METHOD_CALLS), context,
+            result -> "Iterator should be used in this task.");
+        ;
+    }
 }

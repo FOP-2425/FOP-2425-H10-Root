@@ -42,6 +42,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
      *
      * @param myList the MyList to convert
      * @param <T>    the type of the elements in the list.
+     *
      * @return the converted List.
      */
     protected <T> List<T> fromMyList(MyList<T> myList) {
@@ -79,7 +80,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
             .flatMap(List::stream)
             .toList();
 
-        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
+        CardGame game = CardGames.create(players, deck);
 
         int nextHandSize = playerTwo.getHandSize();
 
@@ -139,7 +140,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
             .map(player -> player.hand)
             .map(this::fromMyList).flatMap(List::stream).
             toList();
-        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
+        CardGame game = CardGames.create(players, deck);
 
         int successorPlayerHandSize = playerTwo.getHandSize();
         int predecessorPlayerHandSize = playerFour.getHandSize();
@@ -185,7 +186,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
             .map(this::fromMyList)
             .flatMap(List::stream)
             .toList();
-        CardGame game = H10_1_1_TestsPublic.CardGames.create(players, deck);
+        CardGame game = CardGames.create(players, deck);
 
 
         Context context = contextBuilder()
