@@ -1,5 +1,6 @@
 package h10;
 
+import org.jetbrains.annotations.Nullable;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
@@ -11,33 +12,25 @@ import java.util.NoSuchElementException;
  * @param <T> the type of elements stored in the list
  * @author Manuel Peters
  */
-public class DoublyLinkedList<T> {
+public class DoublyLinkedList<T> implements MyList<T> {
 
     /**
-     * The head of the doubly linked list.
-     * Points to the first element in the list.
+     * The head of the doubly linked list. Points to the first element in the list.
      */
     @DoNotTouch
-    private ListItem<T> head;
+    ListItem<T> head;
 
     /**
-     * The tail of the doubly linked list.
-     * Points to the last element in the list.
+     * The tail of the doubly linked list. Points to the last element in the list.
      */
     @DoNotTouch
-    private ListItem<T> tail;
+    ListItem<T> tail;
 
     /**
      * The size of the doubly linked list.
      */
     @DoNotTouch
-    private int size;
-
-
-    @DoNotTouch
-    public int size() {
-        return size;
-    }
+    int size;
 
     /**
      * Constructs an empty doubly linked list.
@@ -49,13 +42,9 @@ public class DoublyLinkedList<T> {
         this.size = 0;
     }
 
-    /**
-     * Checks if the list contains the specified element and returns the index of the first occurrence.
-     *
-     * @param key the element to be checked for presence in the list
-     * @return the index of the element if the element is present, -1 otherwise
-     */
+
     @DoNotTouch
+    @Override
     public int findFirst(T key) {
         return findFirstHelper(head, key, 0);
     }
@@ -63,26 +52,31 @@ public class DoublyLinkedList<T> {
     /**
      * Helper method to find the first occurrence of an element in the list recursively.
      *
-     * @param p the current ListItem
-     * @param key the element to be checked for presence in the list
+     * @param p     the current ListItem
+     * @param key   the element to be checked for presence in the list
      * @param index the index of the current ListItem
      * @return the index of the element if the element is present, -1 otherwise
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.1")
     private int findFirstHelper(ListItem<T> p, T key, int index) {
-        if (p == null) return -1;
-        if (p.key.equals(key)) return index;
-        return findFirstHelper(p.next, key, index+1);
+        // TODO: H10.2.1
+        if (p == null) {
+            return -1;
+        }
+        if (p.key.equals(key)) {
+            return index;
+        }
+        return findFirstHelper(p.next, key, index + 1);
     }
 
-    /**
-     * Retrieves the element at the specified index in the doubly linked list.
-     *
-     * @param index the index of the element to retrieve
-     * @return the element at the specified index
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
     @DoNotTouch
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @DoNotTouch
+    @Override
     public T get(int index) {
         return getListItem(index).key;
     }
@@ -94,15 +88,16 @@ public class DoublyLinkedList<T> {
      * @return the ListItem at the specified index
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.2")
     private ListItem<T> getListItem(int index) {
+        // TODO: H10.2.2
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
 
         // Use double linked structure, iterate from the beginning or the end
         ListItem<T> p;
-        if(index < (size / 2)) {
+        if (index < (size / 2)) {
             p = head;
             for (int i = 0; i < index; i++) {
                 p = p.next;
@@ -117,28 +112,17 @@ public class DoublyLinkedList<T> {
         return p;
     }
 
-    /**
-     * Adds a new element at the end of the doubly linked list.
-     *
-     * @param key the element to be added
-     * @throws IllegalArgumentException if the key is null
-     */
     @DoNotTouch
+    @Override
     public void add(T key) {
         add(size, key);
     }
 
-    /**
-     * Adds a new element at the specified index in the doubly linked list.
-     *
-     * @param index the position at which the element is to be added
-     * @param key the element to be added
-     * @throws IllegalArgumentException if the key is null
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
-    @StudentImplementationRequired
-    public void add(int index, T key) {
-        if(key == null) {
+    @StudentImplementationRequired("H10.2.3")
+    @Override
+    public void add(int index, @Nullable T key) {
+        // TODO: H10.2.3
+        if (key == null) {
             throw new IllegalArgumentException("Key must not be null");
         }
 
@@ -146,7 +130,7 @@ public class DoublyLinkedList<T> {
         tmp.key = key;
 
         if (index == size) {
-            if(head == null) { // List is empty
+            if (head == null) { // List is empty
                 head = tmp;
                 tail = head;
             } else { // Append new element at the end of the list
@@ -168,7 +152,6 @@ public class DoublyLinkedList<T> {
                 p.prev = tmp;
             }
         }
-
         size++;
     }
 
@@ -178,9 +161,10 @@ public class DoublyLinkedList<T> {
      * @param p the ListItem to be removed
      * @return the key of the removed ListItem
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.4")
     private T removeListItem(ListItem<T> p) {
-        if(size == 1) { // Case 1: Only one element in the list
+        // TODO: H10.2.4
+        if (size == 1) { // Case 1: Only one element in the list
             head = null;
             tail = null;
         } else if (p == head) { // Case 2: Remove head
@@ -189,33 +173,25 @@ public class DoublyLinkedList<T> {
         } else if (p == tail) { // Case 3: Remove tail
             tail = tail.prev;
             tail.next = null;
-        } else { // Case 4: Remove element in the middle
+        } else { // Case 4: Remove an element in the middle
             p.prev.next = p.next;
             p.next.prev = p.prev;
         }
-
         size--;
         return p.key;
     }
 
-    /**
-     * Removes the element at the specified position in the list.
-     *
-     * @param index the index of the element to be removed
-     * @return the element that was removed from the list
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
     @DoNotTouch
+    @Override
     public T removeAtIndex(int index) {
         ListItem<T> p = getListItem(index);
         return removeListItem(p);
     }
 
-    /**
-     * Removes all elements from the list.
-     */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.2.5")
+    @Override
     public void clear() {
+        // TODO: H10.2.5
         head = null;
         tail = null;
         size = 0;
@@ -224,15 +200,23 @@ public class DoublyLinkedList<T> {
     /**
      * An iterator for traversing a doubly linked list in a cyclic manner.
      */
-    private class CyclicIterator implements BidirectionalIterator<T> {
+    class CyclicIterator implements BidirectionalIterator<T> {
+
         /**
          * The current ListItem of the iterator in the doubly linked list.
          */
         @DoNotTouch
-        private ListItem<T> p;
-        @DoNotTouch
-        private boolean calledRemove;
+        ListItem<T> p;
 
+        /**
+         * Indicates whether the `remove` method has been called after the last call to the `next` or `previous` method.
+         */
+        @DoNotTouch
+        boolean calledRemove;
+
+        /**
+         * Constructs a new cyclic iterator.
+         */
         @DoNotTouch
         public CyclicIterator() {
             this.p = null;
@@ -243,12 +227,12 @@ public class DoublyLinkedList<T> {
          * Returns {@code true} if this iterator has more elements when
          * traversing the list in the forward direction.
          *
-         * @return {@code true} if the list iterator has more elements when
-         *         traversing the list in the forward direction
+         * @return {@code true} if the list iterator has more elements when traversing the list in the forward direction
          */
         @Override
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.1")
         public boolean hasNext() {
+            // TODO: H10.3.1
             return size > 0; // Always true for cyclic iteration except if list is empty
         }
 
@@ -261,10 +245,12 @@ public class DoublyLinkedList<T> {
          * @throws NoSuchElementException if there are no more elements to iterate over
          */
         @Override
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.1")
         public T next() {
-            if (!hasNext()) throw new NoSuchElementException("The list is empty");
-
+            if (!hasNext()) {
+                throw new NoSuchElementException("The list is empty");
+            }
+            // TODO: H10.3.1
             if (p == null || p.next == null) {
                 p = head;
             } else {
@@ -282,8 +268,9 @@ public class DoublyLinkedList<T> {
          *
          * @return {@code true} if the iteration has more elements in the reverse direction
          */
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.2")
         public boolean hasPrevious() {
+            // TODO: H10.3.2
             return size > 0; // Always true for cyclic iteration except if list is empty
         }
 
@@ -295,10 +282,13 @@ public class DoublyLinkedList<T> {
          * @return the previous element in the iteration
          * @throws NoSuchElementException if there are no more elements to iterate over
          */
-        @StudentImplementationRequired
+        @StudentImplementationRequired("H10.3.2")
         public T previous() {
-            if (!hasPrevious()) throw new NoSuchElementException("The list is empty");
+            if (!hasPrevious()) {
+                throw new NoSuchElementException("The list is empty");
+            }
 
+            // TODO: H10.3.2
             if (p == null || p.prev == null) {
                 p = tail;
             } else {
@@ -313,12 +303,13 @@ public class DoublyLinkedList<T> {
         /**
          * Removes the last element that was returned.
          *
-         * @throws IllegalStateException if the `next` or `previous` method has not been called yet or the element has already been removed
+         * @throws IllegalStateException if the `next` or `previous` method has not been called yet or the element has
+         *                               already been removed
          */
         @Override
         @DoNotTouch
         public void remove() {
-            if (p == null)  {
+            if (p == null) {
                 throw new IllegalStateException("next or previous method has not been called yet");
             } else if (calledRemove) {
                 throw new IllegalStateException("Element has already been removed");
@@ -329,10 +320,8 @@ public class DoublyLinkedList<T> {
         }
     }
 
-    /**
-     * Retrieve an iterator for traversing this doubly linked list in a cyclic manner.
-     */
     @DoNotTouch
+    @Override
     public BidirectionalIterator<T> cyclicIterator() {
         return new CyclicIterator();
     }
@@ -350,8 +339,7 @@ public class DoublyLinkedList<T> {
         StringBuilder sb = new StringBuilder();
         sb.append('[');
         for (ListItem<T> p = head; p != null; p = p.next) {
-            T e = p.key;
-            sb.append(e);
+            sb.append(p.key);
             if (p.next == null) {
                 break;
             }

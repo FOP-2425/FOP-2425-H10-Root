@@ -15,16 +15,22 @@ public class ListItemExamples {
      * @param names an array of names to create CardGamePlayer objects
      * @return the head of the doubly linked list of CardGamePlayer objects
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.1")
     public static ListItem<CardGamePlayer> createPlayerListFromNames(String[] names) {
-        ListItem<CardGamePlayer> playerList = new ListItem<>();
-        ListItem<CardGamePlayer> current = playerList;
+        // TODO: H10.1.1
+        ListItem<CardGamePlayer> playerList = null;
+        ListItem<CardGamePlayer> current = null;
 
         for (String name : names) {
-            current.key = new CardGamePlayer(name);
-            current.next = new ListItem<>();
-            current.next.prev = current;
-            current = current.next;
+            ListItem<CardGamePlayer> newItem = new ListItem<>();
+            newItem.key = new CardGamePlayer(name);
+            if (playerList == null) {
+                playerList = newItem;
+            } else {
+                current.next = newItem;
+                newItem.prev = current;
+            }
+            current = newItem;
         }
 
         return playerList;
@@ -36,8 +42,9 @@ public class ListItemExamples {
      * @param cardDeck the head of the doubly linked list of PlayingCard objects
      * @return the number of SKIP cards in the list
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.2")
     public static int countSkipCardsIterative(ListItem<PlayingCard> cardDeck) {
+        // TODO: H10.1.2
         int count = 0;
 
         for (ListItem<PlayingCard> p = cardDeck; p != null; p = p.next) {
@@ -55,9 +62,12 @@ public class ListItemExamples {
      * @param cardDeck the head of the doubly linked list of PlayingCard objects
      * @return the number of SKIP cards in the list
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.3")
     public static int countSkipCardsRecursive(ListItem<PlayingCard> cardDeck) {
-        if (cardDeck == null) return 0;
+        // TODO: H10.1.3
+        if (cardDeck == null) {
+            return 0;
+        }
         int count = PlayingCard.SKIP.equals(cardDeck.key) ? 1 : 0;
         return count + countSkipCardsRecursive(cardDeck.next);
     }
@@ -68,11 +78,13 @@ public class ListItemExamples {
      * @param cardDeck the list of PlayingCard objects
      * @return the number of SKIP cards in the list
      */
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H10.1.4")
+    @SuppressWarnings({"WhileLoopReplaceableByForEach", "ForLoopReplaceableByForEach"})
     public static int countSkipCardsIterator(List<PlayingCard> cardDeck) {
+        // TODO: H10.1.4
         int count = 0;
-        Iterator<PlayingCard> iter = cardDeck.iterator();
 
+        Iterator<PlayingCard> iter = cardDeck.iterator();
         while (iter.hasNext()) {
             if (iter.next().equals(PlayingCard.SKIP)) {
                 count++;
