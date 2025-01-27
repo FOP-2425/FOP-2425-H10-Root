@@ -106,7 +106,7 @@ public class H10_3_3_TestsPublic extends H10_Tests {
 
         Assertions2.assertFalse(game.skipNextPlayer, context,
             result -> "Skip player should be reset after skipping the next player.");
-        Assertions2.assertEquals(nextHandSize, nextHandSize, context,
+        Assertions2.assertEquals(nextHandSize, playerTwo.getHandSize(), context,
             result -> "The next player should not play any cards.");
     }
 
